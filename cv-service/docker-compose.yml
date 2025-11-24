@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  cv_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cv-service
+    restart: unless-stopped
+    networks:
+      - mon-network
+    ports:
+      - "6060:6000"
+    depends_on:
+      - cv_db
+  cv_db:
+    image: postgres
+    container_name: cv_pgdb
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cv
+      POSTGRES_PASSWORD: cv
+      POSTGRES_DB: cv_db
+    networks:
+      - mon-network
+    volumes:
+      - cv-local_pgdata:/var/lib/postgresql/data
+  cv_pgadmin:
+    image: dpage/pgadmin4
+    container_name: cv-pgadmin4
+    restart: unless-stopped
+    ports:
+      - "6888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: cv@cv.cv
+      PGADMIN_DEFAULT_PASSWORD: cv
+    volumes:
+      - cv-pgadmin-data:/var/lib/pgadmin
+    networks:
+      - mon-network
+    depends_on:
+      - cv_db
+
+volumes:
+  cv-local_pgdata:
+  cv-pgadmin-data:
+
+networks:
+  mon-network:
+    driver: bridge
+    external: true
