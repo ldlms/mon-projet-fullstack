@@ -1,6 +1,21 @@
-import express from "express";
+import express, { json } from "express";
+import { PrismaClient } from "./generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+
 const app = express();
-const port = process.env.PORT || 50001;
+
+const prisma = new PrismaClient({
+  adapter,
+});
+
+app.use(json());
+
+const port = process.env.PORT || 5001;
+
 
 app.get("/", (req, res) => res.send("Hello from user-service!"));
 

@@ -1,0 +1,134 @@
+version: "3.8"
+
+services:
+  # ======== API GATEWAY ========
+  api_gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api_gateway
+    restart: unless-stopped
+    networks:
+      - mon-network
+    ports:
+      - "5000:5000"
+
+  # ======== CV SERVICE ========
+  cv_app:
+    build:
+      context: ./cv-service
+      dockerfile: Dockerfile
+    container_name: cv-service
+    restart: unless-stopped
+    networks:
+      - mon-network
+    depends_on:
+      - cv_db
+    environment:
+      DATABASE_URL: postgres://cv:cv@cv_db:5432/cv_db
+    ports:
+      - "5002:5002"
+
+  cv_db:
+    image: postgres:15
+    container_name: cv_pgdb
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cv
+      POSTGRES_PASSWORD: cv
+      POSTGRES_DB: cv_db
+    networks:
+      - mon-network
+    volumes:
+      - cv-local_pgdata:/var/lib/postgresql/data
+
+  cv_pgadmin:
+    image: dpage/pgadmin4
+    container_name: cv-pgadmin4
+    restart: unless-stopped
+    ports:
+      - "6888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: cv@cv.cv
+      PGADMIN_DEFAULT_PASSWORD: cv
+    volumes:
+      - cv-pgadmin-data:/var/lib/pgadmin
+    networks:
+      - mon-network
+    depends_on:
+      - cv_db
+
+  # ======== USER SERVICE ========
+  user_app:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    restart: unless-stopped
+    command: sh -c "npx prisma generate && npm run dev"
+    networks:
+      - mon-network
+    depends_on:
+      - user_db
+    environment:
+      DATABASE_URL: postgres://${USER_PGUSER}:${USER_PGPASSWORD}@user_db:5432/${USER_PGDATABASE}
+    ports:
+      - "5001:5001"
+
+  user_db:
+    image: postgres:15
+    container_name: user_pgdb
+    restart: unless-stopped
+    ports:
+      - "5432:5432" 
+    environment:
+      POSTGRES_USER: ${USER_PGUSER}
+      POSTGRES_PASSWORD: ${USER_PGPASSWORD}
+      POSTGRES_DB: ${USER_PGDATABASE}
+    networks:
+      - mon-network
+    volumes:
+      - user-local_pgdata:/var/lib/postgresql/data
+
+  user_pgadmin:
+    image: dpage/pgadmin4
+    container_name: user-pgadmin4
+    restart: unless-stopped
+    ports:
+      - "9888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@user.user
+      PGADMIN_DEFAULT_PASSWORD: user
+    volumes:
+      - user-pgadmin-data:/var/lib/pgadmin
+    networks:
+      - mon-network
+    depends_on:
+      - user_db
+
+  # ======== FRONTEND REACT ========
+  front:
+    image: node:18
+    container_name: front-app
+    working_dir: /app
+    volumes:
+      - ./front-app:/app
+    networks:
+      - mon-network
+    command: ["npm", "start"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api_gateway
+
+# ========== VOLUMES ==========
+volumes:
+  cv-local_pgdata:
+  cv-pgadmin-data:
+  user-local_pgdata:
+  user-pgadmin-data:
+
+# ========== NETWORK ==========
+networks:
+  mon-network:
+    driver: bridge

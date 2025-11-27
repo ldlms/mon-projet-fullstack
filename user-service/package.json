@@ -2,18 +2,20 @@
   "name": "user-service",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon --exec tsx src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.ts",
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.0.1",
+    "@prisma/client": "^7.0.1",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -34,7 +36,9 @@
     "globals": "^16.5.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.6.2",
+    "prisma": "^7.0.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.47.0"
   }
