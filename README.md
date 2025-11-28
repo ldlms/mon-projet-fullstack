@@ -7,3 +7,16 @@ Ultimately, this app could provide a feature for the user to search cards, not o
 
 ![alt text](image.png)
 
+The barebone architecture is thought after a front-end app, built via the React library, who will be sending http calls to an API Gateway responsible for dispatching the calls between, for now, two different services.
+Each service will have it's own postgre database, the ORM prisma was used to handle the creation of the database shema.
+
+# Features
+
+The idea behind the project is to facilitate the process of deck building for MTG players, the features, ideally would be the following :
+
+- searching a card by name, type, color, rarity, extension, format, effect, illustrator (?), 
+- to add those cards to a "deck", each deck related to a game format, hence respecting a number of rules regarding the number of cards allowed and the configuration of the chosen cards.
+- the killer feature, would be, from a card, to search other cards based on the complementarity of effects, e.g : i have a card wich gain stats when i'm gaining life, and i want to search for cards that trigger gaining life, or cards that trigger when a card gain stats. The idea would be to show to the user, cards that trigger and/or are triggered by the effect of a given card.  
+
+
+

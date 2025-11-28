@@ -18,13 +18,14 @@ services:
       context: ./card-service
       dockerfile: Dockerfile
     container_name: card-service
+    command: sh -c "npx prisma generate && npm run dev"
     restart: unless-stopped
     networks:
       - mon-network
     depends_on:
       - card_db
     environment:
-      DATABASE_URL: postgres://card:card@card_db:5432/card_db
+      DATABASE_URL: postgres://${CARD_PGUSER}:${CARD_PGPASSWORD}@card_db:5433/${CARD_PGDATABASE}
     ports:
       - "5002:5002"
 
@@ -32,10 +33,12 @@ services:
     image: postgres:15
     container_name: card_pgdb
     restart: unless-stopped
+    ports:
+      - "5433:5432" 
     environment:
-      POSTGRES_USER: card
-      POSTGRES_PASSWORD: card
-      POSTGRES_DB: card_db
+      POSTGRES_USER: ${CARD_PGUSER}
+      POSTGRES_PASSWORD: ${CARD_PGPASSWORD}
+      POSTGRES_DB: ${CARD_PGDATABASE}
     networks:
       - mon-network
     volumes:
