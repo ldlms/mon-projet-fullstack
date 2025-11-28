@@ -57,10 +57,15 @@ on every folder
 ```bash
 docker-compose up --build
 ```
+- If you choose to launch it by docker-compose you will need to manually run the migration via the follwing prisma command after the containers are up
+```bash
+npx prisma migrate dev
+```
+
+the app will be accessible via localhost:3000
 
 
-
-
-
+# todo
+- the app will maybe need more services, maybe the card service will need to be separated in two, one dedicated to fetching card via the MTG API, the other dedicated to deckbuilding and filters to filter the cards persisted in database.
 
 
