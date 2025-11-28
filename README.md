@@ -27,6 +27,7 @@ The idea behind the project is to facilitate the process of deck building for MT
 We still need to be carefull in the use of ORM in general, since ORM tends to be less-optimized than pure SQL, hence, i will need to search for a way to use custom queries for specific needs, in order to avoid fetching a whole table when it's not needed.
 - The whole app use docker as a mean to create images and containers, allowing it to run on whathever environement with a docker setup installed. A dockr newtork is used to run the different apps together, allowing them to communicate between containers in the same network.
 - The project also use : nodement for hotReload, husky : to run pre-commit scripts.
+- The documentations of the endpoint can be seen at localhost:3000/api-docs, made available by swagger.
 
 # setup
 

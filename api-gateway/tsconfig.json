@@ -6,6 +6,7 @@
     "moduleResolution": "nodenext",
     "target": "es2020",
     "resolveJsonModule": true,
+    "allowJs": true,
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
