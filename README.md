@@ -35,10 +35,30 @@ In order to run the project on your machine :
 - Create and configure your own .env files for cv-service and card-service, they are mandatory to connect to both DDB, you will also need to create a .env at the root of the project, for the docker compose to use those environment variables. You can refer yourself to the .env sample in order to know what varaibles you need to populate.
 - if you wish to launch the app locally
 ```bash
-cd api-gateway && npm install
+cd ../api-gateway && npm install
 cd ../user-service && npm install
 cd ../card-service && npm install
 cd ../front-app && npm install
+```
+- initialize prisma (locally without docker, you will need a local postgre instance)
+```bash
+cd user-service
+npm run db:deploy
+cd card-service
+npm run db:deploy
+```
+- launch locally by going
+```bash
+npm run dev
+```
+on every folder
+
+- you can also launch the whole docker network and the containers with this, in the root directory
+```bash
+docker-compose up --build
+```
+
+
 
 
 
