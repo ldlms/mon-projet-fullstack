@@ -13,49 +13,49 @@ services:
     ports:
       - "5000:5000"
 
-  cv_app:
+  card_app:
     build:
-      context: ./cv-service
+      context: ./card-service
       dockerfile: Dockerfile
-    container_name: cv-service
+    container_name: card-service
     restart: unless-stopped
     networks:
       - mon-network
     depends_on:
-      - cv_db
+      - card_db
     environment:
-      DATABASE_URL: postgres://cv:cv@cv_db:5432/cv_db
+      DATABASE_URL: postgres://card:card@card_db:5432/card_db
     ports:
       - "5002:5002"
 
-  cv_db:
+  card_db:
     image: postgres:15
-    container_name: cv_pgdb
+    container_name: card_pgdb
     restart: unless-stopped
     environment:
-      POSTGRES_USER: cv
-      POSTGRES_PASSWORD: cv
-      POSTGRES_DB: cv_db
+      POSTGRES_USER: card
+      POSTGRES_PASSWORD: card
+      POSTGRES_DB: card_db
     networks:
       - mon-network
     volumes:
-      - cv-local_pgdata:/var/lib/postgresql/data
+      - card-local_pgdata:/var/lib/postgresql/data
 
-  cv_pgadmin:
+  card_pgadmin:
     image: dpage/pgadmin4
-    container_name: cv-pgadmin4
+    container_name: card-pgadmin4
     restart: unless-stopped
     ports:
       - "6888:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: cv@cv.cv
-      PGADMIN_DEFAULT_PASSWORD: cv
+      PGADMIN_DEFAULT_EMAIL: card@card.card
+      PGADMIN_DEFAULT_PASSWORD: card
     volumes:
-      - cv-pgadmin-data:/var/lib/pgadmin
+      - card-pgadmin-data:/var/lib/pgadmin
     networks:
       - mon-network
     depends_on:
-      - cv_db
+      - card_db
 
   user_app:
     build:
@@ -119,8 +119,8 @@ services:
       - api_gateway
 
 volumes:
-  cv-local_pgdata:
-  cv-pgadmin-data:
+  card-local_pgdata:
+  card-pgadmin-data:
   user-local_pgdata:
   user-pgadmin-data:
 

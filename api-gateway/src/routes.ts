@@ -9,12 +9,12 @@ export const ROUTES = [
         }, 
     },
     {
-        url:"/cv",
+        url:"/cards",
         auth:false,
         proxy: {
-            target:"http://cv-service:5002",
+            target:"http://card-service:5002",
             changeOrigin:true,
-            pathRewrite: {'^/cv' : ''},
+            pathRewrite: {'^/card' : ''},
         },
     },
 ]
