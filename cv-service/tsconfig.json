@@ -1,13 +1,11 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
+
   "compilerOptions": {
 
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "es2018",
     "resolveJsonModule": true,
-
-    // Other Outputs
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -16,8 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
-
-    // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 

@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  # ======== API GATEWAY ========
+
   api_gateway:
     build:
       context: ./api-gateway
@@ -13,7 +13,6 @@ services:
     ports:
       - "5000:5000"
 
-  # ======== CV SERVICE ========
   cv_app:
     build:
       context: ./cv-service
@@ -58,7 +57,6 @@ services:
     depends_on:
       - cv_db
 
-  # ======== USER SERVICE ========
   user_app:
     build:
       context: ./user-service
@@ -106,7 +104,6 @@ services:
     depends_on:
       - user_db
 
-  # ======== FRONTEND REACT ========
   front:
     image: node:18
     container_name: front-app
@@ -121,14 +118,12 @@ services:
     depends_on:
       - api_gateway
 
-# ========== VOLUMES ==========
 volumes:
   cv-local_pgdata:
   cv-pgadmin-data:
   user-local_pgdata:
   user-pgadmin-data:
 
-# ========== NETWORK ==========
 networks:
   mon-network:
     driver: bridge
