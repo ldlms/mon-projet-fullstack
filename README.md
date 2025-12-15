@@ -46,7 +46,7 @@ User data Shema :
 <img width="1470" height="856" alt="mldUser" src="https://github.com/user-attachments/assets/f05d4f39-6c12-4ce0-887d-19eb6b0d8176" />
 
 
-The user database will be used to store the users, to handle the authentication and to store the decks created by the users. The Deck will be composed of deck_cards, entities which will be queried from the card_database to be used in the several decks linked in a one-to-many relationship with the users. 
+The user database will be used to store the users, to store the decks created by the users. The Deck will be composed of deck_cards, entities which will be queried from the card_database to be used in the several decks linked in a one-to-many relationship with the users. 
 
 
 
