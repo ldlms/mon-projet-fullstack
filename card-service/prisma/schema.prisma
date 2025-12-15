@@ -7,10 +7,95 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Color {
+  W
+  U
+  B
+  R
+  G
+}
+
+enum CardType {
+  Creature
+  Sorcery
+  Instant
+  Artifact
+  Enchantment
+  Land
+  Planeswalker
+  Battle
+}
+
+enum CardSupertype {
+  Legendary
+  Basic
+  Snow
+}
+
+enum DeckFormat {
+  Standard
+  Pioneer
+  Modern
+  Legacy
+  Vintage
+  Commander
+  Pauper
+  Historic
+}
+
+enum DeckVisibility {
+  Private
+  Unlisted
+  Public
+}
+
 model Card {
-  id        String   @id @default(uuid()) @db.Uuid
-  name     String   @unique @db.VarChar(255)
-  type  String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id            String   @id
+
+  name          String
+  oracleText    String?
+  manaValue     Int
+
+  types         CardType[]
+  supertypes    CardSupertype[]
+  subtypes      String[]
+
+  colors        Color[]
+  colorIdentity Color[]
+
+  power         String?
+  toughness     String?
+  loyalty       String?
+  defense       String?
+
+  manaCost      CardMana[]
+  legalities    CardLegality[]
+
+  createdAt     DateTime @default(now())
+
+  @@index([name])
+}
+
+
+model CardMana {
+  id      Int     @id @default(autoincrement())
+  cardId String
+
+  color   Color?
+  amount Int
+
+  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@unique([cardId, color])
+}
+
+
+model CardLegality {
+  cardId String
+  format DeckFormat
+  legal  Boolean
+
+  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@id([cardId, format])
 }

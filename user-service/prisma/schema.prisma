@@ -7,10 +7,59 @@ datasource db {
   provider = "postgresql"
 }
 
+
+enum DeckFormat {
+  Standard
+  Pioneer
+  Modern
+  Legacy
+  Vintage
+  Commander
+  Pauper
+  Historic
+}
+
+enum DeckVisibility {
+  Private
+  Unlisted
+  Public
+}
+
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique @db.VarChar(255)
-  password  String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id        Int     @id @default(autoincrement())
+  username  String  @unique
+  email     String  @unique
+
+  decks     Deck[]
+
+  createdAt DateTime @default(now())
+}
+
+
+model Deck {
+  id          Int            @id @default(autoincrement())
+  name        String
+  format      DeckFormat
+  visibility  DeckVisibility @default(Private)
+
+  ownerId     Int
+  owner       User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  cards       DeckCard[]
+
+  commanderId String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model DeckCard {
+  id        Int    @id @default(autoincrement())
+  deckId   Int
+  cardId   String   
+  quantity Int
+
+  deck     Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@unique([deckId, cardId])
 }
