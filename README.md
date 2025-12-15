@@ -42,8 +42,9 @@ The one-to-many relationship between card and cardLegality will be used to infor
 
 User data Shema :
 
-<img width="1486" height="847" alt="mcdUser" src="https://github.com/user-attachments/assets/015916b0-45bd-462e-a1ea-8ca586529075" />
-<img width="1457" height="877" alt="mldUser" src="https://github.com/user-attachments/assets/87d9e6d8-ca52-441d-a0dc-9e2051a51fb0" />
+<img width="1489" height="833" alt="mcdUser" src="https://github.com/user-attachments/assets/d6dcb357-89d3-41ef-aa3a-0be94b60781e" />
+<img width="1470" height="856" alt="mldUser" src="https://github.com/user-attachments/assets/f05d4f39-6c12-4ce0-887d-19eb6b0d8176" />
+
 
 The user database will be used to store the users, to handle the authentication and to store the decks created by the users. The Deck will be composed of deck_cards, entities which will be queried from the card_database to be used in the several decks linked in a one-to-many relationship with the users. 
 
