@@ -29,6 +29,26 @@ We still need to be carefull in the use of ORM in general, since ORM tends to be
 - The project also use : nodement for hotReload, husky : to run pre-commit scripts.
 - The documentations of the endpoint can be seen at localhost:3000/api-docs, made available by swagger.
 
+# Database Shema
+
+Card data shema :
+
+<img width="1044" height="588" alt="mcdCard" src="https://github.com/user-attachments/assets/fcfdf9ac-88f1-48bc-9f6d-9cee65be92ee" />
+<img width="1064" height="596" alt="mldCard" src="https://github.com/user-attachments/assets/0f854323-b0b6-4b7e-866c-ec152ea23530" />
+
+The idea behind the Database shema is to store infos regarding the several cards in one database. The CardMana table is used to store the mana cost of the cards separatly, in this table, an amout of 2 and a color of {W} will be translated to two white mana, and an entity without a color will translate to an incolor mana.
+A card who will need two incolor mana and two red mana to be summonned will hence need two manaCard entity, one with {amount = 2, color = [R]} and the other with {amount = 2, color = null}.
+The one-to-many relationship between card and cardLegality will be used to inform the player about the several format a card card can be played in.
+
+User data Shema :
+
+<img width="1486" height="847" alt="mcdUser" src="https://github.com/user-attachments/assets/015916b0-45bd-462e-a1ea-8ca586529075" />
+<img width="1457" height="877" alt="mldUser" src="https://github.com/user-attachments/assets/87d9e6d8-ca52-441d-a0dc-9e2051a51fb0" />
+
+The user database will be used to store the users, to handle the authentication and to store the decks created by the users. The Deck will be composed of deck_cards, entities which will be queried from the card_database to be used in the several decks linked in a one-to-many relationship with the users. 
+
+
+
 # setup
 
 In order to run the project on your machine :
