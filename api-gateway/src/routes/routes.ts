@@ -1,11 +1,11 @@
 export const ROUTES = [
     {
-        url:"/users",
+        url:"/users/test",
         auth:false,
         proxy: {
-            target:"http://user-service:5001",
+            target:"http://user-service:5001/test",
             changeOrigin:true,
-            pathRewrite: {'^/users' : ''},
+            pathRewrite: {'^/users/test' : ''},
         }, 
     },
     {

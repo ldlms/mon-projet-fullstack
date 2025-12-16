@@ -60,6 +60,8 @@ model Card {
   supertypes    CardSupertype[]
   subtypes      String[]
 
+  imageKey      String?
+
   colors        Color[]
   colorIdentity Color[]
 

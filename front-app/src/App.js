@@ -24,7 +24,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users")  
+    fetch("http://localhost:5000/users/test")  
       .then(res => res.text())
       .then(data => {console.log("Réponse User Gateway :", data);
             setUserGateway(data);})
