@@ -1,3 +1,5 @@
+import { ComponentPropsWithoutRef } from "react";
+
 export type ButtonProps = {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -15,6 +17,11 @@ export type InputProps = {
   disabled?: boolean;
   error?: string;
   className?: string;
+}
+
+export interface NavLinkProps extends ComponentPropsWithoutRef<'a'>  {
+  isActive?: boolean;
+  isDisabled?:boolean;
 }
 
 
