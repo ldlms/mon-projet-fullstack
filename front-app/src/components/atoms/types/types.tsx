@@ -24,4 +24,18 @@ export interface NavLinkProps extends ComponentPropsWithoutRef<'a'>  {
   isDisabled?:boolean;
 }
 
+export type NavItem = {
+  label: string;
+  href: string;
+  isDisabled?: boolean;
+};
+
+export interface NavBarProps {
+  items: NavItem[];
+  activeHref?: string; 
+  className?: string;
+}
+
+
+
 

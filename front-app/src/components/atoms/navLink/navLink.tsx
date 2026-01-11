@@ -19,24 +19,24 @@ function NavLink({
             aria-current={isActive? 'page' : undefined}
             aria-disabled={isDisabled}
             className={cn(
-                "relative inline-flex items-center px-1 pt-1 text-sm font-medium transition-all duration-200",
-                "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+            "relative inline-flex items-center px-1 pt-1 text-lg font-medium transition-all duration-200",
+            "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 cursor-pointer",
 
-                "text-grey-500 hover:text-gray-700 hover:border-gray-300",
+            "text-white hover:text-gray-200 hover:border-gray-300",
 
-                isActive && "text-blue-600 border-b-2 border-blue-600",
+            isActive && "text-white border-b-2 border-white",
 
-                isDisabled && "opacity-50 cursor-not-allowed pointer-events-none",
+            isDisabled && "opacity-50 cursor-not-allowed pointer-events-none",
 
-                className
+            className
             )}
             {...props}
         >
         {children}
         <span
             className={cn(
-                "absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transition-transform duration-200 ease-out",
-                isActive ? "scale-x-100" : "scale-x-0"
+            "absolute inset-x-0 bottom-0 h-0.5 bg-white",
+            isActive ? "scale-x-100" : "scale-x-0"
             )}
             />
         </a>
