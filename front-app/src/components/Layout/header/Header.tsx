@@ -10,7 +10,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header className="bg-black p-4">
+    <header>
       <NavBar items={items} activeHref={location.pathname} />
     </header>
   );

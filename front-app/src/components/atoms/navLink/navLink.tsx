@@ -24,7 +24,7 @@ function NavLink({
 
             "text-white hover:text-gray-200 hover:border-gray-300",
 
-            isActive && "text-white border-b-2 border-white",
+            isActive && "text-white border-b-2 border-white hover:none",
 
             isDisabled && "opacity-50 cursor-not-allowed pointer-events-none",
 

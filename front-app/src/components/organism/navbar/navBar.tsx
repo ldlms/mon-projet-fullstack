@@ -3,7 +3,7 @@ import { NavBarProps } from "../../atoms/types/types.tsx";
 
 const NavBar: React.FC<NavBarProps> = ({ items, activeHref, className }) => {
   return (
-    <nav className={`flex space-x-4 ${className}`}>
+    <nav className={`flex space-x-4 ${className} bg-black p-4`}>
       {items.map((item) => (
         <NavLink
           key={item.href}

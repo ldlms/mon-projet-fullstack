@@ -36,6 +36,36 @@ export interface NavBarProps {
   className?: string;
 }
 
+export type ManaDotProp = {
+  color: string;
+}
+
+export type CardRowProp = {
+  card: Card;
+}
+
+export interface Card {
+  id: string;
+  name: string;
+  quantity: number;
+  cost: string;
+}
+
+export interface Deck{
+  name: string;
+  format: string;
+  currentCount: number;
+  maxCount: number;
+  colors: string[];
+  cards: Card[];
+}
+
+export interface DeckHeaderProp{
+  deck:Deck;
+  onEdit: () => void;
+  onToggleSideBoard: () => void;
+}
+
 
 
 

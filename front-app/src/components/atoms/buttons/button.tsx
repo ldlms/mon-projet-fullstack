@@ -11,7 +11,7 @@ function Button({
     "px-4 py-2 rounded-full font-medium transition disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants = {
-    primary: "bg-secondary text-white hover:bg-blue-700",
+    primary: "bg-blue-500 text-white hover:bg-blue-700",
     secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300",
     danger: "bg-primary text-white hover:bg-red-700",
   };

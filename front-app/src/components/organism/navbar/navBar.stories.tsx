@@ -9,7 +9,7 @@ export default {
 export const defaultNavBar = () => { 
     const items = [
         { label: "Mes Deck", href: "/" },
-        { label: "Card synergy", href: "/synergy" , isDisabled: true},
+        { label: "Card synergy", href: "/synergy"},
     ];
 
     return <NavBar items={items} activeHref="/" />
