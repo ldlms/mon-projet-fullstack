@@ -44,3 +44,13 @@ export { Prisma }
  * 
  */
 export type Card = Prisma.CardModel
+/**
+ * Model CardMana
+ * 
+ */
+export type CardMana = Prisma.CardManaModel
+/**
+ * Model CardLegality
+ * 
+ */
+export type CardLegality = Prisma.CardLegalityModel

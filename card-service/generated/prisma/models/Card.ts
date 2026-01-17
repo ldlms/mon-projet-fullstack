@@ -20,58 +20,116 @@ export type CardModel = runtime.Types.Result.DefaultSelection<Prisma.$CardPayloa
 
 export type AggregateCard = {
   _count: CardCountAggregateOutputType | null
+  _avg: CardAvgAggregateOutputType | null
+  _sum: CardSumAggregateOutputType | null
   _min: CardMinAggregateOutputType | null
   _max: CardMaxAggregateOutputType | null
+}
+
+export type CardAvgAggregateOutputType = {
+  manaValue: number | null
+}
+
+export type CardSumAggregateOutputType = {
+  manaValue: number | null
 }
 
 export type CardMinAggregateOutputType = {
   id: string | null
   name: string | null
-  type: string | null
+  oracleText: string | null
+  manaValue: number | null
+  imageKey: string | null
+  power: string | null
+  toughness: string | null
+  loyalty: string | null
+  defense: string | null
   createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type CardMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  type: string | null
+  oracleText: string | null
+  manaValue: number | null
+  imageKey: string | null
+  power: string | null
+  toughness: string | null
+  loyalty: string | null
+  defense: string | null
   createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type CardCountAggregateOutputType = {
   id: number
   name: number
-  type: number
+  oracleText: number
+  manaValue: number
+  types: number
+  supertypes: number
+  subtypes: number
+  imageKey: number
+  colors: number
+  colorIdentity: number
+  power: number
+  toughness: number
+  loyalty: number
+  defense: number
   createdAt: number
-  updatedAt: number
   _all: number
 }
 
 
+export type CardAvgAggregateInputType = {
+  manaValue?: true
+}
+
+export type CardSumAggregateInputType = {
+  manaValue?: true
+}
+
 export type CardMinAggregateInputType = {
   id?: true
   name?: true
-  type?: true
+  oracleText?: true
+  manaValue?: true
+  imageKey?: true
+  power?: true
+  toughness?: true
+  loyalty?: true
+  defense?: true
   createdAt?: true
-  updatedAt?: true
 }
 
 export type CardMaxAggregateInputType = {
   id?: true
   name?: true
-  type?: true
+  oracleText?: true
+  manaValue?: true
+  imageKey?: true
+  power?: true
+  toughness?: true
+  loyalty?: true
+  defense?: true
   createdAt?: true
-  updatedAt?: true
 }
 
 export type CardCountAggregateInputType = {
   id?: true
   name?: true
-  type?: true
+  oracleText?: true
+  manaValue?: true
+  types?: true
+  supertypes?: true
+  subtypes?: true
+  imageKey?: true
+  colors?: true
+  colorIdentity?: true
+  power?: true
+  toughness?: true
+  loyalty?: true
+  defense?: true
   createdAt?: true
-  updatedAt?: true
   _all?: true
 }
 
@@ -113,6 +171,18 @@ export type CardAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: CardAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: CardSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: CardMinAggregateInputType
@@ -143,6 +213,8 @@ export type CardGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: CardCountAggregateInputType | true
+  _avg?: CardAvgAggregateInputType
+  _sum?: CardSumAggregateInputType
   _min?: CardMinAggregateInputType
   _max?: CardMaxAggregateInputType
 }
@@ -150,10 +222,22 @@ export type CardGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type CardGroupByOutputType = {
   id: string
   name: string
-  type: string
+  oracleText: string | null
+  manaValue: number
+  types: $Enums.CardType[]
+  supertypes: $Enums.CardSupertype[]
+  subtypes: string[]
+  imageKey: string | null
+  colors: $Enums.Color[]
+  colorIdentity: $Enums.Color[]
+  power: string | null
+  toughness: string | null
+  loyalty: string | null
+  defense: string | null
   createdAt: Date
-  updatedAt: Date
   _count: CardCountAggregateOutputType | null
+  _avg: CardAvgAggregateOutputType | null
+  _sum: CardSumAggregateOutputType | null
   _min: CardMinAggregateOutputType | null
   _max: CardMaxAggregateOutputType | null
 }
@@ -177,187 +261,758 @@ export type CardWhereInput = {
   AND?: Prisma.CardWhereInput | Prisma.CardWhereInput[]
   OR?: Prisma.CardWhereInput[]
   NOT?: Prisma.CardWhereInput | Prisma.CardWhereInput[]
-  id?: Prisma.UuidFilter<"Card"> | string
+  id?: Prisma.StringFilter<"Card"> | string
   name?: Prisma.StringFilter<"Card"> | string
-  type?: Prisma.StringFilter<"Card"> | string
+  oracleText?: Prisma.StringNullableFilter<"Card"> | string | null
+  manaValue?: Prisma.IntFilter<"Card"> | number
+  types?: Prisma.EnumCardTypeNullableListFilter<"Card">
+  supertypes?: Prisma.EnumCardSupertypeNullableListFilter<"Card">
+  subtypes?: Prisma.StringNullableListFilter<"Card">
+  imageKey?: Prisma.StringNullableFilter<"Card"> | string | null
+  colors?: Prisma.EnumColorNullableListFilter<"Card">
+  colorIdentity?: Prisma.EnumColorNullableListFilter<"Card">
+  power?: Prisma.StringNullableFilter<"Card"> | string | null
+  toughness?: Prisma.StringNullableFilter<"Card"> | string | null
+  loyalty?: Prisma.StringNullableFilter<"Card"> | string | null
+  defense?: Prisma.StringNullableFilter<"Card"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Card"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Card"> | Date | string
+  manaCost?: Prisma.CardManaListRelationFilter
+  legalities?: Prisma.CardLegalityListRelationFilter
 }
 
 export type CardOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  oracleText?: Prisma.SortOrderInput | Prisma.SortOrder
+  manaValue?: Prisma.SortOrder
+  types?: Prisma.SortOrder
+  supertypes?: Prisma.SortOrder
+  subtypes?: Prisma.SortOrder
+  imageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  colors?: Prisma.SortOrder
+  colorIdentity?: Prisma.SortOrder
+  power?: Prisma.SortOrderInput | Prisma.SortOrder
+  toughness?: Prisma.SortOrderInput | Prisma.SortOrder
+  loyalty?: Prisma.SortOrderInput | Prisma.SortOrder
+  defense?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  manaCost?: Prisma.CardManaOrderByRelationAggregateInput
+  legalities?: Prisma.CardLegalityOrderByRelationAggregateInput
 }
 
 export type CardWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  name?: string
   AND?: Prisma.CardWhereInput | Prisma.CardWhereInput[]
   OR?: Prisma.CardWhereInput[]
   NOT?: Prisma.CardWhereInput | Prisma.CardWhereInput[]
-  type?: Prisma.StringFilter<"Card"> | string
+  name?: Prisma.StringFilter<"Card"> | string
+  oracleText?: Prisma.StringNullableFilter<"Card"> | string | null
+  manaValue?: Prisma.IntFilter<"Card"> | number
+  types?: Prisma.EnumCardTypeNullableListFilter<"Card">
+  supertypes?: Prisma.EnumCardSupertypeNullableListFilter<"Card">
+  subtypes?: Prisma.StringNullableListFilter<"Card">
+  imageKey?: Prisma.StringNullableFilter<"Card"> | string | null
+  colors?: Prisma.EnumColorNullableListFilter<"Card">
+  colorIdentity?: Prisma.EnumColorNullableListFilter<"Card">
+  power?: Prisma.StringNullableFilter<"Card"> | string | null
+  toughness?: Prisma.StringNullableFilter<"Card"> | string | null
+  loyalty?: Prisma.StringNullableFilter<"Card"> | string | null
+  defense?: Prisma.StringNullableFilter<"Card"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Card"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Card"> | Date | string
-}, "id" | "name">
+  manaCost?: Prisma.CardManaListRelationFilter
+  legalities?: Prisma.CardLegalityListRelationFilter
+}, "id">
 
 export type CardOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  oracleText?: Prisma.SortOrderInput | Prisma.SortOrder
+  manaValue?: Prisma.SortOrder
+  types?: Prisma.SortOrder
+  supertypes?: Prisma.SortOrder
+  subtypes?: Prisma.SortOrder
+  imageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  colors?: Prisma.SortOrder
+  colorIdentity?: Prisma.SortOrder
+  power?: Prisma.SortOrderInput | Prisma.SortOrder
+  toughness?: Prisma.SortOrderInput | Prisma.SortOrder
+  loyalty?: Prisma.SortOrderInput | Prisma.SortOrder
+  defense?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   _count?: Prisma.CardCountOrderByAggregateInput
+  _avg?: Prisma.CardAvgOrderByAggregateInput
   _max?: Prisma.CardMaxOrderByAggregateInput
   _min?: Prisma.CardMinOrderByAggregateInput
+  _sum?: Prisma.CardSumOrderByAggregateInput
 }
 
 export type CardScalarWhereWithAggregatesInput = {
   AND?: Prisma.CardScalarWhereWithAggregatesInput | Prisma.CardScalarWhereWithAggregatesInput[]
   OR?: Prisma.CardScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CardScalarWhereWithAggregatesInput | Prisma.CardScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Card"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Card"> | string
   name?: Prisma.StringWithAggregatesFilter<"Card"> | string
-  type?: Prisma.StringWithAggregatesFilter<"Card"> | string
+  oracleText?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  manaValue?: Prisma.IntWithAggregatesFilter<"Card"> | number
+  types?: Prisma.EnumCardTypeNullableListFilter<"Card">
+  supertypes?: Prisma.EnumCardSupertypeNullableListFilter<"Card">
+  subtypes?: Prisma.StringNullableListFilter<"Card">
+  imageKey?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  colors?: Prisma.EnumColorNullableListFilter<"Card">
+  colorIdentity?: Prisma.EnumColorNullableListFilter<"Card">
+  power?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  toughness?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  loyalty?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  defense?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Card"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Card"> | Date | string
 }
 
 export type CardCreateInput = {
-  id?: string
+  id: string
   name: string
-  type: string
+  oracleText?: string | null
+  manaValue: number
+  types?: Prisma.CardCreatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardCreatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardCreatesubtypesInput | string[]
+  imageKey?: string | null
+  colors?: Prisma.CardCreatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardCreatecolorIdentityInput | $Enums.Color[]
+  power?: string | null
+  toughness?: string | null
+  loyalty?: string | null
+  defense?: string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
+  manaCost?: Prisma.CardManaCreateNestedManyWithoutCardInput
+  legalities?: Prisma.CardLegalityCreateNestedManyWithoutCardInput
 }
 
 export type CardUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
-  type: string
+  oracleText?: string | null
+  manaValue: number
+  types?: Prisma.CardCreatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardCreatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardCreatesubtypesInput | string[]
+  imageKey?: string | null
+  colors?: Prisma.CardCreatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardCreatecolorIdentityInput | $Enums.Color[]
+  power?: string | null
+  toughness?: string | null
+  loyalty?: string | null
+  defense?: string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
+  manaCost?: Prisma.CardManaUncheckedCreateNestedManyWithoutCardInput
+  legalities?: Prisma.CardLegalityUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type CardUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  manaCost?: Prisma.CardManaUpdateManyWithoutCardNestedInput
+  legalities?: Prisma.CardLegalityUpdateManyWithoutCardNestedInput
 }
 
 export type CardUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  manaCost?: Prisma.CardManaUncheckedUpdateManyWithoutCardNestedInput
+  legalities?: Prisma.CardLegalityUncheckedUpdateManyWithoutCardNestedInput
 }
 
 export type CardCreateManyInput = {
-  id?: string
+  id: string
   name: string
-  type: string
+  oracleText?: string | null
+  manaValue: number
+  types?: Prisma.CardCreatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardCreatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardCreatesubtypesInput | string[]
+  imageKey?: string | null
+  colors?: Prisma.CardCreatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardCreatecolorIdentityInput | $Enums.Color[]
+  power?: string | null
+  toughness?: string | null
+  loyalty?: string | null
+  defense?: string | null
   createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type CardUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CardUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type EnumCardTypeNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardType[] | Prisma.ListEnumCardTypeFieldRefInput<$PrismaModel> | null
+  has?: $Enums.CardType | Prisma.EnumCardTypeFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.CardType[] | Prisma.ListEnumCardTypeFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.CardType[] | Prisma.ListEnumCardTypeFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type EnumCardSupertypeNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardSupertype[] | Prisma.ListEnumCardSupertypeFieldRefInput<$PrismaModel> | null
+  has?: $Enums.CardSupertype | Prisma.EnumCardSupertypeFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.CardSupertype[] | Prisma.ListEnumCardSupertypeFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.CardSupertype[] | Prisma.ListEnumCardSupertypeFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type EnumColorNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.Color[] | Prisma.ListEnumColorFieldRefInput<$PrismaModel> | null
+  has?: $Enums.Color | Prisma.EnumColorFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.Color[] | Prisma.ListEnumColorFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.Color[] | Prisma.ListEnumColorFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type CardCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  oracleText?: Prisma.SortOrder
+  manaValue?: Prisma.SortOrder
+  types?: Prisma.SortOrder
+  supertypes?: Prisma.SortOrder
+  subtypes?: Prisma.SortOrder
+  imageKey?: Prisma.SortOrder
+  colors?: Prisma.SortOrder
+  colorIdentity?: Prisma.SortOrder
+  power?: Prisma.SortOrder
+  toughness?: Prisma.SortOrder
+  loyalty?: Prisma.SortOrder
+  defense?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+}
+
+export type CardAvgOrderByAggregateInput = {
+  manaValue?: Prisma.SortOrder
 }
 
 export type CardMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  oracleText?: Prisma.SortOrder
+  manaValue?: Prisma.SortOrder
+  imageKey?: Prisma.SortOrder
+  power?: Prisma.SortOrder
+  toughness?: Prisma.SortOrder
+  loyalty?: Prisma.SortOrder
+  defense?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type CardMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  oracleText?: Prisma.SortOrder
+  manaValue?: Prisma.SortOrder
+  imageKey?: Prisma.SortOrder
+  power?: Prisma.SortOrder
+  toughness?: Prisma.SortOrder
+  loyalty?: Prisma.SortOrder
+  defense?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+}
+
+export type CardSumOrderByAggregateInput = {
+  manaValue?: Prisma.SortOrder
+}
+
+export type CardScalarRelationFilter = {
+  is?: Prisma.CardWhereInput
+  isNot?: Prisma.CardWhereInput
+}
+
+export type CardCreatetypesInput = {
+  set: $Enums.CardType[]
+}
+
+export type CardCreatesupertypesInput = {
+  set: $Enums.CardSupertype[]
+}
+
+export type CardCreatesubtypesInput = {
+  set: string[]
+}
+
+export type CardCreatecolorsInput = {
+  set: $Enums.Color[]
+}
+
+export type CardCreatecolorIdentityInput = {
+  set: $Enums.Color[]
 }
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type CardUpdatetypesInput = {
+  set?: $Enums.CardType[]
+  push?: $Enums.CardType | $Enums.CardType[]
+}
+
+export type CardUpdatesupertypesInput = {
+  set?: $Enums.CardSupertype[]
+  push?: $Enums.CardSupertype | $Enums.CardSupertype[]
+}
+
+export type CardUpdatesubtypesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type CardUpdatecolorsInput = {
+  set?: $Enums.Color[]
+  push?: $Enums.Color | $Enums.Color[]
+}
+
+export type CardUpdatecolorIdentityInput = {
+  set?: $Enums.Color[]
+  push?: $Enums.Color | $Enums.Color[]
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type CardCreateNestedOneWithoutManaCostInput = {
+  create?: Prisma.XOR<Prisma.CardCreateWithoutManaCostInput, Prisma.CardUncheckedCreateWithoutManaCostInput>
+  connectOrCreate?: Prisma.CardCreateOrConnectWithoutManaCostInput
+  connect?: Prisma.CardWhereUniqueInput
+}
+
+export type CardUpdateOneRequiredWithoutManaCostNestedInput = {
+  create?: Prisma.XOR<Prisma.CardCreateWithoutManaCostInput, Prisma.CardUncheckedCreateWithoutManaCostInput>
+  connectOrCreate?: Prisma.CardCreateOrConnectWithoutManaCostInput
+  upsert?: Prisma.CardUpsertWithoutManaCostInput
+  connect?: Prisma.CardWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CardUpdateToOneWithWhereWithoutManaCostInput, Prisma.CardUpdateWithoutManaCostInput>, Prisma.CardUncheckedUpdateWithoutManaCostInput>
+}
+
+export type CardCreateNestedOneWithoutLegalitiesInput = {
+  create?: Prisma.XOR<Prisma.CardCreateWithoutLegalitiesInput, Prisma.CardUncheckedCreateWithoutLegalitiesInput>
+  connectOrCreate?: Prisma.CardCreateOrConnectWithoutLegalitiesInput
+  connect?: Prisma.CardWhereUniqueInput
+}
+
+export type CardUpdateOneRequiredWithoutLegalitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.CardCreateWithoutLegalitiesInput, Prisma.CardUncheckedCreateWithoutLegalitiesInput>
+  connectOrCreate?: Prisma.CardCreateOrConnectWithoutLegalitiesInput
+  upsert?: Prisma.CardUpsertWithoutLegalitiesInput
+  connect?: Prisma.CardWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CardUpdateToOneWithWhereWithoutLegalitiesInput, Prisma.CardUpdateWithoutLegalitiesInput>, Prisma.CardUncheckedUpdateWithoutLegalitiesInput>
+}
+
+export type CardCreateWithoutManaCostInput = {
+  id: string
+  name: string
+  oracleText?: string | null
+  manaValue: number
+  types?: Prisma.CardCreatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardCreatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardCreatesubtypesInput | string[]
+  imageKey?: string | null
+  colors?: Prisma.CardCreatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardCreatecolorIdentityInput | $Enums.Color[]
+  power?: string | null
+  toughness?: string | null
+  loyalty?: string | null
+  defense?: string | null
+  createdAt?: Date | string
+  legalities?: Prisma.CardLegalityCreateNestedManyWithoutCardInput
+}
+
+export type CardUncheckedCreateWithoutManaCostInput = {
+  id: string
+  name: string
+  oracleText?: string | null
+  manaValue: number
+  types?: Prisma.CardCreatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardCreatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardCreatesubtypesInput | string[]
+  imageKey?: string | null
+  colors?: Prisma.CardCreatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardCreatecolorIdentityInput | $Enums.Color[]
+  power?: string | null
+  toughness?: string | null
+  loyalty?: string | null
+  defense?: string | null
+  createdAt?: Date | string
+  legalities?: Prisma.CardLegalityUncheckedCreateNestedManyWithoutCardInput
+}
+
+export type CardCreateOrConnectWithoutManaCostInput = {
+  where: Prisma.CardWhereUniqueInput
+  create: Prisma.XOR<Prisma.CardCreateWithoutManaCostInput, Prisma.CardUncheckedCreateWithoutManaCostInput>
+}
+
+export type CardUpsertWithoutManaCostInput = {
+  update: Prisma.XOR<Prisma.CardUpdateWithoutManaCostInput, Prisma.CardUncheckedUpdateWithoutManaCostInput>
+  create: Prisma.XOR<Prisma.CardCreateWithoutManaCostInput, Prisma.CardUncheckedCreateWithoutManaCostInput>
+  where?: Prisma.CardWhereInput
+}
+
+export type CardUpdateToOneWithWhereWithoutManaCostInput = {
+  where?: Prisma.CardWhereInput
+  data: Prisma.XOR<Prisma.CardUpdateWithoutManaCostInput, Prisma.CardUncheckedUpdateWithoutManaCostInput>
+}
+
+export type CardUpdateWithoutManaCostInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  legalities?: Prisma.CardLegalityUpdateManyWithoutCardNestedInput
+}
+
+export type CardUncheckedUpdateWithoutManaCostInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  legalities?: Prisma.CardLegalityUncheckedUpdateManyWithoutCardNestedInput
+}
+
+export type CardCreateWithoutLegalitiesInput = {
+  id: string
+  name: string
+  oracleText?: string | null
+  manaValue: number
+  types?: Prisma.CardCreatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardCreatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardCreatesubtypesInput | string[]
+  imageKey?: string | null
+  colors?: Prisma.CardCreatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardCreatecolorIdentityInput | $Enums.Color[]
+  power?: string | null
+  toughness?: string | null
+  loyalty?: string | null
+  defense?: string | null
+  createdAt?: Date | string
+  manaCost?: Prisma.CardManaCreateNestedManyWithoutCardInput
+}
+
+export type CardUncheckedCreateWithoutLegalitiesInput = {
+  id: string
+  name: string
+  oracleText?: string | null
+  manaValue: number
+  types?: Prisma.CardCreatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardCreatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardCreatesubtypesInput | string[]
+  imageKey?: string | null
+  colors?: Prisma.CardCreatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardCreatecolorIdentityInput | $Enums.Color[]
+  power?: string | null
+  toughness?: string | null
+  loyalty?: string | null
+  defense?: string | null
+  createdAt?: Date | string
+  manaCost?: Prisma.CardManaUncheckedCreateNestedManyWithoutCardInput
+}
+
+export type CardCreateOrConnectWithoutLegalitiesInput = {
+  where: Prisma.CardWhereUniqueInput
+  create: Prisma.XOR<Prisma.CardCreateWithoutLegalitiesInput, Prisma.CardUncheckedCreateWithoutLegalitiesInput>
+}
+
+export type CardUpsertWithoutLegalitiesInput = {
+  update: Prisma.XOR<Prisma.CardUpdateWithoutLegalitiesInput, Prisma.CardUncheckedUpdateWithoutLegalitiesInput>
+  create: Prisma.XOR<Prisma.CardCreateWithoutLegalitiesInput, Prisma.CardUncheckedCreateWithoutLegalitiesInput>
+  where?: Prisma.CardWhereInput
+}
+
+export type CardUpdateToOneWithWhereWithoutLegalitiesInput = {
+  where?: Prisma.CardWhereInput
+  data: Prisma.XOR<Prisma.CardUpdateWithoutLegalitiesInput, Prisma.CardUncheckedUpdateWithoutLegalitiesInput>
+}
+
+export type CardUpdateWithoutLegalitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  manaCost?: Prisma.CardManaUpdateManyWithoutCardNestedInput
+}
+
+export type CardUncheckedUpdateWithoutLegalitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oracleText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manaValue?: Prisma.IntFieldUpdateOperationsInput | number
+  types?: Prisma.CardUpdatetypesInput | $Enums.CardType[]
+  supertypes?: Prisma.CardUpdatesupertypesInput | $Enums.CardSupertype[]
+  subtypes?: Prisma.CardUpdatesubtypesInput | string[]
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colors?: Prisma.CardUpdatecolorsInput | $Enums.Color[]
+  colorIdentity?: Prisma.CardUpdatecolorIdentityInput | $Enums.Color[]
+  power?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toughness?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  manaCost?: Prisma.CardManaUncheckedUpdateManyWithoutCardNestedInput
+}
+
+
+/**
+ * Count Type CardCountOutputType
+ */
+
+export type CardCountOutputType = {
+  manaCost: number
+  legalities: number
+}
+
+export type CardCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  manaCost?: boolean | CardCountOutputTypeCountManaCostArgs
+  legalities?: boolean | CardCountOutputTypeCountLegalitiesArgs
+}
+
+/**
+ * CardCountOutputType without action
+ */
+export type CardCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CardCountOutputType
+   */
+  select?: Prisma.CardCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CardCountOutputType without action
+ */
+export type CardCountOutputTypeCountManaCostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CardManaWhereInput
+}
+
+/**
+ * CardCountOutputType without action
+ */
+export type CardCountOutputTypeCountLegalitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CardLegalityWhereInput
+}
 
 
 export type CardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  type?: boolean
+  oracleText?: boolean
+  manaValue?: boolean
+  types?: boolean
+  supertypes?: boolean
+  subtypes?: boolean
+  imageKey?: boolean
+  colors?: boolean
+  colorIdentity?: boolean
+  power?: boolean
+  toughness?: boolean
+  loyalty?: boolean
+  defense?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
+  manaCost?: boolean | Prisma.Card$manaCostArgs<ExtArgs>
+  legalities?: boolean | Prisma.Card$legalitiesArgs<ExtArgs>
+  _count?: boolean | Prisma.CardCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["card"]>
 
 export type CardSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  type?: boolean
+  oracleText?: boolean
+  manaValue?: boolean
+  types?: boolean
+  supertypes?: boolean
+  subtypes?: boolean
+  imageKey?: boolean
+  colors?: boolean
+  colorIdentity?: boolean
+  power?: boolean
+  toughness?: boolean
+  loyalty?: boolean
+  defense?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
 }, ExtArgs["result"]["card"]>
 
 export type CardSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  type?: boolean
+  oracleText?: boolean
+  manaValue?: boolean
+  types?: boolean
+  supertypes?: boolean
+  subtypes?: boolean
+  imageKey?: boolean
+  colors?: boolean
+  colorIdentity?: boolean
+  power?: boolean
+  toughness?: boolean
+  loyalty?: boolean
+  defense?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
 }, ExtArgs["result"]["card"]>
 
 export type CardSelectScalar = {
   id?: boolean
   name?: boolean
-  type?: boolean
+  oracleText?: boolean
+  manaValue?: boolean
+  types?: boolean
+  supertypes?: boolean
+  subtypes?: boolean
+  imageKey?: boolean
+  colors?: boolean
+  colorIdentity?: boolean
+  power?: boolean
+  toughness?: boolean
+  loyalty?: boolean
+  defense?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
 }
 
-export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["card"]>
+export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "oracleText" | "manaValue" | "types" | "supertypes" | "subtypes" | "imageKey" | "colors" | "colorIdentity" | "power" | "toughness" | "loyalty" | "defense" | "createdAt", ExtArgs["result"]["card"]>
+export type CardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  manaCost?: boolean | Prisma.Card$manaCostArgs<ExtArgs>
+  legalities?: boolean | Prisma.Card$legalitiesArgs<ExtArgs>
+  _count?: boolean | Prisma.CardCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type CardIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type CardIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $CardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Card"
-  objects: {}
+  objects: {
+    manaCost: Prisma.$CardManaPayload<ExtArgs>[]
+    legalities: Prisma.$CardLegalityPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    type: string
+    oracleText: string | null
+    manaValue: number
+    types: $Enums.CardType[]
+    supertypes: $Enums.CardSupertype[]
+    subtypes: string[]
+    imageKey: string | null
+    colors: $Enums.Color[]
+    colorIdentity: $Enums.Color[]
+    power: string | null
+    toughness: string | null
+    loyalty: string | null
+    defense: string | null
     createdAt: Date
-    updatedAt: Date
   }, ExtArgs["result"]["card"]>
   composites: {}
 }
@@ -752,6 +1407,8 @@ readonly fields: CardFieldRefs;
  */
 export interface Prisma__CardClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  manaCost<T extends Prisma.Card$manaCostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Card$manaCostArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardManaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  legalities<T extends Prisma.Card$legalitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Card$legalitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardLegalityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -783,9 +1440,19 @@ export interface Prisma__CardClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface CardFieldRefs {
   readonly id: Prisma.FieldRef<"Card", 'String'>
   readonly name: Prisma.FieldRef<"Card", 'String'>
-  readonly type: Prisma.FieldRef<"Card", 'String'>
+  readonly oracleText: Prisma.FieldRef<"Card", 'String'>
+  readonly manaValue: Prisma.FieldRef<"Card", 'Int'>
+  readonly types: Prisma.FieldRef<"Card", 'CardType[]'>
+  readonly supertypes: Prisma.FieldRef<"Card", 'CardSupertype[]'>
+  readonly subtypes: Prisma.FieldRef<"Card", 'String[]'>
+  readonly imageKey: Prisma.FieldRef<"Card", 'String'>
+  readonly colors: Prisma.FieldRef<"Card", 'Color[]'>
+  readonly colorIdentity: Prisma.FieldRef<"Card", 'Color[]'>
+  readonly power: Prisma.FieldRef<"Card", 'String'>
+  readonly toughness: Prisma.FieldRef<"Card", 'String'>
+  readonly loyalty: Prisma.FieldRef<"Card", 'String'>
+  readonly defense: Prisma.FieldRef<"Card", 'String'>
   readonly createdAt: Prisma.FieldRef<"Card", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Card", 'DateTime'>
 }
     
 
@@ -802,6 +1469,10 @@ export type CardFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Card
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
   /**
    * Filter, which Card to fetch.
    */
@@ -821,6 +1492,10 @@ export type CardFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
+  /**
    * Filter, which Card to fetch.
    */
   where: Prisma.CardWhereUniqueInput
@@ -838,6 +1513,10 @@ export type CardFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Card
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
   /**
    * Filter, which Card to fetch.
    */
@@ -887,6 +1566,10 @@ export type CardFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
+  /**
    * Filter, which Card to fetch.
    */
   where?: Prisma.CardWhereInput
@@ -935,6 +1618,10 @@ export type CardFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
+  /**
    * Filter, which Cards to fetch.
    */
   where?: Prisma.CardWhereInput
@@ -977,6 +1664,10 @@ export type CardCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Card
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
   /**
    * The data needed to create a Card.
    */
@@ -1025,6 +1716,10 @@ export type CardUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Card
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
   /**
    * The data needed to update a Card.
    */
@@ -1092,6 +1787,10 @@ export type CardUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
+  /**
    * The filter to search for the Card to update in case it exists.
    */
   where: Prisma.CardWhereUniqueInput
@@ -1118,6 +1817,10 @@ export type CardDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
+  /**
    * Filter which Card to delete.
    */
   where: Prisma.CardWhereUniqueInput
@@ -1138,6 +1841,54 @@ export type CardDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * Card.manaCost
+ */
+export type Card$manaCostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CardMana
+   */
+  select?: Prisma.CardManaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CardMana
+   */
+  omit?: Prisma.CardManaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardManaInclude<ExtArgs> | null
+  where?: Prisma.CardManaWhereInput
+  orderBy?: Prisma.CardManaOrderByWithRelationInput | Prisma.CardManaOrderByWithRelationInput[]
+  cursor?: Prisma.CardManaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CardManaScalarFieldEnum | Prisma.CardManaScalarFieldEnum[]
+}
+
+/**
+ * Card.legalities
+ */
+export type Card$legalitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CardLegality
+   */
+  select?: Prisma.CardLegalitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CardLegality
+   */
+  omit?: Prisma.CardLegalityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardLegalityInclude<ExtArgs> | null
+  where?: Prisma.CardLegalityWhereInput
+  orderBy?: Prisma.CardLegalityOrderByWithRelationInput | Prisma.CardLegalityOrderByWithRelationInput[]
+  cursor?: Prisma.CardLegalityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CardLegalityScalarFieldEnum | Prisma.CardLegalityScalarFieldEnum[]
+}
+
+/**
  * Card without action
  */
 export type CardDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1149,4 +1900,8 @@ export type CardDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Card
    */
   omit?: Prisma.CardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardInclude<ExtArgs> | null
 }

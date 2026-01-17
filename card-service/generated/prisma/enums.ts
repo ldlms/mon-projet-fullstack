@@ -9,7 +9,58 @@
 * 🟢 You can import this file directly.
 */
 
+export const Color = {
+  W: 'W',
+  U: 'U',
+  B: 'B',
+  R: 'R',
+  G: 'G'
+} as const
+
+export type Color = (typeof Color)[keyof typeof Color]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const CardType = {
+  Creature: 'Creature',
+  Sorcery: 'Sorcery',
+  Instant: 'Instant',
+  Artifact: 'Artifact',
+  Enchantment: 'Enchantment',
+  Land: 'Land',
+  Planeswalker: 'Planeswalker',
+  Battle: 'Battle'
+} as const
+
+export type CardType = (typeof CardType)[keyof typeof CardType]
+
+
+export const CardSupertype = {
+  Legendary: 'Legendary',
+  Basic: 'Basic',
+  Snow: 'Snow'
+} as const
+
+export type CardSupertype = (typeof CardSupertype)[keyof typeof CardSupertype]
+
+
+export const DeckFormat = {
+  Standard: 'Standard',
+  Pioneer: 'Pioneer',
+  Modern: 'Modern',
+  Legacy: 'Legacy',
+  Vintage: 'Vintage',
+  Commander: 'Commander',
+  Pauper: 'Pauper',
+  Historic: 'Historic'
+} as const
+
+export type DeckFormat = (typeof DeckFormat)[keyof typeof DeckFormat]
+
+
+export const DeckVisibility = {
+  Private: 'Private',
+  Unlisted: 'Unlisted',
+  Public: 'Public'
+} as const
+
+export type DeckVisibility = (typeof DeckVisibility)[keyof typeof DeckVisibility]

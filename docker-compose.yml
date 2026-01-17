@@ -108,18 +108,26 @@ services:
       - user_db
 
   front:
-    image: node:18
+    image: node:20
     container_name: front-app
     working_dir: /app
     volumes:
       - ./front-app:/app
+      - /app/node_modules
     networks:
       - mon-network
-    command: ["npm", "start"]
+    command: sh -c "npm install && FAST_REFRESH=false npm start"  
     ports:
       - "3000:3000"
     depends_on:
       - api_gateway
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - FAST_REFRESH=false  
+      - WDS_SOCKET_PORT=0
 
 volumes:
   card-local_pgdata:

@@ -9,4 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Card.ts'
+export type * from './models/CardMana.ts'
+export type * from './models/CardLegality.ts'
 export type * from './commonInputTypes.ts'

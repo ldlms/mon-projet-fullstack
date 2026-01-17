@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
+import Header from "./components/Layout/header/Header.tsx";
+import DeckSidebar from "./components/Layout/sideBar/SideBar.tsx";
 
 function App() {
 
@@ -24,7 +26,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users/test")  
+    fetch("http://localhost:5000/users")  
       .then(res => res.text())
       .then(data => {console.log("Réponse User Gateway :", data);
             setUserGateway(data);})
@@ -33,7 +35,8 @@ function App() {
 
   return (
     <div>
-      <h1>Test API Gateway</h1>
+      <Header></Header>
+      <DeckSidebar></DeckSidebar>
       <p>{responseGateway}</p>
       <p>{cardGatway}</p>
       <p>{userGateway}</p>

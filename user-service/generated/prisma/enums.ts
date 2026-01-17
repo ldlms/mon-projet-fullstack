@@ -9,7 +9,24 @@
 * 🟢 You can import this file directly.
 */
 
+export const DeckFormat = {
+  Standard: 'Standard',
+  Pioneer: 'Pioneer',
+  Modern: 'Modern',
+  Legacy: 'Legacy',
+  Vintage: 'Vintage',
+  Commander: 'Commander',
+  Pauper: 'Pauper',
+  Historic: 'Historic'
+} as const
+
+export type DeckFormat = (typeof DeckFormat)[keyof typeof DeckFormat]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const DeckVisibility = {
+  Private: 'Private',
+  Unlisted: 'Unlisted',
+  Public: 'Public'
+} as const
+
+export type DeckVisibility = (typeof DeckVisibility)[keyof typeof DeckVisibility]

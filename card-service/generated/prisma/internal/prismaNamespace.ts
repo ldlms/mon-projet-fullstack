@@ -384,7 +384,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Card: 'Card'
+  Card: 'Card',
+  CardMana: 'CardMana',
+  CardLegality: 'CardLegality'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "card"
+    modelProps: "card" | "cardMana" | "cardLegality"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +480,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CardMana: {
+      payload: Prisma.$CardManaPayload<ExtArgs>
+      fields: Prisma.CardManaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CardManaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CardManaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
+        }
+        findFirst: {
+          args: Prisma.CardManaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CardManaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
+        }
+        findMany: {
+          args: Prisma.CardManaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>[]
+        }
+        create: {
+          args: Prisma.CardManaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
+        }
+        createMany: {
+          args: Prisma.CardManaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CardManaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>[]
+        }
+        delete: {
+          args: Prisma.CardManaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
+        }
+        update: {
+          args: Prisma.CardManaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
+        }
+        deleteMany: {
+          args: Prisma.CardManaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CardManaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CardManaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>[]
+        }
+        upsert: {
+          args: Prisma.CardManaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
+        }
+        aggregate: {
+          args: Prisma.CardManaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCardMana>
+        }
+        groupBy: {
+          args: Prisma.CardManaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardManaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CardManaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardManaCountAggregateOutputType> | number
+        }
+      }
+    }
+    CardLegality: {
+      payload: Prisma.$CardLegalityPayload<ExtArgs>
+      fields: Prisma.CardLegalityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CardLegalityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CardLegalityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
+        }
+        findFirst: {
+          args: Prisma.CardLegalityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CardLegalityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
+        }
+        findMany: {
+          args: Prisma.CardLegalityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>[]
+        }
+        create: {
+          args: Prisma.CardLegalityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
+        }
+        createMany: {
+          args: Prisma.CardLegalityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CardLegalityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>[]
+        }
+        delete: {
+          args: Prisma.CardLegalityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
+        }
+        update: {
+          args: Prisma.CardLegalityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
+        }
+        deleteMany: {
+          args: Prisma.CardLegalityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CardLegalityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CardLegalityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>[]
+        }
+        upsert: {
+          args: Prisma.CardLegalityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
+        }
+        aggregate: {
+          args: Prisma.CardLegalityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCardLegality>
+        }
+        groupBy: {
+          args: Prisma.CardLegalityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardLegalityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CardLegalityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardLegalityCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -520,12 +670,41 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const CardScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  type: 'type',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  oracleText: 'oracleText',
+  manaValue: 'manaValue',
+  types: 'types',
+  supertypes: 'supertypes',
+  subtypes: 'subtypes',
+  imageKey: 'imageKey',
+  colors: 'colors',
+  colorIdentity: 'colorIdentity',
+  power: 'power',
+  toughness: 'toughness',
+  loyalty: 'loyalty',
+  defense: 'defense',
+  createdAt: 'createdAt'
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+export const CardManaScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  color: 'color',
+  amount: 'amount'
+} as const
+
+export type CardManaScalarFieldEnum = (typeof CardManaScalarFieldEnum)[keyof typeof CardManaScalarFieldEnum]
+
+
+export const CardLegalityScalarFieldEnum = {
+  cardId: 'cardId',
+  format: 'format',
+  legal: 'legal'
+} as const
+
+export type CardLegalityScalarFieldEnum = (typeof CardLegalityScalarFieldEnum)[keyof typeof CardLegalityScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -542,6 +721,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -565,6 +752,62 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CardType[]'
+ */
+export type ListEnumCardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CardType'
+ */
+export type EnumCardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardType'>
+    
+
+
+/**
+ * Reference to a field of type 'CardSupertype[]'
+ */
+export type ListEnumCardSupertypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardSupertype[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CardSupertype'
+ */
+export type EnumCardSupertypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardSupertype'>
+    
+
+
+/**
+ * Reference to a field of type 'Color[]'
+ */
+export type ListEnumColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Color[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Color'
+ */
+export type EnumColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Color'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -579,16 +822,37 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'DeckFormat'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type EnumDeckFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeckFormat'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'DeckFormat[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListEnumDeckFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeckFormat[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -671,6 +935,8 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   card?: Prisma.CardOmit
+  cardMana?: Prisma.CardManaOmit
+  cardLegality?: Prisma.CardLegalityOmit
 }
 
 /* Types for Logging */

@@ -51,7 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Card: 'Card'
+  Card: 'Card',
+  CardMana: 'CardMana',
+  CardLegality: 'CardLegality'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,12 +75,41 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const CardScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  type: 'type',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  oracleText: 'oracleText',
+  manaValue: 'manaValue',
+  types: 'types',
+  supertypes: 'supertypes',
+  subtypes: 'subtypes',
+  imageKey: 'imageKey',
+  colors: 'colors',
+  colorIdentity: 'colorIdentity',
+  power: 'power',
+  toughness: 'toughness',
+  loyalty: 'loyalty',
+  defense: 'defense',
+  createdAt: 'createdAt'
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+export const CardManaScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  color: 'color',
+  amount: 'amount'
+} as const
+
+export type CardManaScalarFieldEnum = (typeof CardManaScalarFieldEnum)[keyof typeof CardManaScalarFieldEnum]
+
+
+export const CardLegalityScalarFieldEnum = {
+  cardId: 'cardId',
+  format: 'format',
+  legal: 'legal'
+} as const
+
+export type CardLegalityScalarFieldEnum = (typeof CardLegalityScalarFieldEnum)[keyof typeof CardLegalityScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -95,4 +126,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

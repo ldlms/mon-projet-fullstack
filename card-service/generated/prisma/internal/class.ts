@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.0.1",
   "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Card {\n  id        String   @id @default(uuid()) @db.Uuid\n  name      String   @unique @db.VarChar(255)\n  type      String   @db.VarChar(255)\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Color {\n  W\n  U\n  B\n  R\n  G\n}\n\nenum CardType {\n  Creature\n  Sorcery\n  Instant\n  Artifact\n  Enchantment\n  Land\n  Planeswalker\n  Battle\n}\n\nenum CardSupertype {\n  Legendary\n  Basic\n  Snow\n}\n\nenum DeckFormat {\n  Standard\n  Pioneer\n  Modern\n  Legacy\n  Vintage\n  Commander\n  Pauper\n  Historic\n}\n\nenum DeckVisibility {\n  Private\n  Unlisted\n  Public\n}\n\nmodel Card {\n  id String @id\n\n  name       String\n  oracleText String?\n  manaValue  Int\n\n  types      CardType[]\n  supertypes CardSupertype[]\n  subtypes   String[]\n\n  imageKey String?\n\n  colors        Color[]\n  colorIdentity Color[]\n\n  power     String?\n  toughness String?\n  loyalty   String?\n  defense   String?\n\n  manaCost   CardMana[]\n  legalities CardLegality[]\n\n  createdAt DateTime @default(now())\n\n  @@index([name])\n}\n\nmodel CardMana {\n  id     Int    @id @default(autoincrement())\n  cardId String\n\n  color  Color?\n  amount Int\n\n  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)\n\n  @@unique([cardId, color])\n}\n\nmodel CardLegality {\n  cardId String\n  format DeckFormat\n  legal  Boolean\n\n  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)\n\n  @@id([cardId, format])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Card\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Card\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"oracleText\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"manaValue\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"types\",\"kind\":\"enum\",\"type\":\"CardType\"},{\"name\":\"supertypes\",\"kind\":\"enum\",\"type\":\"CardSupertype\"},{\"name\":\"subtypes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colors\",\"kind\":\"enum\",\"type\":\"Color\"},{\"name\":\"colorIdentity\",\"kind\":\"enum\",\"type\":\"Color\"},{\"name\":\"power\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"toughness\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"loyalty\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"defense\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"manaCost\",\"kind\":\"object\",\"type\":\"CardMana\",\"relationName\":\"CardToCardMana\"},{\"name\":\"legalities\",\"kind\":\"object\",\"type\":\"CardLegality\",\"relationName\":\"CardToCardLegality\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"CardMana\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"cardId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"color\",\"kind\":\"enum\",\"type\":\"Color\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"card\",\"kind\":\"object\",\"type\":\"Card\",\"relationName\":\"CardToCardMana\"}],\"dbName\":null},\"CardLegality\":{\"fields\":[{\"name\":\"cardId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"format\",\"kind\":\"enum\",\"type\":\"DeckFormat\"},{\"name\":\"legal\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"card\",\"kind\":\"object\",\"type\":\"Card\",\"relationName\":\"CardToCardLegality\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -183,6 +183,26 @@ export interface PrismaClient<
     * ```
     */
   get card(): Prisma.CardDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.cardMana`: Exposes CRUD operations for the **CardMana** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CardManas
+    * const cardManas = await prisma.cardMana.findMany()
+    * ```
+    */
+  get cardMana(): Prisma.CardManaDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.cardLegality`: Exposes CRUD operations for the **CardLegality** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CardLegalities
+    * const cardLegalities = await prisma.cardLegality.findMany()
+    * ```
+    */
+  get cardLegality(): Prisma.CardLegalityDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

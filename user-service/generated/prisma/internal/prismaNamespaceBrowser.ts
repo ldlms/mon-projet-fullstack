@@ -51,7 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  Deck: 'Deck',
+  DeckCard: 'DeckCard'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,13 +74,37 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  username: 'username',
   email: 'email',
   password: 'password',
+  createdAt: 'createdAt'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const DeckScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  format: 'format',
+  visibility: 'visibility',
+  ownerId: 'ownerId',
+  commanderId: 'commanderId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+export type DeckScalarFieldEnum = (typeof DeckScalarFieldEnum)[keyof typeof DeckScalarFieldEnum]
+
+
+export const DeckCardScalarFieldEnum = {
+  id: 'id',
+  deckId: 'deckId',
+  cardId: 'cardId',
+  quantity: 'quantity'
+} as const
+
+export type DeckCardScalarFieldEnum = (typeof DeckCardScalarFieldEnum)[keyof typeof DeckCardScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -95,4 +121,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

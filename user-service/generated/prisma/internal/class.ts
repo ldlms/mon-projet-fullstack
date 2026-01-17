@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.0.1",
   "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String   @id @default(uuid()) @db.Uuid\n  email     String   @unique @db.VarChar(255)\n  password  String   @db.VarChar(255)\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum DeckFormat {\n  Standard\n  Pioneer\n  Modern\n  Legacy\n  Vintage\n  Commander\n  Pauper\n  Historic\n}\n\nenum DeckVisibility {\n  Private\n  Unlisted\n  Public\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  username String @unique\n  email    String @unique\n  password String\n\n  decks Deck[]\n\n  createdAt DateTime @default(now())\n}\n\nmodel Deck {\n  id         Int            @id @default(autoincrement())\n  name       String\n  format     DeckFormat\n  visibility DeckVisibility @default(Private)\n\n  ownerId Int\n  owner   User @relation(fields: [ownerId], references: [id], onDelete: Cascade)\n\n  cards DeckCard[]\n\n  commanderId String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel DeckCard {\n  id       Int    @id @default(autoincrement())\n  deckId   Int\n  cardId   String\n  quantity Int\n\n  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)\n\n  @@unique([deckId, cardId])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"decks\",\"kind\":\"object\",\"type\":\"Deck\",\"relationName\":\"DeckToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Deck\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"format\",\"kind\":\"enum\",\"type\":\"DeckFormat\"},{\"name\":\"visibility\",\"kind\":\"enum\",\"type\":\"DeckVisibility\"},{\"name\":\"ownerId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"owner\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"DeckToUser\"},{\"name\":\"cards\",\"kind\":\"object\",\"type\":\"DeckCard\",\"relationName\":\"DeckToDeckCard\"},{\"name\":\"commanderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"DeckCard\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"deckId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"cardId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"deck\",\"kind\":\"object\",\"type\":\"Deck\",\"relationName\":\"DeckToDeckCard\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -183,6 +183,26 @@ export interface PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.deck`: Exposes CRUD operations for the **Deck** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Decks
+    * const decks = await prisma.deck.findMany()
+    * ```
+    */
+  get deck(): Prisma.DeckDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.deckCard`: Exposes CRUD operations for the **DeckCard** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeckCards
+    * const deckCards = await prisma.deckCard.findMany()
+    * ```
+    */
+  get deckCard(): Prisma.DeckCardDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {
