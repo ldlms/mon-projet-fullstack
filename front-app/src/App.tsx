@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import Header from "./components/Layout/header/Header.tsx";
-import DeckSidebar from "./components/Layout/sideBar/SideBar.tsx";
+import DeckSidebar from "./components/Layout/sideBar/DeckSideBar.tsx";
 
 function App() {
 
@@ -34,12 +34,25 @@ function App() {
     },[]);   
 
   return (
-    <div>
-      <Header></Header>
-      <DeckSidebar></DeckSidebar>
-      <p>{responseGateway}</p>
-      <p>{cardGatway}</p>
-      <p>{userGateway}</p>
+    <div className="h-screen flex flex-col">
+      
+      
+      <Header />
+
+      
+      <div className="flex flex-1 flex-col md:flex-row overflow-hidden">
+        
+        
+        <main className="flex-1 overflow-y-auto p-4">
+          <p>{responseGateway}</p>
+          <p>{cardGatway}</p>
+          <p>{userGateway}</p>
+        </main>
+
+        
+        <DeckSidebar />
+
+      </div>
     </div>
   );
 }

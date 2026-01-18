@@ -8,7 +8,7 @@ function DeckHeader({
     onToggleSideBoard
 }:DeckHeaderProp){
     return (
-    <div className="bg-gray-600 p-4 text-white shadow-md">
+    <div className="bg-gray-600 px-3 py-2 text-white shadow-md ">
 
       <div className="flex justify-between items-center mb-1">
         <span className="text-xs text-gray-300 uppercase tracking-wide">

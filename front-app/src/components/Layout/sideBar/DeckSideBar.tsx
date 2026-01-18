@@ -35,7 +35,13 @@ function DeckSidebar() {
   if (!deck) return null;
 
   return (
-    <aside className="w-80 h-full bg-gray-700 flex flex-col">
+    <aside className="
+    bg-gray-700 flex flex-col
+    w-full
+    h-[45vh] sm:h-[50vh]
+    md:w-80 md:h-full
+    border-t md:border-t-0 md:border-l border-gray-600
+  ">
       <DeckHeader
         deck={deck}
         onEdit={() => console.log("edit")}
