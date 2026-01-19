@@ -1,3 +1,5 @@
+import { DeckFormat, type DeckCard } from "../../generated/prisma/client";
+
 export interface User {
   id: string;
   email: string;
@@ -36,3 +38,18 @@ export interface Card {
   title: string;
   content: string;
 }
+
+export interface Deck{
+  id: string;           
+  name:string;
+  format: DeckFormat;
+  ownerId: string;
+  cards: DeckCard[];
+  commanderId?: string;
+}
+
+export type UpdateDeckData = {
+    name?: string;
+    format?: DeckFormat;
+    commanderId?: string | null;
+};
