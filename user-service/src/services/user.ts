@@ -1,59 +1,128 @@
-import { db } from '../config/db.ts';
+import { prisma } from '../config/prisma';
 import bcrypt from 'bcryptjs';
-import type { NewUser, User } from '../models/user.ts';
+import type { NewUser, User, UserUpdate } from '../models/user';
 
-export const getAllUsers = async (): Promise<User[]> => {
-  const result = await db.query('SELECT id, name, email FROM users');
-  return result.rows;
+
+export const getAllUsers = async (): Promise<Omit<User, 'password'>[]> => {
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      createdAt: true
+    }
+  });
+  return users.map(u => ({
+    id: u.id.toString(),
+    name: u.username,
+    email: u.email
+  })) as Omit<User, 'password'>[];
 };
 
-export const getUserById = async (id: string): Promise<User | null> => {
-  const result = await db.query('SELECT id, name, email FROM users WHERE id = $1', [id]);
-  return result.rows[0] || null;
+export const getUserById = async (id: string): Promise<Omit<User, 'password'> | null> => {
+  const user = await prisma.user.findUnique({
+    where: { id: parseInt(id) },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      createdAt: true
+    }
+  });
+  
+  if (!user) return null;
+  
+  return {
+    id: user.id.toString(),
+    name: user.username,
+    email: user.email
+  } as any;
 };
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {
-  const result = await db.query('SELECT id, name, email, password FROM users WHERE email = $1', [
-    email
-  ]);
-  return result.rows[0] || null;
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      password: true
+    }
+  });
+  
+  if (!user) return null;
+  
+  return {
+    id: user.id.toString(),
+    name: user.username,
+    email: user.email,
+    password: user.password
+  } as any;
 };
 
-export const createUser = async (user: NewUser): Promise<User> => {
-  const hashedPassword = await bcrypt.hash(user.password, 10);
-  const result = await db.query(
-    `INSERT INTO users (name, email, password)
-     VALUES ($1, $2, $3)
-     RETURNING id, name, email`,
-    [user.name, user.email, hashedPassword]
-  );
-  return result.rows[0];
+export const createUser = async (userData: NewUser): Promise<Omit<User, 'password'>> => {
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
+  
+  const user = await prisma.user.create({
+    data: {
+      username: userData.name || '',
+      email: userData.email,
+      password: hashedPassword
+    },
+    select: {
+      id: true,
+      username: true,
+      email: true
+    }
+  });
+  
+  return {
+    id: user.id.toString(),
+    name: user.username,
+    email: user.email
+  } as any;
 };
 
-export const updateUser = async (id: string, updates: Partial<User>): Promise<User | null> => {
-  const fields = [];
-  const values = [];
-  let i = 1;
-
-  for (const [key, value] of Object.entries(updates)) {
-    fields.push(`${key} = $${i++}`);
-    values.push(value);
+export const updateUser = async (
+  id: string,
+  updates: UserUpdate
+): Promise<Omit<User, 'password'> | null> => {
+  try {
+    const data: any = {};
+    
+    if (updates.name) data.username = updates.name;
+    if (updates.email) data.email = updates.email;
+    if (updates.password) {
+      data.password = await bcrypt.hash(updates.password, 10);
+    }
+    
+    const user = await prisma.user.update({
+      where: { id: parseInt(id) },
+      data,
+      select: {
+        id: true,
+        username: true,
+        email: true
+      }
+    });
+    
+    return {
+      id: user.id.toString(),
+      name: user.username,
+      email: user.email
+    } as any;
+  } catch (error) {
+    return null;
   }
-
-  if (fields.length === 0) return getUserById(id); // nothing to update
-
-  values.push(id); // last param for WHERE id
-  const result = await db.query(
-    `UPDATE users SET ${fields.join(', ')}
-     WHERE id = $${i}
-     RETURNING id, name, email`,
-    values
-  );
-
-  return result.rows[0] || null;
 };
 
 export const deleteUser = async (id: string): Promise<boolean> => {
-  const result = await db.query('DELETE FROM users WHERE id = $1', [id]);
-  return (result.rowCount ?? 0) > 0;
+  try {
+    await prisma.user.delete({
+      where: { id: parseInt(id) }
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
 };

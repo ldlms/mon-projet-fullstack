@@ -5,7 +5,6 @@ export const ROUTES = [
         proxy: {
             target:"http://user-service:5001",
             changeOrigin:true,
-            pathRewrite: {'^/user' : ''},
         }, 
     },
     {

@@ -1,26 +1,40 @@
-import express, { json } from "express";
-import { PrismaClient } from "../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
+import express, { json, type NextFunction } from "express";
+import { prisma } from '../src/config/prisma';
+import { disconnectPrisma } from "./config/prisma";
+import authRouter from './routes/auth.ts';
 
-
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
-});
 const app = express();
-
-const prisma = new PrismaClient({
-  adapter,
-});
 
 app.use(json());
 
 const port = process.env.PORT || 5001;
+const router = app.router;
+
+app.use((req, res, next) => {
+  console.log(`Received request: ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 
 app.get("/", (req, res) => res.send("Hello from user-service!"));
 
 app.get('/test', (req, res) =>  res.send('/test of API of userService'));
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+router.use('/auth', authRouter);
+
+const shutdown = async () => {
+  console.log('Shutting down gracefully...');
+  await disconnectPrisma();
+  process.exit(0);
+};
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
+
+app.listen(5001,'0.0.0.0', () => {
+  console.log(`Server running on port ${port}`);
+  console.log(`Database connected: ${prisma ? '✓' : '✗'}`);
+});
+
 
 
