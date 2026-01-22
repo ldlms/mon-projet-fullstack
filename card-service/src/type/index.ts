@@ -1,3 +1,6 @@
+import { CardType, CardSupertype, Color, DeckFormat} from "../prisma/enums.js";
+
+
 export interface Card{
     id: String,
     name: String,
@@ -6,7 +9,7 @@ export interface Card{
     types: CardType[],
     supertypes: CardSupertype[],
     subtypes: String[],
-    imageKey?: String,
+    imageKey?: String | null,
     colors: Color[],
     colorIdentity: Color[],
     power?: String,
@@ -16,17 +19,6 @@ export interface Card{
     manaCost?: CardMana[],
     legalities?: CardLegality[],
     createdAt: Date,
-}
-
-export enum CardType{
-    Creature,
-    Sorcery,
-    Instant,
-    Artifact,
-    Enchantment,
-    Land,
-    Planeswalker,
-    Battle
 }
 
 export interface CardMana {
@@ -43,28 +35,5 @@ export interface CardLegality {
     legal: Boolean
 }
 
-export enum CardSupertype {
-  Legendary,
-  Basic,
-  Snow
-}
 
-export enum Color {
-  W,
-  U,
-  B,
-  R,
-  G
-}
-
-export enum DeckFormat {
-  Standard,
-  Pioneer,
-  Modern,
-  Legacy,
-  Vintage,
-  Commander,
-  Pauper,
-  Historic
-}
 

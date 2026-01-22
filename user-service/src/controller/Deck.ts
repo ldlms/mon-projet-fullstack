@@ -56,18 +56,17 @@ export const deleteDeck = async (req:Request, res:Response) => {
 };
 
 export const addCardToDeck = async (req:Request, res:Response) => {
-    const deckid = req.params.id;
-    if (!deckid) {
+    const { deckId, cardId } = req.params;
+    if (!deckId) {
         res.status(400).json({ message: 'Deck ID is required' });
         return;
     }
-    const { cardId } = req.body;
     if (!cardId) {
         res.status(400).json({ message: 'Card ID is required' });
         return;
     }
     try{
-    const updatedDeck = await deckService.addCardToDeck(deckid, cardId);
+    const updatedDeck = await deckService.addCardToDeck(deckId, cardId);
     res.json(updatedDeck);
     }catch(error){
        return res.status(404).json({ message: 'Deck not found' });
@@ -76,18 +75,18 @@ export const addCardToDeck = async (req:Request, res:Response) => {
 
 
 export const removeCardFromDeck = async (req:Request, res:Response) => {
-    const deckid = req.params.id;
-    if (!deckid) {
+    const { deckId, cardId } = req.params;
+
+    if (!deckId) {
         res.status(400).json({ message: 'Deck ID is required' });
         return;
     }
-    const { cardId } = req.body;
     if (!cardId) {
         res.status(400).json({ message: 'Card ID is required' });
         return;
     }
     try{
-    const updatedDeck = await deckService.removeCardFromDeck(deckid, cardId);
+    const updatedDeck = await deckService.removeCardFromDeck(deckId, cardId);
     res.json(updatedDeck);
     }catch(error){
        return res.status(404).json({ message: 'Deck not found' });

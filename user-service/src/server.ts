@@ -2,6 +2,8 @@ import express, { json, type NextFunction } from "express";
 import { prisma } from '../src/config/prisma';
 import { disconnectPrisma } from "./config/prisma";
 import authRouter from './routes/auth.ts';
+import userRouter from "./routes/user.ts";
+import deckRouter from "./routes/deck.ts";
 
 const app = express();
 
@@ -15,12 +17,11 @@ app.use((req, res, next) => {
   next();
 });
 
-
-app.get("/", (req, res) => res.send("Hello from user-service!"));
-
 app.get('/test', (req, res) =>  res.send('/test of API of userService'));
 
 router.use('/auth', authRouter);
+router.use('/',userRouter)
+router.use('/deck',deckRouter);
 
 const shutdown = async () => {
   console.log('Shutting down gracefully...');
