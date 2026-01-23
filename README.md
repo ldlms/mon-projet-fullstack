@@ -79,9 +79,10 @@ on every folder
 ```bash
 docker-compose up --build
 ```
-- If you choose to launch it by docker-compose you will need to manually run the migration via the follwing prisma command after the containers are up
+- If you choose to launch it by docker-compose you will need to manually run the migration via the follwing prisma command after the containers are up, in the "mon-projet-fullstack" folder
 ```bash
-npx prisma migrate dev
+docker compose exec user_app npx prisma migrate dev
+docker compose exec card_app npx prisma migrate dev
 ```
 
 the app will be accessible via localhost:3000
