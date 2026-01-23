@@ -84,6 +84,18 @@ docker-compose up --build
 docker compose exec user_app npx prisma migrate dev
 docker compose exec card_app npx prisma migrate dev
 ```
+in order to put the cards into the docker container you gave to 
+
+```bash
+docker cp <localPath> card-service:/app/<filename>
+```
+
+and then lauch the file from inside the container
+
+```bash
+docker exec -it card-service npx tsx src/utils/import-cards.ts /app/<filename>
+```
+
 
 the app will be accessible via localhost:3000
 
