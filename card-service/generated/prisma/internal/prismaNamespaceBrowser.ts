@@ -51,9 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
-  Deck: 'Deck',
-  DeckCard: 'DeckCard'
+  Card: 'Card',
+  CardMana: 'CardMana',
+  CardLegality: 'CardLegality'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,38 +72,44 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
-  id: 'id',
-  username: 'username',
-  email: 'email',
-  password: 'password',
-  createdAt: 'createdAt'
-} as const
-
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const DeckScalarFieldEnum = {
+export const CardScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  format: 'format',
-  ownerId: 'ownerId',
-  commanderId: 'commanderId',
+  oracleText: 'oracleText',
+  manaValue: 'manaValue',
+  types: 'types',
+  supertypes: 'supertypes',
+  subtypes: 'subtypes',
+  colors: 'colors',
+  colorIdentity: 'colorIdentity',
+  power: 'power',
+  toughness: 'toughness',
+  loyalty: 'loyalty',
+  defense: 'defense',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  imageKey: 'imageKey'
 } as const
 
-export type DeckScalarFieldEnum = (typeof DeckScalarFieldEnum)[keyof typeof DeckScalarFieldEnum]
+export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
 
 
-export const DeckCardScalarFieldEnum = {
+export const CardManaScalarFieldEnum = {
   id: 'id',
-  deckId: 'deckId',
   cardId: 'cardId',
-  quantity: 'quantity'
+  color: 'color',
+  amount: 'amount'
 } as const
 
-export type DeckCardScalarFieldEnum = (typeof DeckCardScalarFieldEnum)[keyof typeof DeckCardScalarFieldEnum]
+export type CardManaScalarFieldEnum = (typeof CardManaScalarFieldEnum)[keyof typeof CardManaScalarFieldEnum]
+
+
+export const CardLegalityScalarFieldEnum = {
+  cardId: 'cardId',
+  format: 'format',
+  legal: 'legal'
+} as const
+
+export type CardLegalityScalarFieldEnum = (typeof CardLegalityScalarFieldEnum)[keyof typeof CardLegalityScalarFieldEnum]
 
 
 export const SortOrder = {

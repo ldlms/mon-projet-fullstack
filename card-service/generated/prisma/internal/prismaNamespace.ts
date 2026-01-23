@@ -384,9 +384,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User',
-  Deck: 'Deck',
-  DeckCard: 'DeckCard'
+  Card: 'Card',
+  CardMana: 'CardMana',
+  CardLegality: 'CardLegality'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,229 +402,229 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deck" | "deckCard"
+    modelProps: "card" | "cardMana" | "cardLegality"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    User: {
-      payload: Prisma.$UserPayload<ExtArgs>
-      fields: Prisma.UserFieldRefs
+    Card: {
+      payload: Prisma.$CardPayload<ExtArgs>
+      fields: Prisma.CardFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.UserFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+          args: Prisma.CardFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.CardFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>
         }
         findFirst: {
-          args: Prisma.UserFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+          args: Prisma.CardFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.CardFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>
         }
         findMany: {
-          args: Prisma.UserFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.CardFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>[]
         }
         create: {
-          args: Prisma.UserCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.CardCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>
         }
         createMany: {
-          args: Prisma.UserCreateManyArgs<ExtArgs>
+          args: Prisma.CardCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.CardCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>[]
         }
         delete: {
-          args: Prisma.UserDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.CardDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>
         }
         update: {
-          args: Prisma.UserUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.CardUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>
         }
         deleteMany: {
-          args: Prisma.UserDeleteManyArgs<ExtArgs>
+          args: Prisma.CardDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.UserUpdateManyArgs<ExtArgs>
+          args: Prisma.CardUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.CardUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>[]
         }
         upsert: {
-          args: Prisma.UserUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.CardUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardPayload>
         }
         aggregate: {
-          args: Prisma.UserAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateUser>
+          args: Prisma.CardAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCard>
         }
         groupBy: {
-          args: Prisma.UserGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserGroupByOutputType>[]
+          args: Prisma.CardGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardGroupByOutputType>[]
         }
         count: {
-          args: Prisma.UserCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+          args: Prisma.CardCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardCountAggregateOutputType> | number
         }
       }
     }
-    Deck: {
-      payload: Prisma.$DeckPayload<ExtArgs>
-      fields: Prisma.DeckFieldRefs
+    CardMana: {
+      payload: Prisma.$CardManaPayload<ExtArgs>
+      fields: Prisma.CardManaFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.DeckFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload> | null
+          args: Prisma.CardManaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.DeckFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>
+          args: Prisma.CardManaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
         }
         findFirst: {
-          args: Prisma.DeckFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload> | null
+          args: Prisma.CardManaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.DeckFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>
+          args: Prisma.CardManaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
         }
         findMany: {
-          args: Prisma.DeckFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>[]
+          args: Prisma.CardManaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>[]
         }
         create: {
-          args: Prisma.DeckCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>
+          args: Prisma.CardManaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
         }
         createMany: {
-          args: Prisma.DeckCreateManyArgs<ExtArgs>
+          args: Prisma.CardManaCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.DeckCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>[]
+          args: Prisma.CardManaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>[]
         }
         delete: {
-          args: Prisma.DeckDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>
+          args: Prisma.CardManaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
         }
         update: {
-          args: Prisma.DeckUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>
+          args: Prisma.CardManaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
         }
         deleteMany: {
-          args: Prisma.DeckDeleteManyArgs<ExtArgs>
+          args: Prisma.CardManaDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.DeckUpdateManyArgs<ExtArgs>
+          args: Prisma.CardManaUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.DeckUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>[]
+          args: Prisma.CardManaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>[]
         }
         upsert: {
-          args: Prisma.DeckUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckPayload>
+          args: Prisma.CardManaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardManaPayload>
         }
         aggregate: {
-          args: Prisma.DeckAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDeck>
+          args: Prisma.CardManaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCardMana>
         }
         groupBy: {
-          args: Prisma.DeckGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DeckGroupByOutputType>[]
+          args: Prisma.CardManaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardManaGroupByOutputType>[]
         }
         count: {
-          args: Prisma.DeckCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DeckCountAggregateOutputType> | number
+          args: Prisma.CardManaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardManaCountAggregateOutputType> | number
         }
       }
     }
-    DeckCard: {
-      payload: Prisma.$DeckCardPayload<ExtArgs>
-      fields: Prisma.DeckCardFieldRefs
+    CardLegality: {
+      payload: Prisma.$CardLegalityPayload<ExtArgs>
+      fields: Prisma.CardLegalityFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.DeckCardFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload> | null
+          args: Prisma.CardLegalityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.DeckCardFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>
+          args: Prisma.CardLegalityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
         }
         findFirst: {
-          args: Prisma.DeckCardFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload> | null
+          args: Prisma.CardLegalityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.DeckCardFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>
+          args: Prisma.CardLegalityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
         }
         findMany: {
-          args: Prisma.DeckCardFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>[]
+          args: Prisma.CardLegalityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>[]
         }
         create: {
-          args: Prisma.DeckCardCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>
+          args: Prisma.CardLegalityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
         }
         createMany: {
-          args: Prisma.DeckCardCreateManyArgs<ExtArgs>
+          args: Prisma.CardLegalityCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.DeckCardCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>[]
+          args: Prisma.CardLegalityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>[]
         }
         delete: {
-          args: Prisma.DeckCardDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>
+          args: Prisma.CardLegalityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
         }
         update: {
-          args: Prisma.DeckCardUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>
+          args: Prisma.CardLegalityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
         }
         deleteMany: {
-          args: Prisma.DeckCardDeleteManyArgs<ExtArgs>
+          args: Prisma.CardLegalityDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.DeckCardUpdateManyArgs<ExtArgs>
+          args: Prisma.CardLegalityUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.DeckCardUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>[]
+          args: Prisma.CardLegalityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>[]
         }
         upsert: {
-          args: Prisma.DeckCardUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeckCardPayload>
+          args: Prisma.CardLegalityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLegalityPayload>
         }
         aggregate: {
-          args: Prisma.DeckCardAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDeckCard>
+          args: Prisma.CardLegalityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCardLegality>
         }
         groupBy: {
-          args: Prisma.DeckCardGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DeckCardGroupByOutputType>[]
+          args: Prisma.CardLegalityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardLegalityGroupByOutputType>[]
         }
         count: {
-          args: Prisma.DeckCardCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DeckCardCountAggregateOutputType> | number
+          args: Prisma.CardLegalityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardLegalityCountAggregateOutputType> | number
         }
       }
     }
@@ -667,38 +667,44 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
-  id: 'id',
-  username: 'username',
-  email: 'email',
-  password: 'password',
-  createdAt: 'createdAt'
-} as const
-
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const DeckScalarFieldEnum = {
+export const CardScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  format: 'format',
-  ownerId: 'ownerId',
-  commanderId: 'commanderId',
+  oracleText: 'oracleText',
+  manaValue: 'manaValue',
+  types: 'types',
+  supertypes: 'supertypes',
+  subtypes: 'subtypes',
+  colors: 'colors',
+  colorIdentity: 'colorIdentity',
+  power: 'power',
+  toughness: 'toughness',
+  loyalty: 'loyalty',
+  defense: 'defense',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  imageKey: 'imageKey'
 } as const
 
-export type DeckScalarFieldEnum = (typeof DeckScalarFieldEnum)[keyof typeof DeckScalarFieldEnum]
+export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
 
 
-export const DeckCardScalarFieldEnum = {
+export const CardManaScalarFieldEnum = {
   id: 'id',
-  deckId: 'deckId',
   cardId: 'cardId',
-  quantity: 'quantity'
+  color: 'color',
+  amount: 'amount'
 } as const
 
-export type DeckCardScalarFieldEnum = (typeof DeckCardScalarFieldEnum)[keyof typeof DeckCardScalarFieldEnum]
+export type CardManaScalarFieldEnum = (typeof CardManaScalarFieldEnum)[keyof typeof CardManaScalarFieldEnum]
+
+
+export const CardLegalityScalarFieldEnum = {
+  cardId: 'cardId',
+  format: 'format',
+  legal: 'legal'
+} as const
+
+export type CardLegalityScalarFieldEnum = (typeof CardLegalityScalarFieldEnum)[keyof typeof CardLegalityScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -732,6 +738,20 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 /**
+ * Reference to a field of type 'String'
+ */
+export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+/**
+ * Reference to a field of type 'String[]'
+ */
+export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -746,16 +766,44 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'String'
+ * Reference to a field of type 'CardType[]'
  */
-export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+export type ListEnumCardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardType[]'>
     
 
 
 /**
- * Reference to a field of type 'String[]'
+ * Reference to a field of type 'CardType'
  */
-export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+export type EnumCardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardType'>
+    
+
+
+/**
+ * Reference to a field of type 'CardSupertype[]'
+ */
+export type ListEnumCardSupertypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardSupertype[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CardSupertype'
+ */
+export type EnumCardSupertypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardSupertype'>
+    
+
+
+/**
+ * Reference to a field of type 'Color[]'
+ */
+export type ListEnumColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Color[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Color'
+ */
+export type EnumColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Color'>
     
 
 
@@ -784,6 +832,13 @@ export type EnumDeckFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'DeckFormat[]'
  */
 export type ListEnumDeckFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeckFormat[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -879,9 +934,9 @@ export type PrismaClientOptions = ({
   omit?: GlobalOmitConfig
 }
 export type GlobalOmitConfig = {
-  user?: Prisma.UserOmit
-  deck?: Prisma.DeckOmit
-  deckCard?: Prisma.DeckCardOmit
+  card?: Prisma.CardOmit
+  cardMana?: Prisma.CardManaOmit
+  cardLegality?: Prisma.CardLegalityOmit
 }
 
 /* Types for Logging */

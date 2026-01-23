@@ -40,7 +40,6 @@ export type DeckMinAggregateOutputType = {
   id: number | null
   name: string | null
   format: $Enums.DeckFormat | null
-  visibility: $Enums.DeckVisibility | null
   ownerId: number | null
   commanderId: string | null
   createdAt: Date | null
@@ -51,7 +50,6 @@ export type DeckMaxAggregateOutputType = {
   id: number | null
   name: string | null
   format: $Enums.DeckFormat | null
-  visibility: $Enums.DeckVisibility | null
   ownerId: number | null
   commanderId: string | null
   createdAt: Date | null
@@ -62,7 +60,6 @@ export type DeckCountAggregateOutputType = {
   id: number
   name: number
   format: number
-  visibility: number
   ownerId: number
   commanderId: number
   createdAt: number
@@ -85,7 +82,6 @@ export type DeckMinAggregateInputType = {
   id?: true
   name?: true
   format?: true
-  visibility?: true
   ownerId?: true
   commanderId?: true
   createdAt?: true
@@ -96,7 +92,6 @@ export type DeckMaxAggregateInputType = {
   id?: true
   name?: true
   format?: true
-  visibility?: true
   ownerId?: true
   commanderId?: true
   createdAt?: true
@@ -107,7 +102,6 @@ export type DeckCountAggregateInputType = {
   id?: true
   name?: true
   format?: true
-  visibility?: true
   ownerId?: true
   commanderId?: true
   createdAt?: true
@@ -205,7 +199,6 @@ export type DeckGroupByOutputType = {
   id: number
   name: string
   format: $Enums.DeckFormat
-  visibility: $Enums.DeckVisibility
   ownerId: number
   commanderId: string | null
   createdAt: Date
@@ -239,7 +232,6 @@ export type DeckWhereInput = {
   id?: Prisma.IntFilter<"Deck"> | number
   name?: Prisma.StringFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatFilter<"Deck"> | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFilter<"Deck"> | $Enums.DeckVisibility
   ownerId?: Prisma.IntFilter<"Deck"> | number
   commanderId?: Prisma.StringNullableFilter<"Deck"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
@@ -252,7 +244,6 @@ export type DeckOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   commanderId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -268,7 +259,6 @@ export type DeckWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DeckWhereInput | Prisma.DeckWhereInput[]
   name?: Prisma.StringFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatFilter<"Deck"> | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFilter<"Deck"> | $Enums.DeckVisibility
   ownerId?: Prisma.IntFilter<"Deck"> | number
   commanderId?: Prisma.StringNullableFilter<"Deck"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
@@ -281,7 +271,6 @@ export type DeckOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   commanderId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -300,7 +289,6 @@ export type DeckScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Deck"> | number
   name?: Prisma.StringWithAggregatesFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatWithAggregatesFilter<"Deck"> | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityWithAggregatesFilter<"Deck"> | $Enums.DeckVisibility
   ownerId?: Prisma.IntWithAggregatesFilter<"Deck"> | number
   commanderId?: Prisma.StringNullableWithAggregatesFilter<"Deck"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Deck"> | Date | string
@@ -310,7 +298,6 @@ export type DeckScalarWhereWithAggregatesInput = {
 export type DeckCreateInput = {
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   commanderId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -322,7 +309,6 @@ export type DeckUncheckedCreateInput = {
   id?: number
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   ownerId: number
   commanderId?: string | null
   createdAt?: Date | string
@@ -333,7 +319,6 @@ export type DeckUncheckedCreateInput = {
 export type DeckUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -345,7 +330,6 @@ export type DeckUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -357,7 +341,6 @@ export type DeckCreateManyInput = {
   id?: number
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   ownerId: number
   commanderId?: string | null
   createdAt?: Date | string
@@ -367,7 +350,6 @@ export type DeckCreateManyInput = {
 export type DeckUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -377,7 +359,6 @@ export type DeckUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -398,7 +379,6 @@ export type DeckCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   commanderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -414,7 +394,6 @@ export type DeckMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   commanderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -425,7 +404,6 @@ export type DeckMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   commanderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -488,10 +466,6 @@ export type EnumDeckFormatFieldUpdateOperationsInput = {
   set?: $Enums.DeckFormat
 }
 
-export type EnumDeckVisibilityFieldUpdateOperationsInput = {
-  set?: $Enums.DeckVisibility
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
@@ -513,7 +487,6 @@ export type DeckUpdateOneRequiredWithoutCardsNestedInput = {
 export type DeckCreateWithoutOwnerInput = {
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   commanderId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -524,7 +497,6 @@ export type DeckUncheckedCreateWithoutOwnerInput = {
   id?: number
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   commanderId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -564,7 +536,6 @@ export type DeckScalarWhereInput = {
   id?: Prisma.IntFilter<"Deck"> | number
   name?: Prisma.StringFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatFilter<"Deck"> | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFilter<"Deck"> | $Enums.DeckVisibility
   ownerId?: Prisma.IntFilter<"Deck"> | number
   commanderId?: Prisma.StringNullableFilter<"Deck"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
@@ -574,7 +545,6 @@ export type DeckScalarWhereInput = {
 export type DeckCreateWithoutCardsInput = {
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   commanderId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -585,7 +555,6 @@ export type DeckUncheckedCreateWithoutCardsInput = {
   id?: number
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   ownerId: number
   commanderId?: string | null
   createdAt?: Date | string
@@ -611,7 +580,6 @@ export type DeckUpdateToOneWithWhereWithoutCardsInput = {
 export type DeckUpdateWithoutCardsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -622,7 +590,6 @@ export type DeckUncheckedUpdateWithoutCardsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -633,7 +600,6 @@ export type DeckCreateManyOwnerInput = {
   id?: number
   name: string
   format: $Enums.DeckFormat
-  visibility?: $Enums.DeckVisibility
   commanderId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -642,7 +608,6 @@ export type DeckCreateManyOwnerInput = {
 export type DeckUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -653,7 +618,6 @@ export type DeckUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -664,7 +628,6 @@ export type DeckUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
-  visibility?: Prisma.EnumDeckVisibilityFieldUpdateOperationsInput | $Enums.DeckVisibility
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -705,7 +668,6 @@ export type DeckSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   format?: boolean
-  visibility?: boolean
   ownerId?: boolean
   commanderId?: boolean
   createdAt?: boolean
@@ -719,7 +681,6 @@ export type DeckSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   format?: boolean
-  visibility?: boolean
   ownerId?: boolean
   commanderId?: boolean
   createdAt?: boolean
@@ -731,7 +692,6 @@ export type DeckSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   format?: boolean
-  visibility?: boolean
   ownerId?: boolean
   commanderId?: boolean
   createdAt?: boolean
@@ -743,14 +703,13 @@ export type DeckSelectScalar = {
   id?: boolean
   name?: boolean
   format?: boolean
-  visibility?: boolean
   ownerId?: boolean
   commanderId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DeckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "format" | "visibility" | "ownerId" | "commanderId" | "createdAt" | "updatedAt", ExtArgs["result"]["deck"]>
+export type DeckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "format" | "ownerId" | "commanderId" | "createdAt" | "updatedAt", ExtArgs["result"]["deck"]>
 export type DeckInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   cards?: boolean | Prisma.Deck$cardsArgs<ExtArgs>
@@ -773,7 +732,6 @@ export type $DeckPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     name: string
     format: $Enums.DeckFormat
-    visibility: $Enums.DeckVisibility
     ownerId: number
     commanderId: string | null
     createdAt: Date
@@ -1206,7 +1164,6 @@ export interface DeckFieldRefs {
   readonly id: Prisma.FieldRef<"Deck", 'Int'>
   readonly name: Prisma.FieldRef<"Deck", 'String'>
   readonly format: Prisma.FieldRef<"Deck", 'DeckFormat'>
-  readonly visibility: Prisma.FieldRef<"Deck", 'DeckVisibility'>
   readonly ownerId: Prisma.FieldRef<"Deck", 'Int'>
   readonly commanderId: Prisma.FieldRef<"Deck", 'String'>
   readonly createdAt: Prisma.FieldRef<"Deck", 'DateTime'>

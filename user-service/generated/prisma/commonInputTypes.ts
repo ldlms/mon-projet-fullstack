@@ -106,13 +106,6 @@ export type EnumDeckFormatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumDeckFormatFilter<$PrismaModel> | $Enums.DeckFormat
 }
 
-export type EnumDeckVisibilityFilter<$PrismaModel = never> = {
-  equals?: $Enums.DeckVisibility | Prisma.EnumDeckVisibilityFieldRefInput<$PrismaModel>
-  in?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDeckVisibilityFilter<$PrismaModel> | $Enums.DeckVisibility
-}
-
 export type StringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -141,16 +134,6 @@ export type EnumDeckFormatWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDeckFormatFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDeckFormatFilter<$PrismaModel>
-}
-
-export type EnumDeckVisibilityWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.DeckVisibility | Prisma.EnumDeckVisibilityFieldRefInput<$PrismaModel>
-  in?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDeckVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.DeckVisibility
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumDeckVisibilityFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumDeckVisibilityFilter<$PrismaModel>
 }
 
 export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -272,13 +255,6 @@ export type NestedEnumDeckFormatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumDeckFormatFilter<$PrismaModel> | $Enums.DeckFormat
 }
 
-export type NestedEnumDeckVisibilityFilter<$PrismaModel = never> = {
-  equals?: $Enums.DeckVisibility | Prisma.EnumDeckVisibilityFieldRefInput<$PrismaModel>
-  in?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDeckVisibilityFilter<$PrismaModel> | $Enums.DeckVisibility
-}
-
 export type NestedStringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -301,16 +277,6 @@ export type NestedEnumDeckFormatWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDeckFormatFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDeckFormatFilter<$PrismaModel>
-}
-
-export type NestedEnumDeckVisibilityWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.DeckVisibility | Prisma.EnumDeckVisibilityFieldRefInput<$PrismaModel>
-  in?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DeckVisibility[] | Prisma.ListEnumDeckVisibilityFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDeckVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.DeckVisibility
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumDeckVisibilityFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumDeckVisibilityFilter<$PrismaModel>
 }
 
 export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {

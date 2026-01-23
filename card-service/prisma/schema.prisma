@@ -7,6 +7,47 @@ datasource db {
   provider = "postgresql"
 }
 
+model Card {
+  id            String          @id
+  name          String
+  oracleText    String?
+  manaValue     Int
+  types         CardType[]
+  supertypes    CardSupertype[]
+  subtypes      String[]
+  colors        Color[]
+  colorIdentity Color[]
+  power         String?
+  toughness     String?
+  loyalty       String?
+  defense       String?
+  createdAt     DateTime        @default(now())
+  imageKey      String?
+  legalities    CardLegality[]
+  manaCost      CardMana[]
+
+  @@index([name])
+}
+
+model CardMana {
+  id     Int    @id @default(autoincrement())
+  cardId String
+  color  Color?
+  amount Int
+  card   Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@unique([cardId, color])
+}
+
+model CardLegality {
+  cardId String
+  format DeckFormat
+  legal  Boolean
+  card   Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@id([cardId, format])
+}
+
 enum Color {
   W
   U
@@ -47,57 +88,4 @@ enum DeckVisibility {
   Private
   Unlisted
   Public
-}
-
-model Card {
-  id            String   @id
-
-  name          String
-  oracleText    String?
-  manaValue     Int
-
-  types         CardType[]
-  supertypes    CardSupertype[]
-  subtypes      String[]
-
-  imageKey      String?
-
-  colors        Color[]
-  colorIdentity Color[]
-
-  power         String?
-  toughness     String?
-  loyalty       String?
-  defense       String?
-
-  manaCost      CardMana[]
-  legalities    CardLegality[]
-
-  createdAt     DateTime @default(now())
-
-  @@index([name])
-}
-
-
-model CardMana {
-  id      Int     @id @default(autoincrement())
-  cardId String
-
-  color   Color?
-  amount Int
-
-  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
-
-  @@unique([cardId, color])
-}
-
-
-model CardLegality {
-  cardId String
-  format DeckFormat
-  legal  Boolean
-
-  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
-
-  @@id([cardId, format])
 }
