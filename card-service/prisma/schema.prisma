@@ -22,9 +22,11 @@ model Card {
   loyalty       String?
   defense       String?
   createdAt     DateTime        @default(now())
-  imageKey      String?
+  imageUrl      String?
+  scryfallOracleId String?         @unique
   legalities    CardLegality[]
   manaCost      CardMana[]
+  printings     String[]
 
   @@index([name])
 }

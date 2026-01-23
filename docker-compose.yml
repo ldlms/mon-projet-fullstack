@@ -25,7 +25,7 @@ services:
     depends_on:
       - card_db
     environment:
-      DATABASE_URL: postgres://${CARD_PGUSER}:${CARD_PGPASSWORD}@card_db:5433/${CARD_PGDATABASE}
+      DATABASE_URL: postgres://${CARD_PGUSER}:${CARD_PGPASSWORD}@card_db:5432/${CARD_PGDATABASE}
     ports:
       - "5002:5002"
 

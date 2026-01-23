@@ -60,6 +60,13 @@ export interface Deck{
   cards: Card[];
 }
 
+export interface DeckProp{
+  name:string,
+  format:string,
+  cardCount:number,
+  imageUrl:string
+}
+
 export interface DeckHeaderProp{
   deck:Deck;
   onEdit: () => void;
