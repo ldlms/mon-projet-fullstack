@@ -87,7 +87,9 @@ export const CardScalarFieldEnum = {
   loyalty: 'loyalty',
   defense: 'defense',
   createdAt: 'createdAt',
-  imageKey: 'imageKey'
+  imageUri: 'imageUri',
+  scryfallOracleId: 'scryfallOracleId',
+  printings: 'printings'
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]

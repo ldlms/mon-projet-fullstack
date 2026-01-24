@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../../Layout/header/Header.tsx";
 import DeckSidebar from "../../Layout/sideBar/DeckSideBar.tsx";
+import DeckList from "../../organism/deckList/DeckList.tsx";
 
 function HomePage() {
 
@@ -46,9 +47,7 @@ function HomePage() {
         
         
         <main className="flex-1 overflow-y-auto p-4">
-          <p>{responseGateway}</p>
-          <p>{cardGatway}</p>
-          <p>{userGateway}</p>
+          <DeckList />
         </main>
 
         

@@ -44,7 +44,8 @@ export type CardMinAggregateOutputType = {
   loyalty: string | null
   defense: string | null
   createdAt: Date | null
-  imageKey: string | null
+  imageUri: string | null
+  scryfallOracleId: string | null
 }
 
 export type CardMaxAggregateOutputType = {
@@ -57,7 +58,8 @@ export type CardMaxAggregateOutputType = {
   loyalty: string | null
   defense: string | null
   createdAt: Date | null
-  imageKey: string | null
+  imageUri: string | null
+  scryfallOracleId: string | null
 }
 
 export type CardCountAggregateOutputType = {
@@ -75,7 +77,9 @@ export type CardCountAggregateOutputType = {
   loyalty: number
   defense: number
   createdAt: number
-  imageKey: number
+  imageUri: number
+  scryfallOracleId: number
+  printings: number
   _all: number
 }
 
@@ -98,7 +102,8 @@ export type CardMinAggregateInputType = {
   loyalty?: true
   defense?: true
   createdAt?: true
-  imageKey?: true
+  imageUri?: true
+  scryfallOracleId?: true
 }
 
 export type CardMaxAggregateInputType = {
@@ -111,7 +116,8 @@ export type CardMaxAggregateInputType = {
   loyalty?: true
   defense?: true
   createdAt?: true
-  imageKey?: true
+  imageUri?: true
+  scryfallOracleId?: true
 }
 
 export type CardCountAggregateInputType = {
@@ -129,7 +135,9 @@ export type CardCountAggregateInputType = {
   loyalty?: true
   defense?: true
   createdAt?: true
-  imageKey?: true
+  imageUri?: true
+  scryfallOracleId?: true
+  printings?: true
   _all?: true
 }
 
@@ -234,7 +242,9 @@ export type CardGroupByOutputType = {
   loyalty: string | null
   defense: string | null
   createdAt: Date
-  imageKey: string | null
+  imageUri: string | null
+  scryfallOracleId: string | null
+  printings: string[]
   _count: CardCountAggregateOutputType | null
   _avg: CardAvgAggregateOutputType | null
   _sum: CardSumAggregateOutputType | null
@@ -275,7 +285,9 @@ export type CardWhereInput = {
   loyalty?: Prisma.StringNullableFilter<"Card"> | string | null
   defense?: Prisma.StringNullableFilter<"Card"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Card"> | Date | string
-  imageKey?: Prisma.StringNullableFilter<"Card"> | string | null
+  imageUri?: Prisma.StringNullableFilter<"Card"> | string | null
+  scryfallOracleId?: Prisma.StringNullableFilter<"Card"> | string | null
+  printings?: Prisma.StringNullableListFilter<"Card">
   legalities?: Prisma.CardLegalityListRelationFilter
   manaCost?: Prisma.CardManaListRelationFilter
 }
@@ -295,13 +307,16 @@ export type CardOrderByWithRelationInput = {
   loyalty?: Prisma.SortOrderInput | Prisma.SortOrder
   defense?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  imageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUri?: Prisma.SortOrderInput | Prisma.SortOrder
+  scryfallOracleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  printings?: Prisma.SortOrder
   legalities?: Prisma.CardLegalityOrderByRelationAggregateInput
   manaCost?: Prisma.CardManaOrderByRelationAggregateInput
 }
 
 export type CardWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  scryfallOracleId?: string
   AND?: Prisma.CardWhereInput | Prisma.CardWhereInput[]
   OR?: Prisma.CardWhereInput[]
   NOT?: Prisma.CardWhereInput | Prisma.CardWhereInput[]
@@ -318,10 +333,11 @@ export type CardWhereUniqueInput = Prisma.AtLeast<{
   loyalty?: Prisma.StringNullableFilter<"Card"> | string | null
   defense?: Prisma.StringNullableFilter<"Card"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Card"> | Date | string
-  imageKey?: Prisma.StringNullableFilter<"Card"> | string | null
+  imageUri?: Prisma.StringNullableFilter<"Card"> | string | null
+  printings?: Prisma.StringNullableListFilter<"Card">
   legalities?: Prisma.CardLegalityListRelationFilter
   manaCost?: Prisma.CardManaListRelationFilter
-}, "id">
+}, "id" | "scryfallOracleId">
 
 export type CardOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -338,7 +354,9 @@ export type CardOrderByWithAggregationInput = {
   loyalty?: Prisma.SortOrderInput | Prisma.SortOrder
   defense?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  imageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUri?: Prisma.SortOrderInput | Prisma.SortOrder
+  scryfallOracleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  printings?: Prisma.SortOrder
   _count?: Prisma.CardCountOrderByAggregateInput
   _avg?: Prisma.CardAvgOrderByAggregateInput
   _max?: Prisma.CardMaxOrderByAggregateInput
@@ -364,7 +382,9 @@ export type CardScalarWhereWithAggregatesInput = {
   loyalty?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
   defense?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Card"> | Date | string
-  imageKey?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  imageUri?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  scryfallOracleId?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  printings?: Prisma.StringNullableListFilter<"Card">
 }
 
 export type CardCreateInput = {
@@ -382,7 +402,9 @@ export type CardCreateInput = {
   loyalty?: string | null
   defense?: string | null
   createdAt?: Date | string
-  imageKey?: string | null
+  imageUri?: string | null
+  scryfallOracleId?: string | null
+  printings?: Prisma.CardCreateprintingsInput | string[]
   legalities?: Prisma.CardLegalityCreateNestedManyWithoutCardInput
   manaCost?: Prisma.CardManaCreateNestedManyWithoutCardInput
 }
@@ -402,7 +424,9 @@ export type CardUncheckedCreateInput = {
   loyalty?: string | null
   defense?: string | null
   createdAt?: Date | string
-  imageKey?: string | null
+  imageUri?: string | null
+  scryfallOracleId?: string | null
+  printings?: Prisma.CardCreateprintingsInput | string[]
   legalities?: Prisma.CardLegalityUncheckedCreateNestedManyWithoutCardInput
   manaCost?: Prisma.CardManaUncheckedCreateNestedManyWithoutCardInput
 }
@@ -422,7 +446,9 @@ export type CardUpdateInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
   legalities?: Prisma.CardLegalityUpdateManyWithoutCardNestedInput
   manaCost?: Prisma.CardManaUpdateManyWithoutCardNestedInput
 }
@@ -442,7 +468,9 @@ export type CardUncheckedUpdateInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
   legalities?: Prisma.CardLegalityUncheckedUpdateManyWithoutCardNestedInput
   manaCost?: Prisma.CardManaUncheckedUpdateManyWithoutCardNestedInput
 }
@@ -462,7 +490,9 @@ export type CardCreateManyInput = {
   loyalty?: string | null
   defense?: string | null
   createdAt?: Date | string
-  imageKey?: string | null
+  imageUri?: string | null
+  scryfallOracleId?: string | null
+  printings?: Prisma.CardCreateprintingsInput | string[]
 }
 
 export type CardUpdateManyMutationInput = {
@@ -480,7 +510,9 @@ export type CardUpdateManyMutationInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
 }
 
 export type CardUncheckedUpdateManyInput = {
@@ -498,7 +530,9 @@ export type CardUncheckedUpdateManyInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
 }
 
 export type EnumCardTypeNullableListFilter<$PrismaModel = never> = {
@@ -548,7 +582,9 @@ export type CardCountOrderByAggregateInput = {
   loyalty?: Prisma.SortOrder
   defense?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  imageKey?: Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
+  scryfallOracleId?: Prisma.SortOrder
+  printings?: Prisma.SortOrder
 }
 
 export type CardAvgOrderByAggregateInput = {
@@ -565,7 +601,8 @@ export type CardMaxOrderByAggregateInput = {
   loyalty?: Prisma.SortOrder
   defense?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  imageKey?: Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
+  scryfallOracleId?: Prisma.SortOrder
 }
 
 export type CardMinOrderByAggregateInput = {
@@ -578,7 +615,8 @@ export type CardMinOrderByAggregateInput = {
   loyalty?: Prisma.SortOrder
   defense?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  imageKey?: Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
+  scryfallOracleId?: Prisma.SortOrder
 }
 
 export type CardSumOrderByAggregateInput = {
@@ -608,6 +646,10 @@ export type CardCreatecolorsInput = {
 
 export type CardCreatecolorIdentityInput = {
   set: $Enums.Color[]
+}
+
+export type CardCreateprintingsInput = {
+  set: string[]
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -655,6 +697,11 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type CardUpdateprintingsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type CardCreateNestedOneWithoutManaCostInput = {
   create?: Prisma.XOR<Prisma.CardCreateWithoutManaCostInput, Prisma.CardUncheckedCreateWithoutManaCostInput>
   connectOrCreate?: Prisma.CardCreateOrConnectWithoutManaCostInput
@@ -698,7 +745,9 @@ export type CardCreateWithoutManaCostInput = {
   loyalty?: string | null
   defense?: string | null
   createdAt?: Date | string
-  imageKey?: string | null
+  imageUri?: string | null
+  scryfallOracleId?: string | null
+  printings?: Prisma.CardCreateprintingsInput | string[]
   legalities?: Prisma.CardLegalityCreateNestedManyWithoutCardInput
 }
 
@@ -717,7 +766,9 @@ export type CardUncheckedCreateWithoutManaCostInput = {
   loyalty?: string | null
   defense?: string | null
   createdAt?: Date | string
-  imageKey?: string | null
+  imageUri?: string | null
+  scryfallOracleId?: string | null
+  printings?: Prisma.CardCreateprintingsInput | string[]
   legalities?: Prisma.CardLegalityUncheckedCreateNestedManyWithoutCardInput
 }
 
@@ -752,7 +803,9 @@ export type CardUpdateWithoutManaCostInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
   legalities?: Prisma.CardLegalityUpdateManyWithoutCardNestedInput
 }
 
@@ -771,7 +824,9 @@ export type CardUncheckedUpdateWithoutManaCostInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
   legalities?: Prisma.CardLegalityUncheckedUpdateManyWithoutCardNestedInput
 }
 
@@ -790,7 +845,9 @@ export type CardCreateWithoutLegalitiesInput = {
   loyalty?: string | null
   defense?: string | null
   createdAt?: Date | string
-  imageKey?: string | null
+  imageUri?: string | null
+  scryfallOracleId?: string | null
+  printings?: Prisma.CardCreateprintingsInput | string[]
   manaCost?: Prisma.CardManaCreateNestedManyWithoutCardInput
 }
 
@@ -809,7 +866,9 @@ export type CardUncheckedCreateWithoutLegalitiesInput = {
   loyalty?: string | null
   defense?: string | null
   createdAt?: Date | string
-  imageKey?: string | null
+  imageUri?: string | null
+  scryfallOracleId?: string | null
+  printings?: Prisma.CardCreateprintingsInput | string[]
   manaCost?: Prisma.CardManaUncheckedCreateNestedManyWithoutCardInput
 }
 
@@ -844,7 +903,9 @@ export type CardUpdateWithoutLegalitiesInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
   manaCost?: Prisma.CardManaUpdateManyWithoutCardNestedInput
 }
 
@@ -863,7 +924,9 @@ export type CardUncheckedUpdateWithoutLegalitiesInput = {
   loyalty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scryfallOracleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  printings?: Prisma.CardUpdateprintingsInput | string[]
   manaCost?: Prisma.CardManaUncheckedUpdateManyWithoutCardNestedInput
 }
 
@@ -922,7 +985,9 @@ export type CardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   loyalty?: boolean
   defense?: boolean
   createdAt?: boolean
-  imageKey?: boolean
+  imageUri?: boolean
+  scryfallOracleId?: boolean
+  printings?: boolean
   legalities?: boolean | Prisma.Card$legalitiesArgs<ExtArgs>
   manaCost?: boolean | Prisma.Card$manaCostArgs<ExtArgs>
   _count?: boolean | Prisma.CardCountOutputTypeDefaultArgs<ExtArgs>
@@ -943,7 +1008,9 @@ export type CardSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   loyalty?: boolean
   defense?: boolean
   createdAt?: boolean
-  imageKey?: boolean
+  imageUri?: boolean
+  scryfallOracleId?: boolean
+  printings?: boolean
 }, ExtArgs["result"]["card"]>
 
 export type CardSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -961,7 +1028,9 @@ export type CardSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   loyalty?: boolean
   defense?: boolean
   createdAt?: boolean
-  imageKey?: boolean
+  imageUri?: boolean
+  scryfallOracleId?: boolean
+  printings?: boolean
 }, ExtArgs["result"]["card"]>
 
 export type CardSelectScalar = {
@@ -979,10 +1048,12 @@ export type CardSelectScalar = {
   loyalty?: boolean
   defense?: boolean
   createdAt?: boolean
-  imageKey?: boolean
+  imageUri?: boolean
+  scryfallOracleId?: boolean
+  printings?: boolean
 }
 
-export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "oracleText" | "manaValue" | "types" | "supertypes" | "subtypes" | "colors" | "colorIdentity" | "power" | "toughness" | "loyalty" | "defense" | "createdAt" | "imageKey", ExtArgs["result"]["card"]>
+export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "oracleText" | "manaValue" | "types" | "supertypes" | "subtypes" | "colors" | "colorIdentity" | "power" | "toughness" | "loyalty" | "defense" | "createdAt" | "imageUri" | "scryfallOracleId" | "printings", ExtArgs["result"]["card"]>
 export type CardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   legalities?: boolean | Prisma.Card$legalitiesArgs<ExtArgs>
   manaCost?: boolean | Prisma.Card$manaCostArgs<ExtArgs>
@@ -1012,7 +1083,9 @@ export type $CardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     loyalty: string | null
     defense: string | null
     createdAt: Date
-    imageKey: string | null
+    imageUri: string | null
+    scryfallOracleId: string | null
+    printings: string[]
   }, ExtArgs["result"]["card"]>
   composites: {}
 }
@@ -1452,7 +1525,9 @@ export interface CardFieldRefs {
   readonly loyalty: Prisma.FieldRef<"Card", 'String'>
   readonly defense: Prisma.FieldRef<"Card", 'String'>
   readonly createdAt: Prisma.FieldRef<"Card", 'DateTime'>
-  readonly imageKey: Prisma.FieldRef<"Card", 'String'>
+  readonly imageUri: Prisma.FieldRef<"Card", 'String'>
+  readonly scryfallOracleId: Prisma.FieldRef<"Card", 'String'>
+  readonly printings: Prisma.FieldRef<"Card", 'String[]'>
 }
     
 
