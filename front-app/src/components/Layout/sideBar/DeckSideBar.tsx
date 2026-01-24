@@ -1,47 +1,35 @@
-import { useEffect, useState } from "react";
 import DeckHeader from "../../organism/DeckHeader/DeckHeader.tsx";
 import CardRow from "../../molecule/CardRow.tsx";
-import { Deck } from "../../atoms/types/types.tsx";
+import { DeckProp } from "../../atoms/types/props.tsx";
+import { useState } from "react";
+import {DeckSideBarProps} from "../../atoms/types/componentProps.tsx"
 
-function DeckSidebar() {
-  const [deck, setDeck] = useState<Deck | null>(null);
+
+
+function DeckSidebar({ deck }: DeckSideBarProps) {
   const [isSideboardOpen, setIsSideboardOpen] = useState(false);
 
-  useEffect(() => {
-
-    setDeck({
-      name: "Nom du deck",
-      format: "Commander",
-      currentCount: 98,
-      maxCount: 100,
-      colors: ["G", "U"],
-      cards: [
-        {
-          id: "1",
-          name: "Nom de la carte",
-          quantity: 2,
-          cost: "1G",
-        },
-        {
-          id: "2",
-          name: "Nom de la carte",
-          quantity: 3,
-          cost: "2U",
-        },
-      ],
-    });
-  }, []);
-
-  if (!deck) return null;
+  if (!deck) {
+    return (
+      <aside className="
+        bg-gray-700 flex items-center justify-center
+        w-full h-[45vh]
+        md:w-80 md:h-full
+        border-t md:border-l border-gray-600
+        text-gray-300
+      ">
+        Sélectionne un deck
+      </aside>
+    );
+  }
 
   return (
     <aside className="
-    bg-gray-700 flex flex-col
-    w-full
-    h-[45vh] sm:h-[50vh]
-    md:w-80 md:h-full
-    border-t md:border-t-0 md:border-l border-gray-600
-  ">
+      bg-gray-700 flex flex-col
+      w-full h-[45vh]
+      md:w-80 md:h-full
+      border-t md:border-t-0 md:border-l border-gray-600
+    ">
       <DeckHeader
         deck={deck}
         onEdit={() => console.log("edit")}
@@ -50,14 +38,18 @@ function DeckSidebar() {
         }
       />
 
-      {/* Main Deck */}
       <div className="flex-1 overflow-y-auto px-3 py-2">
-        {deck.cards.map(card => (
-          <CardRow key={card.id} card={card} />
-        ))}
+        {deck.cards.length === 0 ? (
+          <p className="text-gray-400 text-sm">
+            Aucune carte dans le deck
+          </p>
+        ) : (
+          deck.cards.map(card => (
+            <CardRow key={card.id} card={card} />
+          ))
+        )}
       </div>
 
-      {/* Sideboard (plus tard) */}
       {isSideboardOpen && (
         <div className="border-t border-gray-600 p-3">
           Sideboard ici

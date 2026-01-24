@@ -13,7 +13,6 @@ export const ROUTES = [
         proxy: {
             target:"http://card-service:5002",
             changeOrigin:true,
-            pathRewrite: {'^/card' : ''},
         },
     },
 ]

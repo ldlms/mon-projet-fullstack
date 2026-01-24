@@ -1,4 +1,4 @@
-import { CardRowProp } from "../atoms/types/types";
+import { CardRowProp } from "../atoms/types/props";
 
 function CardRow({
     card,

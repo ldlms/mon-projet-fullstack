@@ -1,5 +1,5 @@
 import NavLink from "../../atoms/navLink/navLink.tsx";
-import { NavBarProps } from "../../atoms/types/types.tsx";
+import { NavBarProps } from "../../atoms/types/props.tsx";
 
 const NavBar: React.FC<NavBarProps> = ({ items, activeHref, className }) => {
   return (

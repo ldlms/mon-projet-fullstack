@@ -1,4 +1,4 @@
-import { DeckHeaderProp } from "../../atoms/types/types";
+import { DeckHeaderProp } from "../../atoms/types/props.tsx";
 import Button from "../../atoms/buttons/button.tsx";
 import ManaDot from "../../atoms/manaDot/manaDot.tsx";
 

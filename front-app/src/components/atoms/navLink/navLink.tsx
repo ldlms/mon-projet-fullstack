@@ -1,4 +1,4 @@
-import { NavLinkProps } from "../types/types";
+import { NavLinkProps } from "../types/props";
 import {clsx, type ClassValue} from 'clsx';
 import {twMerge} from 'tailwind-merge';
 

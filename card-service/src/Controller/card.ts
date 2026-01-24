@@ -1,6 +1,6 @@
 import * as cardService from "../service/cardService.ts";
 import type { Request, Response } from "express";
-import type { Color } from "../prisma/browser.ts";
+import type { Color } from "../../generated/prisma/enums.ts"
 
 
 export const getCardForDeck = async (req:Request, res:Response) => {
@@ -18,18 +18,32 @@ export const getCardForDeck = async (req:Request, res:Response) => {
     res.status(200).json(cards);
 }
 
-export const getCardFromColorForDeck = async (req:Request, res:Response) => {
-    const deckColor  = req.body ?.deckColor as Color[];
-    if (!deckColor) {
+export const getCardFromColorForDeck = async (req: Request, res: Response) => {
+    const { colors, cursor, limit = 50 } = req.query;
+    
+    if (!colors) {
         res.status(400).json({ message: 'Deck Color is required' });
         return;
-    }   
-    const cards = await cardService.getCardFromColorForDeck(deckColor);
-    if (!cards) {
+    }
+    
+    const deckColors = (colors as string).split(',') as Color[];
+    
+    const result = await cardService.getCardFromColorForDeck(
+        deckColors, 
+        Number(limit),
+        cursor as string | undefined
+    );
+    
+    if (!result || result.cards.length === 0) {
         res.status(404).json({ message: 'Card not found for the given Deck Color' });
         return;
     }
-    res.status(200).json(cards);
+    
+    res.status(200).json({
+        cards: result.cards,
+        nextCursor: result.nextCursor,
+        hasMore: result.nextCursor !== null
+    });
 }
 
 export const getCardFromSearch = async (req:Request, res:Response) => {

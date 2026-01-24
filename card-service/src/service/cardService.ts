@@ -1,7 +1,7 @@
 import { prisma } from "../config/prisma";
-import type { PrismaClient } from "../prisma/client";
-import type { CardModel } from "../prisma/models/Card.ts";
-import type { Color} from "../prisma/enums.js";
+import type { PrismaClient } from "../../generated/prisma/client.ts";
+import type { CardModel } from "../../generated/prisma/models/Card.ts";
+import type { Color} from "../../generated/prisma/enums.ts";
 
 export const getCardForDeck = async (deckCards: string[],take = 50, lastId?: string): Promise<{ cards: CardModel[]; nextCursor: string | null }> => {
 

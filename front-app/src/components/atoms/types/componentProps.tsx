@@ -1,4 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
+import { Deck, DeckCard, DeckProp } from "./props";
 
 export type ButtonProps = {
   children: React.ReactNode;
@@ -41,38 +42,44 @@ export type ManaDotProp = {
 }
 
 export type CardRowProp = {
-  card: Card;
+  card: DeckCardComponentProps;
 }
 
-export interface Card {
-  id: string;
-  name: string;
-  quantity: number;
-  cost: string;
+export interface DeckCardComponentProps {
+  deck: Deck;
+  isSelected: boolean;
+  onSelectDeck: (deck: Deck) => void;
 }
 
-export interface Deck{
-  name: string;
-  format: string;
-  currentCount: number;
-  maxCount: number;
-  colors: string[];
-  cards: Card[];
-}
-
-export interface DeckProp{
-  name:string,
-  format:string,
-  cardCount:number,
-  imageUrl:string
-}
+export type DeckListProps = {
+  decks: Deck[];
+  selectedDeckId?: string;
+  onSelectDeck: (deck: Deck) => void;
+};
 
 export interface DeckHeaderProp{
-  deck:Deck;
+  deck:DeckProp;
   onEdit: () => void;
   onToggleSideBoard: () => void;
 }
 
+export interface CardProp{
+  id:string;
+  imageUri:string;
+  onClick?: () => void;
+}
 
+export type CardListProps = {
+  cards: DeckCard[];
+  onAddCard: (card: DeckCard) => void;
+};
 
+export type DeckSideBarProps = {
+  deck: DeckProp;
+  onRemoveCard: (cardId: string) => void;
+  onClose: () => void;
+};
 
+export interface CardItemProps extends CardProp {
+  onClick?: () => void;
+}

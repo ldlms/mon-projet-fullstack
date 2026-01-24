@@ -5,7 +5,7 @@ import { Route, Navigate } from "react-router-dom";
 import AuthPage from "./components/pages/auth/AuthPage.tsx";
 import ProtectedRoute from "./auth/ProtectedRoute.tsx";
 import PublicOnlyRoute from "./auth/PublicOnlyRoutes.tsx";
-import HomePage from "./components/pages/home/HomePage.tsx";
+import DeckPage from "./components/pages/home/DeckPage.tsx";
 
 
 function App() { 
@@ -28,7 +28,7 @@ function App() {
             path="/home"
             element={
               <ProtectedRoute>
-                <HomePage />
+                <DeckPage />
               </ProtectedRoute>
             }
           />
