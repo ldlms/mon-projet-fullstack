@@ -6,8 +6,6 @@ const deckRouter = Router();
 
 deckRouter.get("/all",authMiddleware, deckController.getDecks);
 
-deckRouter.get("/:id", authMiddleware, deckController.getDeck);
-
 deckRouter.post("/",authMiddleware, deckController.createDeck);
 
 deckRouter.put("/:id",authMiddleware, deckController.updateDeck);

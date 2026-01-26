@@ -206,12 +206,22 @@ export const getDecksByUserId = async (ownerId: string) => {
             commanderId: true,
         }
     });
-    return decks.map(deck => ({
+    const result = decks.map(deck => ({
         id: deck.id.toString(),
         name: deck.name,
         format: deck.format,
         ownerId: deck.ownerId.toString(),
-        cards: deck.cards,
+        cards: deck.cards.map(dc => ({
+            id: dc.id,
+            deckId: dc.deckId,
+            cardId: dc.cardId,
+            quantity: dc.quantity
+        })),
         commanderId: deck.commanderId ?? undefined,
     }));
+    
+    console.log('getDecksByUserId retourne:', result);
+    console.log('Est un tableau?', Array.isArray(result));
+    
+    return result;
 };

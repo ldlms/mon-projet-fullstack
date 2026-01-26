@@ -94,7 +94,7 @@ export const removeCardFromDeck = async (req:Request, res:Response) => {
 };
 
 export const getUserDecks = async (req:Request, res:Response) => {
-    const userId = req.params.userId;
+    const userId = req.params.id;
     if (!userId) {
         res.status(400).json({ message: 'User ID is required' });
         return;
