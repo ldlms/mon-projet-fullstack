@@ -1,4 +1,4 @@
-import { DeckFormat, type DeckCard } from "../../generated/prisma/client";
+import { Color, DeckFormat, type DeckCard } from "../../generated/prisma/client";
 
 export interface User {
   id: string;
@@ -45,7 +45,9 @@ export interface Deck{
   format: DeckFormat;
   ownerId: string;
   cards: DeckCard[];
+  colors: Color[];
   commanderId?: string;
+  imageUri: string;
 }
 
 export type UpdateDeckData = {

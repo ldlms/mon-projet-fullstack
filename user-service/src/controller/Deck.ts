@@ -22,8 +22,8 @@ export const getDeck = async (req:Request, res:Response):Promise<void> => {
 };
 
 export const createDeck = async (req:Request, res:Response):Promise<void> => {
-    const { name, format, ownerId, cards, commanderId } = req.body;
-    const deck = await deckService.createDeck({ name, format, ownerId, cards, commanderId });
+    const { name, format, ownerId, cards, commanderId, imageUri, colors } = req.body;
+    const deck = await deckService.createDeck({ name, format, ownerId, cards, commanderId, imageUri, colors });
     res.status(201).json(deck);
 };
 

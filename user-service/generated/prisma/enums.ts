@@ -30,3 +30,14 @@ export const DeckVisibility = {
 } as const
 
 export type DeckVisibility = (typeof DeckVisibility)[keyof typeof DeckVisibility]
+
+
+export const Color = {
+  W: 'W',
+  U: 'U',
+  B: 'B',
+  R: 'R',
+  G: 'G'
+} as const
+
+export type Color = (typeof Color)[keyof typeof Color]

@@ -683,7 +683,9 @@ export const DeckScalarFieldEnum = {
   name: 'name',
   format: 'format',
   ownerId: 'ownerId',
+  colors: 'colors',
   commanderId: 'commanderId',
+  imageUri: 'imageUri',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -784,6 +786,20 @@ export type EnumDeckFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'DeckFormat[]'
  */
 export type ListEnumDeckFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeckFormat[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Color[]'
+ */
+export type ListEnumColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Color[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Color'
+ */
+export type EnumColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Color'>
     
 
 

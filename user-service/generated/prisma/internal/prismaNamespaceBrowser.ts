@@ -88,7 +88,9 @@ export const DeckScalarFieldEnum = {
   name: 'name',
   format: 'format',
   ownerId: 'ownerId',
+  colors: 'colors',
   commanderId: 'commanderId',
+  imageUri: 'imageUri',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

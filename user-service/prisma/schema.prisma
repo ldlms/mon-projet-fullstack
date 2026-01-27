@@ -36,6 +36,14 @@ model User {
   createdAt DateTime @default(now())
 }
 
+enum Color {
+  W
+  U
+  B
+  R
+  G
+}
+
 
 model Deck {
   id          Int            @id @default(autoincrement())
@@ -44,7 +52,9 @@ model Deck {
   ownerId     Int
   owner       User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   cards       DeckCard[]
+  colors      Color[]
   commanderId String?
+  imageUri    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

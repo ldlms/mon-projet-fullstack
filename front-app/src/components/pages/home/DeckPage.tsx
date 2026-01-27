@@ -6,7 +6,7 @@ import { DeckProp } from "../../atoms/types/props.tsx";
 import CardList from "../../organism/CardList/CardList.tsx"
 import {DeckCard} from "../../atoms/types/props.tsx";
 import Button from "../../atoms/buttons/button.tsx";
-import CreateDeckModal from "../../Layout/modals/DeckCreationModal.tsx";
+import CreateDeckModal from "../../Layout/modals/DeckCreationModal.tsx"
 
 // Fonction utilitaire pour récupérer le token
 const getAuthToken = (): string | null => {
@@ -36,18 +36,22 @@ function DeckPage() {
       const user = getUser();
       
       console.log('Token:', token ? 'présent' : 'absent');
-      console.log('User:', user);
+      console.log('User complet:', JSON.stringify(user, null, 2));
+      console.log('User.id:', user?.id, 'Type:', typeof user?.id);
       
-      if (!token || !user) {
-        console.error('Pas de token ou utilisateur');
+      if (!token || !user || !user.id) {
+        console.error('Pas de token ou utilisateur ou ID manquant');
         setLoadingDecks(false);
+        // Rediriger vers login si pas d'authentification valide
+        window.location.href = '/login';
         return;
       }
 
       try {
-        // Utiliser la route GET /user/:userId/decks
-        console.log('Requête vers:', `http://localhost:5000/users/deck/${user.id}`);
-        const response = await fetch(`http://localhost:5000/users/deck/${user.id}`, {
+        // Utiliser la route GET /users/deck/:userId
+        const userId = user.id;
+        console.log('Requête vers:', `http://localhost:5000/users/deck/${userId}`);
+        const response = await fetch(`http://localhost:5000/users/deck/${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -88,9 +92,9 @@ function DeckPage() {
         // Transformer les données backend en format frontend
         const transformedDecks: DeckProp[] = await Promise.all(
           data.map(async (deck: any) => {
-            console.log('Traitement du deck:', deck.name, 'avec', deck.cards.length, 'cartes');
+            console.log('Traitement du deck:', deck.name, 'couleurs:', deck.colors);
             
-            // Si le deck n'a pas de cartes, retourner un deck vide
+            // Si le deck n'a pas de cartes, retourner un deck avec les couleurs stockées
             if (!deck.cards || deck.cards.length === 0) {
               return {
                 id: deck.id,
@@ -98,8 +102,8 @@ function DeckPage() {
                 format: deck.format,
                 currentCount: 0,
                 maxCount: deck.format === 'Commander' ? 100 : 60,
-                colors: [],
-                imageUri: 'https://cards.scryfall.io/art_crop/front/0/0/0002ab72-834b-4c81-82b1-0d2760ea96b0.jpg',
+                colors: deck.colors || [], // Utiliser les couleurs stockées en BDD
+                imageUri: deck.imageUri || 'https://cards.scryfall.io/art_crop/front/0/0/0002ab72-834b-4c81-82b1-0d2760ea96b0.jpg',
                 cards: []
               };
             }
@@ -133,7 +137,11 @@ function DeckPage() {
             const validCards = cardsWithDetails.filter(c => c !== null);
             console.log('Cartes valides récupérées:', validCards.length);
             
-            const colors = [...new Set(validCards.flatMap(c => c.colors || []))];
+            // Utiliser les couleurs du deck stockées en BDD, ou calculer depuis les cartes en fallback
+            const colors = deck.colors && deck.colors.length > 0 
+              ? deck.colors 
+              : [...new Set(validCards.flatMap(c => c.colors || []))];
+            
             const currentCount = validCards.reduce((sum, card) => sum + (card.quantity || 0), 0);
 
             return {
@@ -142,8 +150,8 @@ function DeckPage() {
               format: deck.format,
               currentCount: currentCount,
               maxCount: deck.format === 'Commander' ? 100 : 60,
-              colors: colors,
-              imageUri: validCards[0]?.imageUri || 'https://cards.scryfall.io/art_crop/front/0/0/0002ab72-834b-4c81-82b1-0d2760ea96b0.jpg',
+              colors: colors, // Utiliser les couleurs stockées
+              imageUri: deck.imageUri || validCards[0]?.imageUri || 'https://cards.scryfall.io/art_crop/front/0/0/0002ab72-834b-4c81-82b1-0d2760ea96b0.jpg',
               cards: validCards
             };
           })
@@ -183,6 +191,18 @@ function DeckPage() {
       const token = getAuthToken();
       if (!token) return;
       
+      console.log('Selected deck:', selectedDeck);
+      console.log('Deck colors:', selectedDeck.colors);
+      
+      // Si le deck n'a pas de couleurs définies, on ne peut pas chercher de cartes
+      if (!selectedDeck.colors || selectedDeck.colors.length === 0) {
+        console.warn('Aucune couleur définie pour ce deck, impossible de charger des cartes');
+        setAvailableCards([]);
+        setHasMore(false);
+        setLoading(false);
+        return;
+      }
+      
       setLoading(true);
       try {
         const params = new URLSearchParams({
@@ -190,7 +210,13 @@ function DeckPage() {
           limit: '50',
           ...(currentCursor && { cursor: currentCursor })
         });
-        const response = await fetch(`http://localhost:5000/cards/deck?${params}`, {
+        
+        const url = `http://localhost:5000/cards/deck?${params}`;
+        console.log('Fetching cards from:', url);
+        console.log('Colors:', selectedDeck.colors);
+        console.log('Params string:', params.toString());
+        
+        const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -198,7 +224,11 @@ function DeckPage() {
           },
         });
 
+        console.log('Response status:', response.status);
+
         if (!response.ok) {
+          const errorData = await response.json();
+          console.error('Error response:', errorData);
           throw new Error('Erreur lors de la récupération des cartes');
         }
 
@@ -257,9 +287,9 @@ function DeckPage() {
           };
         });
 
-        // 2. Appel API - Route POST /deck/:deckId/card/:cardId
+        // 2. Appel API - Route POST /users/deck/:deckId/card/:cardId
         const response = await fetch(
-          `http://localhost:5000/deck/${selectedDeck.id}/card/${card.id}`,
+          `http://localhost:5000/users/deck/${selectedDeck.id}/card/${card.id}`,
           {
             method: 'POST',
             headers: { 
@@ -366,9 +396,9 @@ function DeckPage() {
           };
         });
 
-        // Appel API - Route DELETE /deck/:deckId/card/:cardId
+        // Appel API - Route DELETE /users/deck/:deckId/card/:cardId
         const response = await fetch(
-          `http://localhost:5000/deck/${selectedDeck.id}/card/${cardId}`,
+          `http://localhost:5000/users/deck/${selectedDeck.id}/card/${cardId}`,
           {
             method: 'DELETE',
             headers: { 
@@ -456,12 +486,6 @@ function DeckPage() {
     return (
       <div className="h-screen flex flex-col">
         <Header />
-        
-        <div className="p-4">
-          <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-            Créer un deck
-          </Button>
-        </div>
 
         <div className="flex flex-1 flex-col md:flex-row overflow-hidden">
           <main className="flex-1 overflow-y-auto p-4">
@@ -470,11 +494,18 @@ function DeckPage() {
                 <p className="text-gray-400">Chargement des decks...</p>
               </div>
             ) : !selectedDeck ? (
-              <DeckList
-                decks={decks}
-                selectedDeckId={undefined}
-                onSelectDeck={handleSelectDeck}
-              />
+              <>
+                <div className="mb-4">
+                  <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+                    Créer un deck
+                  </Button>
+                </div>
+                <DeckList
+                  decks={decks}
+                  selectedDeckId={undefined}
+                  onSelectDeck={handleSelectDeck}
+                />
+              </>
             ) : (
               <>
                 <CardList

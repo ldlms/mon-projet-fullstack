@@ -42,6 +42,7 @@ export type DeckMinAggregateOutputType = {
   format: $Enums.DeckFormat | null
   ownerId: number | null
   commanderId: string | null
+  imageUri: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -52,6 +53,7 @@ export type DeckMaxAggregateOutputType = {
   format: $Enums.DeckFormat | null
   ownerId: number | null
   commanderId: string | null
+  imageUri: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -61,7 +63,9 @@ export type DeckCountAggregateOutputType = {
   name: number
   format: number
   ownerId: number
+  colors: number
   commanderId: number
+  imageUri: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -84,6 +88,7 @@ export type DeckMinAggregateInputType = {
   format?: true
   ownerId?: true
   commanderId?: true
+  imageUri?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type DeckMaxAggregateInputType = {
   format?: true
   ownerId?: true
   commanderId?: true
+  imageUri?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -103,7 +109,9 @@ export type DeckCountAggregateInputType = {
   name?: true
   format?: true
   ownerId?: true
+  colors?: true
   commanderId?: true
+  imageUri?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -200,7 +208,9 @@ export type DeckGroupByOutputType = {
   name: string
   format: $Enums.DeckFormat
   ownerId: number
+  colors: $Enums.Color[]
   commanderId: string | null
+  imageUri: string
   createdAt: Date
   updatedAt: Date
   _count: DeckCountAggregateOutputType | null
@@ -233,7 +243,9 @@ export type DeckWhereInput = {
   name?: Prisma.StringFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatFilter<"Deck"> | $Enums.DeckFormat
   ownerId?: Prisma.IntFilter<"Deck"> | number
+  colors?: Prisma.EnumColorNullableListFilter<"Deck">
   commanderId?: Prisma.StringNullableFilter<"Deck"> | string | null
+  imageUri?: Prisma.StringFilter<"Deck"> | string
   createdAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -245,7 +257,9 @@ export type DeckOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
+  colors?: Prisma.SortOrder
   commanderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
@@ -260,7 +274,9 @@ export type DeckWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatFilter<"Deck"> | $Enums.DeckFormat
   ownerId?: Prisma.IntFilter<"Deck"> | number
+  colors?: Prisma.EnumColorNullableListFilter<"Deck">
   commanderId?: Prisma.StringNullableFilter<"Deck"> | string | null
+  imageUri?: Prisma.StringFilter<"Deck"> | string
   createdAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -272,7 +288,9 @@ export type DeckOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
+  colors?: Prisma.SortOrder
   commanderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DeckCountOrderByAggregateInput
@@ -290,7 +308,9 @@ export type DeckScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatWithAggregatesFilter<"Deck"> | $Enums.DeckFormat
   ownerId?: Prisma.IntWithAggregatesFilter<"Deck"> | number
+  colors?: Prisma.EnumColorNullableListFilter<"Deck">
   commanderId?: Prisma.StringNullableWithAggregatesFilter<"Deck"> | string | null
+  imageUri?: Prisma.StringWithAggregatesFilter<"Deck"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Deck"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Deck"> | Date | string
 }
@@ -298,7 +318,9 @@ export type DeckScalarWhereWithAggregatesInput = {
 export type DeckCreateInput = {
   name: string
   format: $Enums.DeckFormat
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutDecksInput
@@ -310,7 +332,9 @@ export type DeckUncheckedCreateInput = {
   name: string
   format: $Enums.DeckFormat
   ownerId: number
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
   cards?: Prisma.DeckCardUncheckedCreateNestedManyWithoutDeckInput
@@ -319,7 +343,9 @@ export type DeckUncheckedCreateInput = {
 export type DeckUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutDecksNestedInput
@@ -331,7 +357,9 @@ export type DeckUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cards?: Prisma.DeckCardUncheckedUpdateManyWithoutDeckNestedInput
@@ -342,7 +370,9 @@ export type DeckCreateManyInput = {
   name: string
   format: $Enums.DeckFormat
   ownerId: number
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -350,7 +380,9 @@ export type DeckCreateManyInput = {
 export type DeckUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -360,7 +392,9 @@ export type DeckUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -375,12 +409,22 @@ export type DeckOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type EnumColorNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.Color[] | Prisma.ListEnumColorFieldRefInput<$PrismaModel> | null
+  has?: $Enums.Color | Prisma.EnumColorFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.Color[] | Prisma.ListEnumColorFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.Color[] | Prisma.ListEnumColorFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type DeckCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   format?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
+  colors?: Prisma.SortOrder
   commanderId?: Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -396,6 +440,7 @@ export type DeckMaxOrderByAggregateInput = {
   format?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   commanderId?: Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -406,6 +451,7 @@ export type DeckMinOrderByAggregateInput = {
   format?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   commanderId?: Prisma.SortOrder
+  imageUri?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -462,8 +508,17 @@ export type DeckUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.DeckScalarWhereInput | Prisma.DeckScalarWhereInput[]
 }
 
+export type DeckCreatecolorsInput = {
+  set: $Enums.Color[]
+}
+
 export type EnumDeckFormatFieldUpdateOperationsInput = {
   set?: $Enums.DeckFormat
+}
+
+export type DeckUpdatecolorsInput = {
+  set?: $Enums.Color[]
+  push?: $Enums.Color | $Enums.Color[]
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -487,7 +542,9 @@ export type DeckUpdateOneRequiredWithoutCardsNestedInput = {
 export type DeckCreateWithoutOwnerInput = {
   name: string
   format: $Enums.DeckFormat
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
   cards?: Prisma.DeckCardCreateNestedManyWithoutDeckInput
@@ -497,7 +554,9 @@ export type DeckUncheckedCreateWithoutOwnerInput = {
   id?: number
   name: string
   format: $Enums.DeckFormat
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
   cards?: Prisma.DeckCardUncheckedCreateNestedManyWithoutDeckInput
@@ -537,7 +596,9 @@ export type DeckScalarWhereInput = {
   name?: Prisma.StringFilter<"Deck"> | string
   format?: Prisma.EnumDeckFormatFilter<"Deck"> | $Enums.DeckFormat
   ownerId?: Prisma.IntFilter<"Deck"> | number
+  colors?: Prisma.EnumColorNullableListFilter<"Deck">
   commanderId?: Prisma.StringNullableFilter<"Deck"> | string | null
+  imageUri?: Prisma.StringFilter<"Deck"> | string
   createdAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Deck"> | Date | string
 }
@@ -545,7 +606,9 @@ export type DeckScalarWhereInput = {
 export type DeckCreateWithoutCardsInput = {
   name: string
   format: $Enums.DeckFormat
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutDecksInput
@@ -556,7 +619,9 @@ export type DeckUncheckedCreateWithoutCardsInput = {
   name: string
   format: $Enums.DeckFormat
   ownerId: number
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -580,7 +645,9 @@ export type DeckUpdateToOneWithWhereWithoutCardsInput = {
 export type DeckUpdateWithoutCardsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutDecksNestedInput
@@ -591,7 +658,9 @@ export type DeckUncheckedUpdateWithoutCardsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -600,7 +669,9 @@ export type DeckCreateManyOwnerInput = {
   id?: number
   name: string
   format: $Enums.DeckFormat
+  colors?: Prisma.DeckCreatecolorsInput | $Enums.Color[]
   commanderId?: string | null
+  imageUri: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -608,7 +679,9 @@ export type DeckCreateManyOwnerInput = {
 export type DeckUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cards?: Prisma.DeckCardUpdateManyWithoutDeckNestedInput
@@ -618,7 +691,9 @@ export type DeckUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cards?: Prisma.DeckCardUncheckedUpdateManyWithoutDeckNestedInput
@@ -628,7 +703,9 @@ export type DeckUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   format?: Prisma.EnumDeckFormatFieldUpdateOperationsInput | $Enums.DeckFormat
+  colors?: Prisma.DeckUpdatecolorsInput | $Enums.Color[]
   commanderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUri?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -669,7 +746,9 @@ export type DeckSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   format?: boolean
   ownerId?: boolean
+  colors?: boolean
   commanderId?: boolean
+  imageUri?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -682,7 +761,9 @@ export type DeckSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   format?: boolean
   ownerId?: boolean
+  colors?: boolean
   commanderId?: boolean
+  imageUri?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -693,7 +774,9 @@ export type DeckSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   format?: boolean
   ownerId?: boolean
+  colors?: boolean
   commanderId?: boolean
+  imageUri?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -704,12 +787,14 @@ export type DeckSelectScalar = {
   name?: boolean
   format?: boolean
   ownerId?: boolean
+  colors?: boolean
   commanderId?: boolean
+  imageUri?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DeckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "format" | "ownerId" | "commanderId" | "createdAt" | "updatedAt", ExtArgs["result"]["deck"]>
+export type DeckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "format" | "ownerId" | "colors" | "commanderId" | "imageUri" | "createdAt" | "updatedAt", ExtArgs["result"]["deck"]>
 export type DeckInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   cards?: boolean | Prisma.Deck$cardsArgs<ExtArgs>
@@ -733,7 +818,9 @@ export type $DeckPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     format: $Enums.DeckFormat
     ownerId: number
+    colors: $Enums.Color[]
     commanderId: string | null
+    imageUri: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["deck"]>
@@ -1165,7 +1252,9 @@ export interface DeckFieldRefs {
   readonly name: Prisma.FieldRef<"Deck", 'String'>
   readonly format: Prisma.FieldRef<"Deck", 'DeckFormat'>
   readonly ownerId: Prisma.FieldRef<"Deck", 'Int'>
+  readonly colors: Prisma.FieldRef<"Deck", 'Color[]'>
   readonly commanderId: Prisma.FieldRef<"Deck", 'String'>
+  readonly imageUri: Prisma.FieldRef<"Deck", 'String'>
   readonly createdAt: Prisma.FieldRef<"Deck", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Deck", 'DateTime'>
 }

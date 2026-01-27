@@ -33,6 +33,7 @@ export const getDeckById = async (id:string) => {
             ownerId: true,
             cards: true,
             commanderId: true,
+            colors:true,
         }
     });
     if (!deck) return null;
@@ -43,6 +44,7 @@ export const getDeckById = async (id:string) => {
         ownerId: deck.ownerId.toString(),
         cards: deck.cards,
         commanderId: deck.commanderId?.toString(),
+        colors: deck.colors
     } as Deck;
 }
 
@@ -56,6 +58,8 @@ export const createDeck =  async (deckData:Omit<Deck, 'id'>) => {
             },
             ownerId: parseInt(deckData.ownerId),
             commanderId: deckData.commanderId ? deckData.commanderId : null,
+            imageUri: deckData.imageUri,
+            colors: deckData.colors
         }
     });
     return {
@@ -65,6 +69,8 @@ export const createDeck =  async (deckData:Omit<Deck, 'id'>) => {
         ownerId: newDeck.ownerId.toString(),
         cards: [],
         commanderId: newDeck.commanderId?.toString(),
+        imageUri:newDeck.imageUri.toString(),
+        colors:newDeck.colors
     } as Deck;
 }
 
@@ -135,6 +141,7 @@ export const addCardToDeck = async (deckId: string, cardId: string) => {
         ownerId: updatedDeck.ownerId.toString(),
         cards: updatedDeck.cards,
         commanderId: updatedDeck.commanderId ?? undefined,
+        colors: updatedDeck.colors,
     } as Deck;
 };
 
@@ -191,6 +198,7 @@ export const removeCardFromDeck = async (deckId: string, cardId: string) => {
         ownerId: updatedDeck.ownerId.toString(),
         cards: updatedDeck.cards,
         commanderId: updatedDeck.commanderId ?? undefined,
+        colors: updatedDeck.colors,
     } as Deck;
 };
 
@@ -204,6 +212,8 @@ export const getDecksByUserId = async (ownerId: string) => {
             cards: true,
             ownerId: true,
             commanderId: true,
+            imageUri:true,
+            colors:true,
         }
     });
     const result = decks.map(deck => ({
@@ -211,13 +221,15 @@ export const getDecksByUserId = async (ownerId: string) => {
         name: deck.name,
         format: deck.format,
         ownerId: deck.ownerId.toString(),
+        imageUri: deck.imageUri,
         cards: deck.cards.map(dc => ({
             id: dc.id,
             deckId: dc.deckId,
             cardId: dc.cardId,
-            quantity: dc.quantity
+            quantity: dc.quantity,
         })),
         commanderId: deck.commanderId ?? undefined,
+        colors:deck.colors
     }));
     
     console.log('getDecksByUserId retourne:', result);

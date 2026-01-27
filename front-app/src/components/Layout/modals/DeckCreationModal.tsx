@@ -80,7 +80,9 @@ function CreateDeckModal({ isOpen, onClose, onDeckCreated }: CreateDeckModalProp
           format: selectedFormat,
           ownerId: user.id.toString(),
           cards: [],
-          commanderId: null
+          commanderId: null,
+          imageUri:"https://cards.scryfall.io/art_crop/front/0/0/0002ab72-834b-4c81-82b1-0d2760ea96b0.jpg",
+          colors:selectedColors
         }),
       });
 
