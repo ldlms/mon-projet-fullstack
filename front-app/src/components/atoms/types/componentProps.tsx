@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
-import { Deck, DeckCard, DeckProp } from "./props";
+import { Deck, DeckCard } from "./props";
 
 export type ButtonProps = {
   children: React.ReactNode;
@@ -43,6 +43,8 @@ export type ManaDotProp = {
 
 export type CardRowProp = {
   card: DeckCardComponentProps;
+  onRemove: () => void;
+  onPreview: () => void;
 }
 
 export interface DeckCardComponentProps {
@@ -58,7 +60,7 @@ export type DeckListProps = {
 };
 
 export interface DeckHeaderProp{
-  deck:DeckProp;
+  deck:Deck;
   onEdit: () => void;
   onToggleSideBoard: () => void;
 }
@@ -75,7 +77,7 @@ export type CardListProps = {
 };
 
 export type DeckSideBarProps = {
-  deck: DeckProp;
+  deck: Deck;
   onRemoveCard: (cardId: string) => void;
   onClose: () => void;
 };

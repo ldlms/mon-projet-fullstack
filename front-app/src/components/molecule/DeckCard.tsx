@@ -19,6 +19,7 @@ const DeckCard = ({ deck, isSelected, onSelectDeck }: DeckCardComponentProps) =>
         <h3>{deck.name}</h3>
         <p>{deck.format}</p>
         <p>{deck.currentCount} cartes</p>
+        <p>{deck.colors}</p>
       </div>
     </div>
   );

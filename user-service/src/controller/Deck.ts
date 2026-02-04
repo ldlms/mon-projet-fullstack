@@ -56,6 +56,7 @@ export const deleteDeck = async (req:Request, res:Response) => {
 };
 
 export const addCardToDeck = async (req:Request, res:Response) => {
+
     const { deckId, cardId } = req.params;
     if (!deckId) {
         res.status(400).json({ message: 'Deck ID is required' });
@@ -100,5 +101,15 @@ export const getUserDecks = async (req:Request, res:Response) => {
         return;
     }
     const decks:Deck[] = await deckService.getDecksByUserId(userId);
+
+    console.log('=== DECKS BEFORE SENDING ===');
+    console.log(JSON.stringify(decks, null, 2));
+    decks.forEach(deck => {
+      console.log(`Deck: ${deck.name}`);
+      console.log(`Colors type:`, typeof deck.colors);
+      console.log(`Colors value:`, deck.colors);
+      console.log(`Is Array:`, Array.isArray(deck.colors));
+    });
+    
     res.json(decks);
 };

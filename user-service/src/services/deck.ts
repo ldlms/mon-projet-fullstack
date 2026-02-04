@@ -234,6 +234,9 @@ export const getDecksByUserId = async (ownerId: string) => {
     
     console.log('getDecksByUserId retourne:', result);
     console.log('Est un tableau?', Array.isArray(result));
+
+    console.log('=== FROM PRISMA ===');
+  console.log(JSON.stringify(decks[0]?.colors, null, 2));
     
     return result;
 };

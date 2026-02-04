@@ -14,8 +14,8 @@ deckRouter.delete("/:id",authMiddleware, deckController.deleteDeck);
 
 deckRouter.get("/:id", authMiddleware, deckController.getUserDecks);
 
-deckRouter.delete("/:deck/:id", authMiddleware, deckController.removeCardFromDeck)
+deckRouter.delete("/:deckId/cards/:cardId", authMiddleware, deckController.removeCardFromDeck)
 
-deckRouter.post("/:deck/:id",authMiddleware, deckController.addCardToDeck)
+deckRouter.post("/:deckId/cards/:cardId",authMiddleware, deckController.addCardToDeck)
 
 export default deckRouter;

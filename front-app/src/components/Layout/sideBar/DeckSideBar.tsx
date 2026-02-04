@@ -1,12 +1,11 @@
 import DeckHeader from "../../organism/DeckHeader/DeckHeader.tsx";
 import CardRow from "../../molecule/CardRow.tsx";
-import { DeckProp } from "../../atoms/types/props.tsx";
 import { useState } from "react";
-import {DeckSideBarProps} from "../../atoms/types/componentProps.tsx"
+import {CardRowProp, DeckSideBarProps} from "../../atoms/types/componentProps.tsx"
 
 
 
-function DeckSidebar({ deck }: DeckSideBarProps) {
+function DeckSidebar({ deck, onRemoveCard }: DeckSideBarProps) {
   const [isSideboardOpen, setIsSideboardOpen] = useState(false);
 
   if (!deck) {
@@ -44,8 +43,12 @@ function DeckSidebar({ deck }: DeckSideBarProps) {
             Aucune carte dans le deck
           </p>
         ) : (
-          deck.cards.map(card => (
-            <CardRow key={card.id} card={card} />
+          deck.cards.map((card) => (
+            <CardRow
+              key={card.id}
+              card={card}
+              onRemove={() => onRemoveCard(card.id)}
+          />
           ))
         )}
       </div>

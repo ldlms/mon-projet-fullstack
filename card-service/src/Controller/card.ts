@@ -60,3 +60,26 @@ export const getCardFromSearch = async (req:Request, res:Response) => {
     res.status(200).json(cards);
 }
 
+export const getCardById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    
+    if (!id) {
+        res.status(400).json({ message: 'Card ID is required' });
+        return;
+    }
+    
+    try {
+        const card = await cardService.getCardById(id);
+        
+        if (!card) {
+            res.status(404).json({ message: 'Card not found' });
+            return;
+        }
+        
+        res.status(200).json(card);
+    } catch (error) {
+        console.error('Error fetching card:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+

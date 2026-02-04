@@ -1,11 +1,16 @@
-import { CardRowProp } from "../atoms/types/props";
+import { CardRowProp } from "../atoms/types/componentProps.tsx";
 
-function CardRow({
-    card,
-}:CardRowProp){
-    return (
-    <div className="flex items-center bg-white rounded-full px-4 py-2 mb-2 shadow-sm text-sm border border-gray-200 hover:bg-gray-50 transition">
-      <span className="font-bold text-gray-700 w-10 text-left">
+function CardRow({ card, onRemove, onPreview }: CardRowProp) {
+  return (
+    <div
+      onClick={onPreview}
+      className="
+        flex items-center bg-white rounded-full px-4 py-2 mb-2
+        shadow-sm text-sm border border-gray-200
+        hover:bg-gray-50 transition cursor-pointer
+      "
+    >
+      <span className="font-bold text-gray-700 w-10">
         x{card.quantity}
       </span>
 
@@ -13,9 +18,16 @@ function CardRow({
         {card.name}
       </span>
 
-      <span className="text-gray-500 text-xs w-16 text-right">
-        {card.cost}
-      </span>
+      <button
+        onClick={(e) => {
+          e.stopPropagation(); 
+          onRemove();
+        }}
+        className="ml-2 text-red-500 hover:text-red-700 font-bold"
+        title="Retirer une carte"
+      >
+        −
+      </button>
     </div>
   );
 }

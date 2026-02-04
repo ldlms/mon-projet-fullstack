@@ -66,3 +66,15 @@ export const getCardFromSearch = async (search: string,take = 50, lastId?: strin
     const nextCursor = cards.length > 0 ? cards[cards.length - 1]!.id : null;
     return { cards, nextCursor };
 }
+
+export const getCardById = async (cardId: string) => {
+    try {
+        const card = await prisma.card.findUnique({
+            where: { id: cardId }
+        });
+        return card;
+    } catch (error) {
+        console.error('Error fetching card by ID:', error);
+        return null;
+    }
+}

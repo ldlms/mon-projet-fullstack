@@ -5,9 +5,11 @@ import * as cardController from '../Controller/card.ts';
 
 const cardRouter = Router();
 
-cardRouter.get('/',cardController.getCardForDeck);
+cardRouter.get("/deckColors",cardController.getCardFromColorForDeck);
 
-cardRouter.get("/deck",cardController.getCardFromColorForDeck);
+cardRouter.get('/:id', cardController.getCardById);
+
+cardRouter.get('/',cardController.getCardForDeck);
 
 cardRouter.get("/search",cardController.getCardFromSearch);
 

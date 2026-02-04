@@ -2,11 +2,12 @@ import { useEffect, useState, useCallback } from "react";
 import Header from "../../Layout/header/Header.tsx";
 import DeckSidebar from "../../Layout/sideBar/DeckSideBar.tsx";
 import DeckList from "../../organism/deckList/DeckList.tsx";
-import { DeckProp } from "../../atoms/types/props.tsx";
+import { Deck } from "../../atoms/types/props.tsx";
 import CardList from "../../organism/CardList/CardList.tsx"
 import {DeckCard} from "../../atoms/types/props.tsx";
 import Button from "../../atoms/buttons/button.tsx";
 import CreateDeckModal from "../../Layout/modals/DeckCreationModal.tsx"
+import CardPreviewModal from "../../Layout/modals/CardPreviewModal.tsx";
 
 // Fonction utilitaire pour récupérer le token
 const getAuthToken = (): string | null => {
@@ -20,24 +21,21 @@ const getUser = () => {
 };
 
 function DeckPage() {
-    const [decks, setDecks] = useState<DeckProp[]>([]);
-    const [selectedDeck, setSelectedDeck] = useState<DeckProp | null>(null); 
+    const [decks, setDecks] = useState<Deck[]>([]);
+    const [selectedDeck, setSelectedDeck] = useState<Deck | null>(null); 
     const [availableCards, setAvailableCards] = useState<DeckCard[]>([]);
     const [loading, setLoading] = useState(false);
     const [loadingDecks, setLoadingDecks] = useState(true);
     const [cursor, setCursor] = useState<string | null>(null);
     const [hasMore, setHasMore] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [previewCard, setPreviewCard] = useState<DeckCard | null>(null);
 
     // Fonction pour charger les decks depuis l'API
     const fetchDecks = async () => {
       setLoadingDecks(true);
       const token = getAuthToken();
       const user = getUser();
-      
-      console.log('Token:', token ? 'présent' : 'absent');
-      console.log('User complet:', JSON.stringify(user, null, 2));
-      console.log('User.id:', user?.id, 'Type:', typeof user?.id);
       
       if (!token || !user || !user.id) {
         console.error('Pas de token ou utilisateur ou ID manquant');
@@ -90,10 +88,14 @@ function DeckPage() {
         }
         
         // Transformer les données backend en format frontend
-        const transformedDecks: DeckProp[] = await Promise.all(
+        const transformedDecks: Deck[] = await Promise.all(
           data.map(async (deck: any) => {
             console.log('Traitement du deck:', deck.name, 'couleurs:', deck.colors);
-            
+            console.log('=== TRANSFORMATION DECK ===');
+    console.log('Deck name:', deck.name);
+    console.log('deck.colors AVANT transformation:', deck.colors);
+    console.log('Type:', typeof deck.colors);
+    console.log('Is Array:', Array.isArray(deck.colors));
             // Si le deck n'a pas de cartes, retourner un deck avec les couleurs stockées
             if (!deck.cards || deck.cards.length === 0) {
               return {
@@ -112,49 +114,58 @@ function DeckPage() {
             const cardsWithDetails = await Promise.all(
               deck.cards.map(async (deckCard: any) => {
                 try {
-                  console.log('Récupération de la carte:', deckCard.cardId);
+
+                  
                   const cardResponse = await fetch(`http://localhost:5000/cards/${deckCard.cardId}`, {
                     headers: {
                       'Authorization': `Bearer ${token}`
                     }
                   });
+
+                  
                   if (cardResponse.ok) {
                     const cardData = await cardResponse.json();
+                    console.log('✅ Card data reçue:', cardData);
                     return {
                       ...cardData,
                       quantity: deckCard.quantity
                     };
                   } else {
-                    console.error('Erreur HTTP lors de la récupération de la carte:', cardResponse.status);
+                    const errorText = await cardResponse.text();
+                    console.error('❌ Erreur HTTP:', cardResponse.status, errorText);
                   }
                 } catch (error) {
-                  console.error('Erreur lors de la récupération de la carte:', error);
+                  console.error('❌ Exception lors de la récupération:', error);
                 }
                 return null;
               })
             );
 
+
             const validCards = cardsWithDetails.filter(c => c !== null);
-            console.log('Cartes valides récupérées:', validCards.length);
             
             // Utiliser les couleurs du deck stockées en BDD, ou calculer depuis les cartes en fallback
-            const colors = deck.colors && deck.colors.length > 0 
-              ? deck.colors 
-              : [...new Set(validCards.flatMap(c => c.colors || []))];
+            const colors = deck.colors || [];
             
             const currentCount = validCards.reduce((sum, card) => sum + (card.quantity || 0), 0);
 
-            return {
+              const finalDeck = {
               id: deck.id,
               name: deck.name,
               format: deck.format,
               currentCount: currentCount,
               maxCount: deck.format === 'Commander' ? 100 : 60,
-              colors: colors, // Utiliser les couleurs stockées
-              imageUri: deck.imageUri || validCards[0]?.imageUri || 'https://cards.scryfall.io/art_crop/front/0/0/0002ab72-834b-4c81-82b1-0d2760ea96b0.jpg',
+              colors: colors,
+              imageUri: deck.imageUri || validCards[0]?.imageUri || '...',
               cards: validCards
             };
-          })
+            
+            console.log('Deck APRÈS transformation:', finalDeck);
+            console.log('Colors finales:', finalDeck.colors);
+            console.log('=== FIN TRANSFORMATION ===');
+            
+            return finalDeck;
+            })
         );
 
         setDecks(transformedDecks);
@@ -211,10 +222,7 @@ function DeckPage() {
           ...(currentCursor && { cursor: currentCursor })
         });
         
-        const url = `http://localhost:5000/cards/deck?${params}`;
-        console.log('Fetching cards from:', url);
-        console.log('Colors:', selectedDeck.colors);
-        console.log('Params string:', params.toString());
+        const url = `http://localhost:5000/cards/deckColors?${params}`;
         
         const response = await fetch(url, {
           method: 'GET',
@@ -287,9 +295,9 @@ function DeckPage() {
           };
         });
 
-        // 2. Appel API - Route POST /users/deck/:deckId/card/:cardId
+
         const response = await fetch(
-          `http://localhost:5000/users/deck/${selectedDeck.id}/card/${card.id}`,
+          `http://localhost:5000/users/deck/${selectedDeck.id}/cards/${card.id}`,
           {
             method: 'POST',
             headers: { 
@@ -321,13 +329,12 @@ function DeckPage() {
         );
 
         const validCards = cardsWithDetails.filter(c => c !== null);
-        const colors = [...new Set(validCards.flatMap(c => c.colors || []))];
 
         const updatedDeck = {
           ...selectedDeck,
           cards: validCards,
           currentCount: validCards.reduce((sum, c) => sum + c.quantity, 0),
-          colors: colors
+          colors: selectedDeck.colors
         };
 
         setSelectedDeck(updatedDeck);
@@ -398,7 +405,7 @@ function DeckPage() {
 
         // Appel API - Route DELETE /users/deck/:deckId/card/:cardId
         const response = await fetch(
-          `http://localhost:5000/users/deck/${selectedDeck.id}/card/${cardId}`,
+          `http://localhost:5000/users/deck/${selectedDeck.id}/cards/${cardId}`,
           {
             method: 'DELETE',
             headers: { 
@@ -479,7 +486,12 @@ function DeckPage() {
     };
 
     // Gérer la sélection d'un deck
-    const handleSelectDeck = (deck: DeckProp) => {
+    const handleSelectDeck = (deck: Deck) => {
+      console.log('=== DECK SÉLECTIONNÉ ===');
+  console.log('Deck complet:', deck);
+  console.log('Colors:', deck.colors);
+  console.log('Type:', typeof deck.colors);
+  console.log('Is Array:', Array.isArray(deck.colors));
       setSelectedDeck(deck);
     };
 
@@ -567,6 +579,9 @@ function DeckPage() {
           onClose={() => setIsModalOpen(false)}
           onDeckCreated={handleDeckCreated}
         />
+        <CardPreviewModal
+          card={previewCard}
+          onClose={() => setPreviewCard(null)}/>
       </div>
     );
 }

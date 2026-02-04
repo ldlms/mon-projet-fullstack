@@ -19,16 +19,6 @@ export interface DeckCard {
   imageUri:string;
 }
 
-export interface DeckProp{
-  id:string;
-  name: string;
-  format: string;
-  currentCount: number;
-  maxCount: number;
-  colors: string[];
-  cards: DeckCard[];
-  imageUri:string;
-}
 
 
 
