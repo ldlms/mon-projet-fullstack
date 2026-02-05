@@ -32,6 +32,16 @@ const shutdown = async () => {
 process.on('SIGTERM', shutdown);
 process.on('SIGINT', shutdown);
 
+
+if (process.env.NODE_ENV === 'test') {
+  app.post('/__test__/reset-db', async (_req, res) => {
+    await prisma.deckCard.deleteMany();
+    await prisma.deck.deleteMany();
+    await prisma.user.deleteMany();
+    res.json({ ok: true });
+  });
+}
+
 app.listen(5001,'0.0.0.0', () => {
   console.log(`Server running on port ${port}`);
   console.log(`Database connected: ${prisma ? '✓' : '✗'}`);

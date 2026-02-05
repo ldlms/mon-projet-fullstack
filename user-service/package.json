@@ -8,7 +8,8 @@
     "dev": "nodemon --exec tsx src/server.ts",
     "build": "tsc",
     "start": "node dist/server.ts",
-    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -33,16 +34,20 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
+    "@types/supertest": "^6.0.3",
     "@types/swagger-ui-express": "^4.1.8",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.6.2",
     "prisma": "^7.0.1",
+    "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.47.0"
+    "typescript-eslint": "^8.47.0",
+    "vitest": "^4.0.18"
   }
 }

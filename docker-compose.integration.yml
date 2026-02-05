@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  api_gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api_gateway_test
+    networks:
+      - test-network
+    ports:
+      - "5100:5000" # ⬅ Vitest tape ici
+    environment:
+      NODE_ENV: test
+
+  user_app:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service-test
+    command: sh -c "npx prisma generate && npm run dev"
+    networks:
+      - test-network
+    depends_on:
+      - user_db
+    environment:
+      NODE_ENV: test
+      DATABASE_URL: postgres://test:test@user_db:5432/testdb
+    ports:
+      - "5101:5001"
+
+  user_db:
+    image: postgres:15
+    container_name: user_pgdb_test
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: testdb
+    networks:
+      - test-network
+    ports:
+      - "5439:5432"
+    volumes:
+      - user-test-pgdata:/var/lib/postgresql/data
+
+  card_app:
+    build:
+      context: ./card-service
+      dockerfile: Dockerfile
+    container_name: card-service-test
+    command: sh -c "npx prisma generate && npm run dev"
+    networks:
+      - test-network
+    depends_on:
+      - card_db
+    environment:
+      NODE_ENV: test
+      DATABASE_URL: postgres://test:test@card_db:5432/testdb
+    ports:
+      - "5102:5002"
+
+  card_db:
+    image: postgres:15
+    container_name: card_pgdb_test
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: testdb
+    networks:
+      - test-network
+    ports:
+      - "5440:5432"
+    volumes:
+      - card-test-pgdata:/var/lib/postgresql/data
+
+volumes:
+  user-test-pgdata:
+  card-test-pgdata:
+
+networks:
+  test-network:
+    driver: bridge

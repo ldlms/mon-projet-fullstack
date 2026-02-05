@@ -68,20 +68,25 @@ export interface DeckHeaderProp{
 export interface CardProp{
   id:string;
   imageUri:string;
-  onClick?: () => void;
+  onClick?: (e:any) => void;
 }
 
 export type CardListProps = {
   cards: DeckCard[];
   onAddCard: (card: DeckCard) => void;
+  onPreviewCard?: (card: DeckCard) => void;
 };
 
 export type DeckSideBarProps = {
-  deck: Deck;
+  deck: Deck | null;
   onRemoveCard: (cardId: string) => void;
-  onClose: () => void;
+  onPreviewCard?: (card: DeckCard) => void;
+  onClose?: () => void;
 };
 
 export interface CardItemProps extends CardProp {
-  onClick?: () => void;
+  id: string;
+  imageUri: string;
+  onClick: (e: React.MouseEvent) => void;
+  onAddCard?: () => void;
 }

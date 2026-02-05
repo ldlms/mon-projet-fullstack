@@ -1,10 +1,13 @@
-import { CardItemProps} from "../../components/atoms/types/componentProps";
+import { CardItemProps } from "../../components/atoms/types/componentProps";
 
-
-const CardItem = ({ onClick,imageUri }: CardItemProps) => {
+const CardItem = ({ onClick, onAddCard, imageUri }: CardItemProps) => {
   return (
     <div 
-      onClick={onClick}  
+      onClick={onClick}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        onAddCard?.();
+      }}
       className="
         w-36
         aspect-[63/88]
@@ -18,10 +21,7 @@ const CardItem = ({ onClick,imageUri }: CardItemProps) => {
       <img
         src={imageUri}
         alt="Magic card"
-        className="
-          w-full h-full
-          object-cover
-        "
+        className="w-full h-full object-cover"
       />
     </div>
   );

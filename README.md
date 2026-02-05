@@ -99,6 +99,14 @@ docker exec -it card-service npx tsx src/utils/import-cards.ts /app/<filename>
 
 the app will be accessible via localhost:3000
 
+# Tests
+
+launch the unit tests for front-end with :
+
+```bash
+docker compose exec front npm run test:run
+```
+
 
 # todo
 - the app will maybe need more services, maybe the card service will need to be separated in two, one dedicated to fetching card via the MTG API, the other dedicated to deckbuilding and filters to filter the cards persisted in database.

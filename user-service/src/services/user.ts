@@ -126,3 +126,4 @@ export const deleteUser = async (id: string): Promise<boolean> => {
     return false;
   }
 };
+

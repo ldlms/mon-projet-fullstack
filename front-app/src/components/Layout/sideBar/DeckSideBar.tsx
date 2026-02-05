@@ -1,11 +1,9 @@
 import DeckHeader from "../../organism/DeckHeader/DeckHeader.tsx";
 import CardRow from "../../molecule/CardRow.tsx";
 import { useState } from "react";
-import {CardRowProp, DeckSideBarProps} from "../../atoms/types/componentProps.tsx"
+import { DeckSideBarProps } from "../../atoms/types/componentProps.tsx";
 
-
-
-function DeckSidebar({ deck, onRemoveCard }: DeckSideBarProps) {
+function DeckSidebar({ deck, onRemoveCard, onPreviewCard }: DeckSideBarProps) {
   const [isSideboardOpen, setIsSideboardOpen] = useState(false);
 
   if (!deck) {
@@ -32,9 +30,7 @@ function DeckSidebar({ deck, onRemoveCard }: DeckSideBarProps) {
       <DeckHeader
         deck={deck}
         onEdit={() => console.log("edit")}
-        onToggleSideBoard={() =>
-          setIsSideboardOpen(prev => !prev)
-        }
+        onToggleSideBoard={() => setIsSideboardOpen(prev => !prev)}
       />
 
       <div className="flex-1 overflow-y-auto px-3 py-2">
@@ -48,7 +44,8 @@ function DeckSidebar({ deck, onRemoveCard }: DeckSideBarProps) {
               key={card.id}
               card={card}
               onRemove={() => onRemoveCard(card.id)}
-          />
+              onPreview={() => onPreviewCard?.(card)}
+            />
           ))
         )}
       </div>

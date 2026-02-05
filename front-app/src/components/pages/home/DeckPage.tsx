@@ -523,6 +523,7 @@ function DeckPage() {
                 <CardList
                   cards={availableCards}
                   onAddCard={addCardToDeck}
+                  onPreviewCard={setPreviewCard}
                 />
                 
                 {loading && (
@@ -565,9 +566,10 @@ function DeckPage() {
               "
             >
               <DeckSidebar
-                deck={selectedDeck}
-                onRemoveCard={removeCardFromDeck}
-                onClose={() => setSelectedDeck(null)}
+                  deck={selectedDeck}
+                  onRemoveCard={removeCardFromDeck}
+                  onPreviewCard={setPreviewCard}
+                  onClose={() => setSelectedDeck(null)}
               />
             </aside>
           )}
