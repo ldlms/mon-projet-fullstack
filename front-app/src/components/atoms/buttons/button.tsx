@@ -1,4 +1,4 @@
-import { ButtonProps } from "../types/props";
+import { ButtonProps } from "../types/componentProps";
 
 function Button({
   children,

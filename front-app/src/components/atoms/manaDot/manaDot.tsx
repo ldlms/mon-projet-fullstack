@@ -1,4 +1,4 @@
-import { ManaDotProp } from "../types/props";
+import { ManaDotProp } from "../types/componentProps";
 
 function ManaDot({
     color,
