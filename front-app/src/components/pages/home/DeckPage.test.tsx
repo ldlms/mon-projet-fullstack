@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import DeckPage from './DeckPage'
+import '@testing-library/jest-dom';
 
 // Mock du localStorage
 const localStorageMock = {

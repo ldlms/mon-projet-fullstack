@@ -1,18 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { User, AuthContextType } from "../components/atoms/types/props";
 
-type User = {
-  id: string;
-  email: string;
-  username?: string;
-};
-
-type AuthContextType = {
-  user: User | null;
-  token: string | null;
-  login: (token: string, user: User) => void;
-  logout: () => void;
-  isAuthenticated: boolean;
-};
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
