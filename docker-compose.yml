@@ -12,6 +12,12 @@ services:
       - mon-network
     ports:
       - "5000:5000"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
 
   card_app:
     build:
@@ -26,15 +32,22 @@ services:
       - card_db
     environment:
       DATABASE_URL: postgres://${CARD_PGUSER}:${CARD_PGPASSWORD}@card_db:5432/${CARD_PGDATABASE}
+      NODE_OPTIONS: "--max-old-space-size=2048"
     ports:
       - "5002:5002"
+    deploy:
+      resources:
+        limits:
+          memory: 2560M
+        reservations:
+          memory: 512M
 
   card_db:
-    image: postgres:15
+    image: postgres:15-alpine  # Version alpine plus légère
     container_name: card_pgdb
     restart: unless-stopped
     ports:
-      - "5433:5432" 
+      - "5433:5432"
     environment:
       POSTGRES_USER: ${CARD_PGUSER}
       POSTGRES_PASSWORD: ${CARD_PGPASSWORD}
@@ -43,9 +56,24 @@ services:
       - mon-network
     volumes:
       - card-local_pgdata:/var/lib/postgresql/data
+    command: 
+      - "postgres"
+      - "-c"
+      - "shared_buffers=128MB"
+      - "-c"
+      - "max_connections=50"
+      - "-c"
+      - "work_mem=4MB"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    shm_size: 128mb
 
   card_pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     container_name: card-pgadmin4
     restart: unless-stopped
     ports:
@@ -53,12 +81,22 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: card@card.card
       PGADMIN_DEFAULT_PASSWORD: card
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
     volumes:
       - card-pgadmin-data:/var/lib/pgadmin
     networks:
       - mon-network
     depends_on:
       - card_db
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    profiles:
+      - debug  # Désactive par défaut, à activer uniquement si nécessaire
 
   user_app:
     build:
@@ -73,15 +111,22 @@ services:
       - user_db
     environment:
       DATABASE_URL: postgres://${USER_PGUSER}:${USER_PGPASSWORD}@user_db:5432/${USER_PGDATABASE}
+      NODE_OPTIONS: "--max-old-space-size=512"
     ports:
       - "5001:5001"
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+        reservations:
+          memory: 384M
 
   user_db:
-    image: postgres:15
+    image: postgres:15-alpine  # Version alpine plus légère
     container_name: user_pgdb
     restart: unless-stopped
     ports:
-      - "5432:5432" 
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${USER_PGUSER}
       POSTGRES_PASSWORD: ${USER_PGPASSWORD}
@@ -90,9 +135,24 @@ services:
       - mon-network
     volumes:
       - user-local_pgdata:/var/lib/postgresql/data
+    command: 
+      - "postgres"
+      - "-c"
+      - "shared_buffers=128MB"
+      - "-c"
+      - "max_connections=50"
+      - "-c"
+      - "work_mem=4MB"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    shm_size: 128mb
 
   user_pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     container_name: user-pgadmin4
     restart: unless-stopped
     ports:
@@ -100,15 +160,25 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: user@user.user
       PGADMIN_DEFAULT_PASSWORD: user
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
     volumes:
       - user-pgadmin-data:/var/lib/pgadmin
     networks:
       - mon-network
     depends_on:
       - user_db
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    profiles:
+      - debug  # Désactive par défaut, à activer uniquement si nécessaire
 
   front:
-    image: node:20
+    image: node:20-alpine  # Version alpine plus légère
     container_name: front-app
     working_dir: /app
     volumes:
@@ -116,7 +186,7 @@ services:
       - /app/node_modules
     networks:
       - mon-network
-    command: sh -c "npm install && FAST_REFRESH=false npm start"  
+    command: sh -c "npm install && FAST_REFRESH=false npm start"
     ports:
       - "3000:3000"
     depends_on:
@@ -126,8 +196,15 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
-      - FAST_REFRESH=false  
+      - FAST_REFRESH=false
       - WDS_SOCKET_PORT=0
+      - NODE_OPTIONS=--max-old-space-size=1024
+    deploy:
+      resources:
+        limits:
+          memory: 1536M
+        reservations:
+          memory: 768M
 
 volumes:
   card-local_pgdata:
