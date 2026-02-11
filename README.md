@@ -5,7 +5,8 @@ Ultimately, this app could provide a feature for the user to search cards, not o
 
 # Head-up
 
-![alt text](image.png)
+<img width="1100" height="1019" alt="shéma" src="https://github.com/user-attachments/assets/2ad43ae4-ccdd-44da-a4aa-1885f5a4a012" />
+
 
 The barebone architecture is thought after a front-end app, built via the React library, who will be sending http calls to an API Gateway responsible for dispatching the calls between, for now, two different services.
 Each service will have it's own postgre database, the ORM prisma was used to handle the creation of the database shema.
