@@ -1,9 +1,9 @@
-CARD_PGUSER=
-CARD_PGPASSWORD=
-CARD_PGHOST=
-CARD_PGPORT=
-CARD_PGDATABASE=
+CARD_PGUSER=leo
+CARD_PGPASSWORD=password
+CARD_PGHOST=card_pgdb
+CARD_PGPORT=5433
+CARD_PGDATABASE=cardDataBase
 
 
 
-DATABASE_URL=
+DATABASE_URL="postgresql://leo:password@card_pgdb:5433/cardDataBase?schema=public"

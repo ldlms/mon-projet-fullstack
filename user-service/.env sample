@@ -1,9 +1,9 @@
-PGUSER=
-PGPASSWORD=
-PGHOST=
-PGPORT=
-PGDATABASE=
-JWT_SECRET=
-PORT=
+PGUSER=leo
+PGPASSWORD=password
+PGHOST=user_pgdb
+PGPORT=5432
+PGDATABASE=dataBase
+JWT_SECRET=yourSuperSecretKey
+PORT=5001
 
-CARD_DATABASE_URL=
+DATABASE_URL="postgresql://leo:password@user_pgdb:5432/dataBase?schema=public"
