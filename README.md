@@ -53,60 +53,37 @@ The user database will be used to store the users, to store the decks created by
 
 # setup
 
-In order to run the project on your machine :
-- Clone the repository *
-- Create and configure your own .env files for cv-service and card-service, they are mandatory to connect to both DDB, you will also need to create a .env at the root of the project, for the docker compose to use those environment variables. You can refer yourself to the .env sample in order to know what varaibles you need to populate.
-- if you wish to launch the app locally
-```bash
-cd ../api-gateway && npm install
-cd ../user-service && npm install
-cd ../card-service && npm install
-cd ../front-app && npm install
-```
-- initialize prisma (locally without docker, you will need a local postgre instance)
-```bash
-cd user-service
-npm run db:deploy
-cd card-service
-npm run db:deploy
-```
-- launch locally by going
-```bash
-npm run dev
-```
-on every folder
+Dans un premier temps, récupérer le repository du projet sur : https://github.com/ldlms/mon-projet-fullstack
 
-- you can also launch the whole docker network and the containers with this, in the root directory
-```bash
-docker-compose up --build
-```
-- If you choose to launch it by docker-compose you will need to manually run the migration via the follwing prisma command after the containers are up, in the "mon-projet-fullstack" folder
-```bash
-docker compose exec user_app npx prisma migrate dev
-docker compose exec card_app npx prisma migrate dev
-```
-in order to put the cards into the docker container you gave to 
+Un npm install n'est pas obligatoire, compte tenu du fait que le projet tournera sur un container Docker.
 
-```bash
-docker cp <localPath> card-service:/app/<filename>
-```
+Pour les besoins de l'évaluation, le .env sample contiendra les valeurs nécessaires au fonctionnement du projet
 
-and then lauch the file from inside the container
+Faire ```docker compose up --build```
 
-```bash
-docker exec -it card-service npx tsx src/utils/import-cards.ts /app/<filename>
-```
+```docker compose exec user_app npx prisma migrate dev```
 
+```docker compose exec card_app npx prisma migrate dev```
 
-the app will be accessible via localhost:3000
+Ces deux commandes vont exécuter la migration Prisma afin de créer le schéma de 
+base de données, la commande est exécutée directement depuis l'intérieur du container.
 
-# Tests
+Il faut ensuite télécharger le fichier de cartes sur le site suivant : https://scryfall.com/docs/api/bulk-data
 
-launch the unit tests for front-end with :
+Télécharger Oracle cards, le fichier de 161 Mo
 
-```bash
-docker compose exec front npm run test:run
-```
+Le mettre à la racine du projet, le renommer si besoin
+
+```docker cp ./<le nom du Json> card-service:/app/allCards.json```
+
+```docker exec -it card-service npx tsx src/utils/import-cards.ts /app/allCards.json```
+
+Attendre la fin de l'import des cartes en BDD
+
+Le swagger sera accessible via : http://localhost:5000/api-docs/
+
+Lancement des tests frontend avec : ```docker compose exec front npm run test:run```
+
 
 
 # todo
