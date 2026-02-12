@@ -3,7 +3,7 @@
 // Includes OpenAPI (Swagger) comments for API documentation
 
 import { Router } from 'express';
-import { signup, login, logout } from '../controller/auth.ts';
+import { signup, login, logout } from '../controller/authController.ts';
 
 const router = Router();
 

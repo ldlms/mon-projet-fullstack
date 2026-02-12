@@ -1,19 +1,19 @@
-import * as deckService from "../services/deck.ts";
-import type { Deck } from "../types/index.ts";
+import * as deckService from "../services/deckService.ts";
+import type { DeckModel } from '../../generated/prisma/models.ts'
 import type { Request, Response } from "express";
 
 export const getDecks = async (req:Request, res:Response):Promise<void> => {
-    const decks:Deck[] = await deckService.getAllDecks();
+    const decks:DeckModel[] = await deckService.getAllDecks();
     res.json(decks);
 };
 
 export const getDeck = async (req:Request, res:Response):Promise<void> => {
-    const deckid = req.params.id;
+    const deckid : string | string[] |undefined = req.params.id;
     if (!deckid) {
         res.status(400).json({ message: 'Deck ID is required' });
         return;
     }
-    const deck:Deck | null = await deckService.getDeckById(deckid);
+    const deck:DeckModel | null = await deckService.getDeckById(deckid);
     if (!deck) {
         res.status(404).json({ message: 'Deck not found' });
         return;
@@ -28,7 +28,7 @@ export const createDeck = async (req:Request, res:Response):Promise<void> => {
 };
 
 export const updateDeck = async (req:Request, res:Response): Promise<void> => {
-    const deckid = req.params.id;
+    const deckid : string | string[] |undefined  = req.params.id;
     if (!deckid) {
         res.status(400).json({ message: 'Deck ID is required' });
         return;
@@ -42,7 +42,7 @@ export const updateDeck = async (req:Request, res:Response): Promise<void> => {
 };
 
 export const deleteDeck = async (req:Request, res:Response) => {
-    const deckid = req.params.id;
+    const deckid : string | string[] |undefined = req.params.id;
     if (!deckid) {
         res.status(400).json({ message: 'Deck ID is required' });
         return;
@@ -58,11 +58,11 @@ export const deleteDeck = async (req:Request, res:Response) => {
 export const addCardToDeck = async (req:Request, res:Response) => {
 
     const { deckId, cardId } = req.params;
-    if (!deckId) {
+    if (!deckId || Array.isArray(deckId)) {
         res.status(400).json({ message: 'Deck ID is required' });
         return;
     }
-    if (!cardId) {
+    if (!cardId || Array.isArray(cardId)) {
         res.status(400).json({ message: 'Card ID is required' });
         return;
     }
@@ -78,11 +78,11 @@ export const addCardToDeck = async (req:Request, res:Response) => {
 export const removeCardFromDeck = async (req:Request, res:Response) => {
     const { deckId, cardId } = req.params;
 
-    if (!deckId) {
+    if (!deckId|| Array.isArray(deckId)) {
         res.status(400).json({ message: 'Deck ID is required' });
         return;
     }
-    if (!cardId) {
+    if (!cardId || Array.isArray(cardId)) {
         res.status(400).json({ message: 'Card ID is required' });
         return;
     }
@@ -96,20 +96,10 @@ export const removeCardFromDeck = async (req:Request, res:Response) => {
 
 export const getUserDecks = async (req:Request, res:Response) => {
     const userId = req.params.id;
-    if (!userId) {
+    if (!userId|| Array.isArray(userId)) {
         res.status(400).json({ message: 'User ID is required' });
         return;
     }
-    const decks:Deck[] = await deckService.getDecksByUserId(userId);
-
-    console.log('=== DECKS BEFORE SENDING ===');
-    console.log(JSON.stringify(decks, null, 2));
-    decks.forEach(deck => {
-      console.log(`Deck: ${deck.name}`);
-      console.log(`Colors type:`, typeof deck.colors);
-      console.log(`Colors value:`, deck.colors);
-      console.log(`Is Array:`, Array.isArray(deck.colors));
-    });
-    
+    const decks:DeckModel[] = await deckService.getDecksByUserId(userId); 
     res.json(decks);
 };

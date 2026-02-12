@@ -4,7 +4,7 @@
 // Includes OpenAPI (Swagger) comments for API documentation
 
 import { Router } from 'express';
-import * as userController from '../controller/user.ts';
+import * as userController from '../controller/userController.ts';
 import { authMiddleware } from '../middlewares/auth.ts';
 
 const userRouter = Router();

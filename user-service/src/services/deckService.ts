@@ -1,5 +1,6 @@
-import { prisma } from '../config/prisma';
-import type { Deck } from '../types';
+import { prisma } from '../config/prisma.ts';
+import type { DeckModel } from '../../generated/prisma/models.ts'
+import type { DeckCardModel } from '../../generated/prisma/models.ts';
 import type {UpdateDeckData} from '../types/index.ts';
 
 export const getAllDecks = async () => {
@@ -11,21 +12,23 @@ export const getAllDecks = async () => {
               ownerId: true,
               cards: true,
               commanderId: true,
+              colors:true,
         }
     });
-    return decks.map(d => ({
+    return decks.map((d : DeckModel) => ({
         id: d.id.toString(),
         name: d.name,
         format: d.format,
         ownerId: d.ownerId.toString(),
         cards: d.cards,
         commanderId: d.commanderId?.toString(),
-    })) as Deck[];
+        colors: d.colors
+    })) as DeckModel[];
 }
 
-export const getDeckById = async (id:string) => {
+export const getDeckById = async (id:string | string[] |undefined) => {
     const deck = await prisma.deck.findUnique({
-        where: { id: parseInt(id) },   
+        where: { id: parseInt(id as string) },   
         select: {
             id: true,           
             name:true,
@@ -45,10 +48,10 @@ export const getDeckById = async (id:string) => {
         cards: deck.cards,
         commanderId: deck.commanderId?.toString(),
         colors: deck.colors
-    } as Deck;
+    } as DeckModel;
 }
 
-export const createDeck =  async (deckData:Omit<Deck, 'id'>) => {
+export const createDeck =  async (deckData:Omit<DeckModel, 'id'>) => {
     const newDeck = await prisma.deck.create({
         data: {
             name: deckData.name,
@@ -71,11 +74,11 @@ export const createDeck =  async (deckData:Omit<Deck, 'id'>) => {
         commanderId: newDeck.commanderId?.toString(),
         imageUri:newDeck.imageUri.toString(),
         colors:newDeck.colors
-    } as Deck;
+    } as DeckModel;
 }
 
 export const updateDeck = async (
-    id: string,
+    id: string | string[] |undefined,
     deckData: UpdateDeckData,
 ) => {
     return prisma.deck.update({
@@ -98,9 +101,9 @@ export const updateDeck = async (
     });
 };
 
-export const deleteDeck = async (id:string) => {
+export const deleteDeck = async (id: string | string[] |undefined) => {
     const deleted = await prisma.deck.deleteMany({
-        where: { id: parseInt(id) }
+        where: { id: parseInt(id as string) }
     });
     return deleted.count > 0;
 };
@@ -142,7 +145,7 @@ export const addCardToDeck = async (deckId: string, cardId: string) => {
         cards: updatedDeck.cards,
         commanderId: updatedDeck.commanderId ?? undefined,
         colors: updatedDeck.colors,
-    } as Deck;
+    } as DeckModel;
 };
 
 export const removeCardFromDeck = async (deckId: string, cardId: string) => {
@@ -199,7 +202,7 @@ export const removeCardFromDeck = async (deckId: string, cardId: string) => {
         cards: updatedDeck.cards,
         commanderId: updatedDeck.commanderId ?? undefined,
         colors: updatedDeck.colors,
-    } as Deck;
+    } as DeckModel;
 };
 
 export const getDecksByUserId = async (ownerId: string) => {
@@ -216,13 +219,13 @@ export const getDecksByUserId = async (ownerId: string) => {
             colors:true,
         }
     });
-    const result = decks.map(deck => ({
+    const result = decks.map((deck : DeckModel) => ({
         id: deck.id.toString(),
         name: deck.name,
         format: deck.format,
         ownerId: deck.ownerId.toString(),
         imageUri: deck.imageUri,
-        cards: deck.cards.map(dc => ({
+        cards: deck.cards.map((dc : DeckCardModel) => ({
             id: dc.id,
             deckId: dc.deckId,
             cardId: dc.cardId,
@@ -231,12 +234,6 @@ export const getDecksByUserId = async (ownerId: string) => {
         commanderId: deck.commanderId ?? undefined,
         colors:deck.colors
     }));
-    
-    console.log('getDecksByUserId retourne:', result);
-    console.log('Est un tableau?', Array.isArray(result));
-
-    console.log('=== FROM PRISMA ===');
-  console.log(JSON.stringify(decks[0]?.colors, null, 2));
     
     return result;
 };

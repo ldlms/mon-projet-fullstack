@@ -17,7 +17,7 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": false,
     "allowJs": true,
-    "types": ["vitest/globals", "node"],
+    "types": ["node"],
 
 
     "strict": true,

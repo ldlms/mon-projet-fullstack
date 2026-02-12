@@ -63,7 +63,7 @@ export const getCardFromSearch = async (req:Request, res:Response) => {
 export const getCardById = async (req: Request, res: Response) => {
     const { id } = req.params;
     
-    if (!id) {
+    if (!id || Array.isArray(id)) {
         res.status(400).json({ message: 'Card ID is required' });
         return;
     }

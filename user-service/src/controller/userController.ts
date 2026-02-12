@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import * as userService from '../services/user.ts';
+import * as userService from '../services/userService.ts';
 
 export const getUsers = async (req: Request, res: Response) => {
   const users = await userService.getAllUsers();
@@ -7,7 +7,7 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 export const getUser = async (req: Request, res: Response) => {
-  if (!req.params.id) {
+  if (!req.params.id || Array.isArray(req.params.id)) {
     res.status(400).json({ message: 'User ID is required' });
     return;
   }
@@ -27,7 +27,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-  if (!req.params.id) {
+  if (!req.params.id || Array.isArray(req.params.id)) {
     res.status(400).json({ message: 'User ID is required' });
     return;
   }
@@ -37,7 +37,7 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
-  if (!req.params.id) {
+  if (!req.params.id || Array.isArray(req.params.id)) {
     res.status(400).json({ message: 'User ID is required' });
     return;
   }

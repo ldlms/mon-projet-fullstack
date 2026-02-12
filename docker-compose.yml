@@ -33,8 +33,6 @@ services:
     environment:
       DATABASE_URL: postgres://${CARD_PGUSER}:${CARD_PGPASSWORD}@card_db:5432/${CARD_PGDATABASE}
       NODE_OPTIONS: "--max-old-space-size=2048"
-    ports:
-      - "5002:5002"
     deploy:
       resources:
         limits:
@@ -43,11 +41,9 @@ services:
           memory: 512M
 
   card_db:
-    image: postgres:15-alpine  # Version alpine plus légère
+    image: postgres:15-alpine 
     container_name: card_pgdb
     restart: unless-stopped
-    ports:
-      - "5433:5432"
     environment:
       POSTGRES_USER: ${CARD_PGUSER}
       POSTGRES_PASSWORD: ${CARD_PGPASSWORD}
@@ -76,8 +72,6 @@ services:
     image: dpage/pgadmin4:latest
     container_name: card-pgadmin4
     restart: unless-stopped
-    ports:
-      - "6888:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: card@card.card
       PGADMIN_DEFAULT_PASSWORD: card
@@ -96,7 +90,7 @@ services:
         reservations:
           memory: 256M
     profiles:
-      - debug  # Désactive par défaut, à activer uniquement si nécessaire
+      - debug 
 
   user_app:
     build:
@@ -112,8 +106,6 @@ services:
     environment:
       DATABASE_URL: postgres://${USER_PGUSER}:${USER_PGPASSWORD}@user_db:5432/${USER_PGDATABASE}
       NODE_OPTIONS: "--max-old-space-size=512"
-    ports:
-      - "5001:5001"
     deploy:
       resources:
         limits:
@@ -122,11 +114,9 @@ services:
           memory: 384M
 
   user_db:
-    image: postgres:15-alpine  # Version alpine plus légère
+    image: postgres:15-alpine  
     container_name: user_pgdb
     restart: unless-stopped
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: ${USER_PGUSER}
       POSTGRES_PASSWORD: ${USER_PGPASSWORD}
@@ -155,8 +145,6 @@ services:
     image: dpage/pgadmin4:latest
     container_name: user-pgadmin4
     restart: unless-stopped
-    ports:
-      - "9888:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: user@user.user
       PGADMIN_DEFAULT_PASSWORD: user
@@ -175,10 +163,10 @@ services:
         reservations:
           memory: 256M
     profiles:
-      - debug  # Désactive par défaut, à activer uniquement si nécessaire
+      - debug  
 
   front:
-    image: node:20-alpine  # Version alpine plus légère
+    image: node:20-alpine  
     container_name: front-app
     working_dir: /app
     volumes:

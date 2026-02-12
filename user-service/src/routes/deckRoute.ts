@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as deckController from '../controller/Deck.ts';
+import * as deckController from '../controller/deckController.ts';
 import { authMiddleware } from '../middlewares/auth.ts';
 
 const deckRouter = Router();

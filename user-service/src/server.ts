@@ -1,9 +1,9 @@
 import express, { json, type NextFunction } from "express";
 import { prisma } from '../src/config/prisma';
 import { disconnectPrisma } from "./config/prisma";
-import authRouter from './routes/auth.ts';
-import userRouter from "./routes/user.ts";
-import deckRouter from "./routes/deck.ts";
+import authRouter from './routes/authRoute.ts';
+import userRouter from "./routes/userRoute.ts";
+import deckRouter from "./routes/deckRoute.ts";
 
 const app = express();
 

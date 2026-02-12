@@ -1,6 +1,6 @@
 
 import { Router } from 'express';
-import * as cardController from '../Controller/card.ts';
+import * as cardController from '../Controller/cardController.ts';
 
 
 const cardRouter = Router();

@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import {PrismaClient} from "../generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
-import cardRouter from "./routes/card";
+import cardRouter from "./routes/cardRoute";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,

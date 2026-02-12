@@ -1,6 +1,6 @@
 import { prisma } from '../config/prisma';
 import bcrypt from 'bcryptjs';
-import type { NewUser, User, UserUpdate } from '../models/user';
+import type { NewUser, User, UserUpdate } from '../models/userModel.ts';
 
 
 export const getAllUsers = async (): Promise<Omit<User, 'password'>[]> => {
@@ -12,9 +12,9 @@ export const getAllUsers = async (): Promise<Omit<User, 'password'>[]> => {
       createdAt: true
     }
   });
-  return users.map(u => ({
+  return users.map((u : User) => ({
     id: u.id.toString(),
-    name: u.username,
+    name: u.name,
     email: u.email
   })) as Omit<User, 'password'>[];
 };

@@ -1,6 +1,6 @@
 import { signToken } from '../utils/Jwt';
 import bcrypt from 'bcryptjs';
-import * as userService from './user';
+import * as userService from './userService';
 
 interface NewUser {
   name?: string;
